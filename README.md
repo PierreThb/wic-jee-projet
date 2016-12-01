@@ -56,42 +56,44 @@ Rechercher les photos de la région rhones-alpes qui contient des montagnes
 * Configure web.xml :
 	* Change the `directory` parameter to where you want your album to be upload
 	* And add the following if not already there :
-		``` 
-		<resource-env-ref>
-		    <resource-env-ref-name>jdbc/DATABASE_NAME</resource-env-ref-name>
-		    <resource-env-ref-type>javax.sql.DataSource</resource-env-ref-type>
-		</resource-env-ref>
-		``` 
+``` 
+<resource-env-ref>
+    <resource-env-ref-name>jdbc/DATABASE_NAME</resource-env-ref-name>
+    <resource-env-ref-type>javax.sql.DataSource</resource-env-ref-type>
+</resource-env-ref>
+``` 
+
 * Configure `WebContent/META-INF/context.xml` to connect with your database (MySQL)
-	```
-	<?xml version="1.0" encoding="UTF-8"?>
-	<Context>
-	    <Resource
-	        name="jdbc/DATABASE_NAME" type="javax.sql.DataSource"
-	        maxActive="100" maxIdle="30" maxWait="10000" 
-	        url="jdbc:mysql://localhost:3306/DATABASE_NAME"
-	        driverClassName="com.mysql.jdbc.Driver"
-	        username="root" password=""
-	    />
-	</Context>
-	```
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+    <Resource
+        name="jdbc/DATABASE_NAME" type="javax.sql.DataSource"
+        maxActive="100" maxIdle="30" maxWait="10000" 
+        url="jdbc:mysql://localhost:3306/DATABASE_NAME"
+        driverClassName="com.mysql.jdbc.Driver"
+        username="root" password=""
+    />
+</Context>
+```
+
 * Configure `src/META-INF/persistence.xml` to match your database
-	```
-	<?xml version="1.0" encoding="UTF-8"?>
-	<persistence version="2.1" xmlns="http://java.sun.com/xml/ns/persistence" 
-		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-		xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-		<persistence-unit name="EssaiJPA" transaction-type="RESOURCE_LOCAL">
-			<non-jta-data-source>albumDS</non-jta-data-source>
-			<class>fr.uga.miashs.album.model.Album</class>
-			<class>fr.uga.miashs.album.model.AppUser</class>
-			<class>fr.uga.miashs.album.model.Picture</class>
-		<properties>
-			<property name="openjpa.jdbc.Schema" value="DATABASE_NAME"/>
-			<property name='openjpa.jdbc.SynchronizeMappings' value='buildSchema(ForeignKeys=true)' />
-		</properties>
-		</persistence-unit>
-	</persistence>
-	```
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://java.sun.com/xml/ns/persistence" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="EssaiJPA" transaction-type="RESOURCE_LOCAL">
+		<non-jta-data-source>albumDS</non-jta-data-source>
+		<class>fr.uga.miashs.album.model.Album</class>
+		<class>fr.uga.miashs.album.model.AppUser</class>
+		<class>fr.uga.miashs.album.model.Picture</class>
+	<properties>
+		<property name="openjpa.jdbc.Schema" value="DATABASE_NAME"/>
+		<property name='openjpa.jdbc.SynchronizeMappings' value='buildSchema(ForeignKeys=true)' />
+	</properties>
+	</persistence-unit>
+</persistence>
+```
 	
 * If the project is not Working : Right Click on Project > BuildPath > ConfigureBuildPath and add unbound librairies
