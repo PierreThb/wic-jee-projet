@@ -6,7 +6,7 @@
 		<non-jta-data-source>albumDS</non-jta-data-source>
 		<class>fr.uga.miashs.album.model.Album</class>
 		<class>fr.uga.miashs.album.model.AppUser</class>
-		<class>fr.uga.miashs.album.model.Picture</class>
+		<class>fr.uga.miashs.album.model.Picture</class> 
 		
 	<properties>
 		<property name="openjpa.jdbc.Schema" value="wicjee"/>

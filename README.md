@@ -47,6 +47,8 @@ Rechercher les photos de la région rhones-alpes qui contient des montagnes
 * Download [Apache Tomcat JEE jaxrs-1.7.4 2](https://tomee.apache.org/downloads.html)
 * Download [MySQL JDBC Driver](https://dev.mysql.com/downloads/connector/j/)
 * Copy `mysql-connector-java-5.1.40-bin.jar` to `[TomEE_install_dir]/lib`
+* Create new Project > Dynamique Web Project
+	* Clone your existing project in this new project
 * Create new Eclipse runtime server : 
 	* New > Server
 	* Tomcat v7.0 Server
@@ -56,7 +58,7 @@ Rechercher les photos de la région rhones-alpes qui contient des montagnes
 * Configure web.xml :
 	* Change the `directory` parameter to where you want your album to be upload
 	* And add the following if not already there :
-``` 
+```xml 
 <resource-env-ref>
     <resource-env-ref-name>jdbc/DATABASE_NAME</resource-env-ref-name>
     <resource-env-ref-type>javax.sql.DataSource</resource-env-ref-type>
@@ -64,7 +66,7 @@ Rechercher les photos de la région rhones-alpes qui contient des montagnes
 ``` 
 
 * Configure `WebContent/META-INF/context.xml` to connect with your database (MySQL)
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <Context>
     <Resource
@@ -78,7 +80,7 @@ Rechercher les photos de la région rhones-alpes qui contient des montagnes
 ```
 
 * Configure `src/META-INF/persistence.xml` to match your database
-```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.1" xmlns="http://java.sun.com/xml/ns/persistence" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -95,5 +97,6 @@ Rechercher les photos de la région rhones-alpes qui contient des montagnes
 	</persistence-unit>
 </persistence>
 ```
-	
-* If the project is not Working : Right Click on Project > BuildPath > ConfigureBuildPath and add unbound librairies
+### Known issues quick fix :	
+* If the project is not runing, check for unbound librairies: Right Click on Project > BuildPath > ConfigureBuildPath and add unbound librairies
+* If the MySQL table creation fail, check your version of MySQL and OpenJPA (http://stackoverflow.com/a/6597724)
