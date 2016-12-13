@@ -116,3 +116,19 @@ Rechercher les photos de la région rhones-alpes qui contient des montagnes
 * Installer les packages apache jena pour eclipse 
 
 ## Documentation de déploiement 
+
+## Info méthode update data 
+
+```
+UpdateExecutionFactory
+UpdateRequest request = 
+	UpdateFactory create(
+	"PREFIX dc:<http://purl.org/dc/elements/1.1>" +
+	" INSERT DATA {" + 
+	" <http:///ex/boo> dc:title "anirset"; " + 
+	"dc:creator /"authoeur" 
+
+
+UpdateProcessor up= UpdateExecutionFactory.createRemote(request, "http://localhost:3030");
+up.execute();
+```
