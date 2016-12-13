@@ -1,26 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Projet Album - JEE WIC</title>
+</head>
 
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:f="http://java.sun.com/jsf/core" 
-	xmlns:h="http://java.sun.com/jsf/html">
+<body>
+	<!-- DECLARATION DU TEMPLATE DONT LA PAGE EST CLIENTE -->
+	<ui:composition template="/template/layout.xhtml">
 
-<h:body>
+	<!-- Redefinition de la zone 'content' du layout  -->
+		<ui:define name="content">
+			<f:view>
+				<h:form>
+					<h:outputLabel for="titre" value="Titre : " />
+					<h:inputText id="titre" value="#{albumController.album.title}" 
+						title="Renseignez le titre de l'album"/>
+						<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
+					<br/>
+					<h:outputLabel for="description" value="Description : " />
+					<h:inputText id="description" value="#{albumController.album.description}" 
+						title="Donnez une description de l'album"/>
+						<!-- validator="#{ajoutAlbum.validerZip}"  -->
+					<br/>
+					
+					<h:commandButton action="#{albumController.createAlbum()}" value="Créer l'album"/>
+				</h:form>
+			</f:view>
+		</ui:define>
 
-	<h:form>
-		<h:outputLabel for="titre" value="Titre : " />
-		<h:inputText id="titre" value="#{albumController.album.title}" 
-			title="Renseignez le titre de l'album"/>
-			<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
-		<br/>
-		<h:outputLabel for="description" value="Description : " />
-		<h:inputText id="description" value="#{albumController.album.description}" 
-			title="Donnez une description de l'album"/>
-			<!-- validator="#{ajoutAlbum.validerZip}"  -->
-		<br/>
-		
-		<h:commandButton action="#{albumController.createAlbum()}" value="CrÃ©er l'album"/>
-	</h:form>
-	
-</h:body>
-
+	</ui:composition>
+</body>
 </html>

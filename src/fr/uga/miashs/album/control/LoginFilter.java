@@ -59,6 +59,7 @@ public class LoginFilter implements Filter {
 				 if (session == null || 
 						 ((AppUserSession) session.getAttribute("appUserSession")) == null ||
 								 ((AppUserSession) session.getAttribute("appUserSession")).getConnectedUser()==null) {
+					 request.setAttribute("requestedUri", requestedUri);
 					 request.getRequestDispatcher(Pages.login).forward(request, response);
 				 }
 			}

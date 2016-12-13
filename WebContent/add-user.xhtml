@@ -1,36 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Projet Album - JEE WIC</title>
+</head>
 
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:f="http://java.sun.com/jsf/core" 
-	xmlns:h="http://java.sun.com/jsf/html">
+<body>
+	<!-- DECLARATION DU TEMPLATE DONT LA PAGE EST CLIENTE -->
+	<ui:composition template="/template/layout.xhtml">
 
-<h:body>
+	<!-- Redefinition de la zone 'content' du layout  -->
+		<ui:define name="content">
+			<f:view>
+				<h:form>
+					<h:outputLabel for="email" value="Adresse email : " />
+					<h:inputText id="email" value="#{appUserController.user.email}" 
+						title="Renseignez votre email"/>
+						<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
+					<br/>
+					<h:outputLabel for="lastname" value="Nom : " />
+					<h:inputText id="lastname" value="#{appUserController.user.lastname}" 
+						title="Donnez votre nom"/>
+						<!-- validator="#{ajoutAlbum.validerZip}"  -->
+					<br/>
+					<h:outputLabel for="firstname" value="Prénom : " />
+					<h:inputText id="firstname" value="#{appUserController.user.firstname}" 
+						title="Donnez votre prénom"/>
+						<!-- validator="#{ajoutAlbum.validerZip}"  -->
+					<br/>
+					
+					<h:inputSecret id="password" value="#{appUserController.user.password}" 
+						title="Donnez un mot de passe"/>
+						<!-- validator="#{ajoutAlbum.validerZip}"  -->
+					<br/>
+					
+					<h:commandButton action="#{appUserController.create()}" value="Créer mon compte"/>
+				</h:form>
+			</f:view>
+		</ui:define>
 
-	<h:form>
-		<h:outputLabel for="email" value="Adresse email : " />
-		<h:inputText id="email" value="#{appUserController.user.email}" 
-			title="Renseignez votre email"/>
-			<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
-		<br/>
-		<h:outputLabel for="lastname" value="Nom : " />
-		<h:inputText id="lastname" value="#{appUserController.user.lastname}" 
-			title="Donnez votre nom"/>
-			<!-- validator="#{ajoutAlbum.validerZip}"  -->
-		<br/>
-		<h:outputLabel for="firstname" value="PrÃ©nom : " />
-		<h:inputText id="firstname" value="#{appUserController.user.firstname}" 
-			title="Donnez votre prÃ©nom"/>
-			<!-- validator="#{ajoutAlbum.validerZip}"  -->
-		<br/>
-		
-		<h:inputSecret id="password" value="#{appUserController.user.password}" 
-			title="Donnez un mot de passe"/>
-			<!-- validator="#{ajoutAlbum.validerZip}"  -->
-		<br/>
-		
-		<h:commandButton action="#{appUserController.create()}" value="CrÃ©er mon compte"/>
-	</h:form>
-	
-</h:body>
-
+	</ui:composition>
+</body>
 </html>

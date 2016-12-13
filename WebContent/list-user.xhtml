@@ -1,40 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" 
-	xmlns:f="http://java.sun.com/jsf/core" 
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:c="http://java.sun.com/jsp/jstl/core">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Projet Album - JEE WIC</title>
+</head>
 
-<f:view>
-<h:body>
-	
-	<h1>UserList</h1>
+<body>
+	<!-- DECLARATION DU TEMPLATE DONT LA PAGE EST CLIENTE -->
+	<ui:composition template="/template/layout.xhtml">
 
-<h:form >
+	<!-- Redefinition de la zone 'content' du layout  -->
+		<ui:define name="content">
+			<f:view>
+				<h:form >
+					<h:dataTable value="#{appUserService.listUsers()}" var="user" >
+					   <h:column>    				
+					     <f:facet name="header">Prénom</f:facet>    				
+					     <h:outputText value="#{user.firstname}"/> 
+					   </h:column>
+					   <h:column>
+					      <f:facet name="header">Nom</f:facet>
+					      <h:outputText value="#{user.lastname}"/> 
+					   </h:column>
+					   <h:column>
+					      <f:facet name="header">E-mail</f:facet>
+					      <h:outputText value="#{user.email}"/>
+					   </h:column>
+					   <h:column>
+					      <f:facet name="header">Password</f:facet>
+					      <h:outputText value="#{user.password}"/>
+					   </h:column>
+					   <h:column>
+					      <h:commandLink action="#{appUserController.delete(user.id)}" value="delete"/>
+					   </h:column>
+					</h:dataTable>					
+				</h:form>	
+			</f:view>
+		</ui:define>
 
-<h:dataTable value="#{appUserService.listUsers()}" var="user" >
-   <h:column>    				
-     <f:facet name="header">PrÃ©nom</f:facet>    				
-     <h:outputText value="#{user.firstname}"/> 
-   </h:column>
-   <h:column>
-      <f:facet name="header">Nom</f:facet>
-      <h:outputText value="#{user.lastname}"/> 
-   </h:column>
-   <h:column>
-      <f:facet name="header">E-mail</f:facet>
-      <h:outputText value="#{user.email}"/>
-   </h:column>
-   <h:column>
-      <f:facet name="header">Password</f:facet>
-      <h:outputText value="#{user.password}"/>
-   </h:column>
-   <h:column>
-      <h:commandLink action="#{appUserController.delete(user.id)}" value="delete"/>
-   </h:column>
-</h:dataTable>
-
-</h:form>	
-</h:body>
-</f:view>
+	</ui:composition>
+</body>
 </html>

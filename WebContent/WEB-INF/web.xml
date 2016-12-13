@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
   <display-name>ProjetAlbum</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.xhtml</welcome-file>
   </welcome-file-list>
   <servlet>
     <servlet-name>Faces Servlet</servlet-name>
@@ -23,10 +23,6 @@
   </context-param>
   <context-param>
     <param-name>directory</param-name>
-    <param-value>E:\Ben\Mes documents\Dev\JEE\workspace\wic-jee-projet\WebContent\public</param-value>
+    <param-value>/home/wicm2/rosparsb/wic-jee-tps/albums</param-value>
   </context-param>
-	<resource-env-ref>
-	    <resource-env-ref-name>jdbc/wicjee</resource-env-ref-name>
-	    <resource-env-ref-type>javax.sql.DataSource</resource-env-ref-type>
-	</resource-env-ref>
 </web-app>

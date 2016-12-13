@@ -9,7 +9,7 @@
 		<class>fr.uga.miashs.album.model.Picture</class> 
 		
 	<properties>
-		<property name="openjpa.jdbc.Schema" value="wicjee"/>
+		<property name="openjpa.jdbc.Schema" value="app"/>
 		<property name='openjpa.jdbc.SynchronizeMappings' value='buildSchema(ForeignKeys=true)' />
 	</properties>
 	</persistence-unit>

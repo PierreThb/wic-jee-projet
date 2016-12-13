@@ -13,6 +13,13 @@ Technos :
 
 - Applications avec Utilisateurs : 
 	- Authentification (Mail | mdp)
+	
+	Tout le monde : 
+		- créer un compte
+		
+	Admin :
+		- lister les comptes
+		- supprimer un compte (tout supprimer) 
 
 - Création d'albums : 
 	- Photos (CRUD)
@@ -38,6 +45,7 @@ Quand : Ressources dates/évènements
 
 Rechercher les photos de la région rhones-alpes qui contient des montagnes 
 - ex : La croix de chamrousse, objet DBPedia, fait partie de RhonesAlpes 
+
 
 
 
@@ -100,3 +108,11 @@ Rechercher les photos de la région rhones-alpes qui contient des montagnes
 ### Known issues quick fix :	
 * If the project is not runing, check for unbound librairies: Right Click on Project > BuildPath > ConfigureBuildPath and add unbound librairies
 * If the MySQL table creation fail, check your version of MySQL and OpenJPA (http://stackoverflow.com/a/6597724)
+
+
+## Triple Store Installation 
+
+* Apache Jena Fuseki [2.4.1](https://jena.apache.org/download/) 
+* Installer les packages apache jena pour eclipse 
+
+## Documentation de déploiement 

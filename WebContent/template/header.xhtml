@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core" 
+	xmlns:h="http://java.sun.com/jsf/html"     
+	xmlns:p="http://primefaces.org/ui"  >
+	
+    <body>
+	    <ui:composition>
+			<h:form>  
+			    <p:growl id="messages"/>
+			 
+			    <p:menubar>     
+	                <p:menuitem value="Tout les Albums" url="list-album.xhtml" icon="ui-icon-extlink" />
+	                <p:menuitem value="Ajouter un Album" url="add-album.xhtml" icon="ui-icon-extlink" />
+		            <p:menuitem value="Ajouter un utilisateur" url="add-user.xhtml" icon="ui-icon-extlink"/>
+	               	<p:menuitem value="Lister les utilisateurs" url="list-user.xhtml" icon="ui-icon-extlink" />    
+		            <p:menuitem value="Logout" url="#{appUserSession.login()}" />
+
+					<p:menuitem type="button" value="Login" icon="ui-icon-extlink" url="login.xhtml" />
+			        <f:facet name="options">
+			            <p:inputText style="margin-right:10px" placeholder="Search"/>
+			            <p:commandButton value="Logout" action="#{appUserSession.login()}" />
+			        </f:facet>
+			    </p:menubar>
+			</h:form>
+	    </ui:composition>
+    </body>
+</html>
