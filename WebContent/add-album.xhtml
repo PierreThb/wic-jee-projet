@@ -16,7 +16,7 @@
 	<!-- Redefinition de la zone 'content' du layout  -->
 		<ui:define name="content">
 			<f:view>
-				<h:form>
+				<h:form enctype="multipart/form-data">
 					<h:outputLabel for="titre" value="Titre : " />
 					<h:inputText id="titre" value="#{albumController.album.title}" 
 						title="Renseignez le titre de l'album"/>
@@ -26,6 +26,13 @@
 					<h:inputText id="description" value="#{albumController.album.description}" 
 						title="Donnez une description de l'album"/>
 						<!-- validator="#{ajoutAlbum.validerZip}"  -->
+					<br/>
+					<h:outputLabel for="zip" value="Fichier zip avec photos : " />
+					<h:inputFile id="zip" value="#{albumController.zip}" 
+						validator="#{albumController.validerZip}" 
+						title="Choisissez un fichier zip avec des images"
+						required="true" requiredMessage="Il faut choisir un fichier"/>
+						
 					<br/>
 					
 					<h:commandButton action="#{albumController.createAlbum()}" value="Créer l'album"/>

@@ -10,6 +10,11 @@ import fr.uga.miashs.album.model.AppUser;
 
 public class AlbumService extends JpaService<Long,Album> {
 
+	public Album getAlbumById(String id) throws ServiceException {
+		
+		return getEm().find(Album.class, id);
+	}
+	
 	public void create(Album a) throws ServiceException {
 		a.setOwner(getEm().merge(getEm().merge( a.getOwner())));
 		super.create(a);

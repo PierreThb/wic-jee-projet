@@ -17,12 +17,11 @@
 	                <p:menuitem value="Ajouter un Album" url="add-album.xhtml" icon="ui-icon-extlink" />
 		            <p:menuitem value="Ajouter un utilisateur" url="add-user.xhtml" icon="ui-icon-extlink"/>
 	               	<p:menuitem value="Lister les utilisateurs" url="list-user.xhtml" icon="ui-icon-extlink" />    
-		            <p:menuitem value="Logout" url="#{appUserSession.login()}" />
 
 					<p:menuitem type="button" value="Login" icon="ui-icon-extlink" url="login.xhtml" />
 			        <f:facet name="options">
 			            <p:inputText style="margin-right:10px" placeholder="Search"/>
-			            <p:commandButton value="Logout" action="#{appUserSession.login()}" />
+			            <p:commandButton value="Logout" action="#{appUserSession.logout()}" />
 			        </f:facet>
 			    </p:menubar>
 			</h:form>

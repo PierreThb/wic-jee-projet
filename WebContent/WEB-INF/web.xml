@@ -23,6 +23,6 @@
   </context-param>
   <context-param>
     <param-name>directory</param-name>
-    <param-value>/home/wicm2/rosparsb/wic-jee-tps/albums</param-value>
+    <param-value>/home/wicm2/rosparsb/Images/ProjetAlbum</param-value>
   </context-param>
 </web-app>

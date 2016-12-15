@@ -53,14 +53,14 @@ public class AppUserSession implements Serializable {
 		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
 		session.setAttribute("appUserSession",this);
 		
-		return Pages.list_album;
+		return "index?faces-redirect=true";
 	}
 	
 	public String logout() {
 	FacesContext context = FacesContext.getCurrentInstance();
 		((HttpSession) context.getExternalContext().getSession(false)).invalidate();
 		connectedUser=null;
-		return "";
+		return "index?faces-redirect=true";
 	}
 	
 	public String getEmail() {

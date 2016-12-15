@@ -27,6 +27,9 @@
 					      <f:facet name="header">Description</f:facet>
 					      <h:outputText value="#{alb.description}"/> 
 					   </h:column>
+					   <h:column>
+					      <h:commandLink action="#{albumController.displayAlbum(alb.id)}" value="voir"/>
+					   </h:column>
 					   <!-- 
 					   <h:column>
 					      <h:commandLink action="#{appUserController.delete(user.id)}" value="delete"/>

@@ -3,10 +3,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Projet Album - JEE WIC</title>
+<title>Album - JEE WIC</title>
 </head>
 
 <body>
@@ -16,20 +17,9 @@
 	<!-- Redefinition de la zone 'content' du layout  -->
 		<ui:define name="content">
 			<f:view>
-				<h:form>
-					<h:outputLabel for="email" value="Adresse email : " />
-					<h:inputText id="email" value="#{appUserSession.email}" 
-						title="Renseignez votre email"/>
-						<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
-					<br/>
-					
-					<h:inputSecret id="password" value="#{appUserSession.password}" 
-						title="Donnez un mot de passe"/>
-						<!-- validator="#{ajoutAlbum.validerZip}"  -->
-					<br/>
-					
-					<h:commandButton action="#{appUserSession.login()}" value="Me connecter"/>
-				</h:form>
+				<c:forEach var="pic" items="#{albumController.album.getPictures()}">
+					<h:outputText value="${pic.title}"/>
+				</c:forEach>	
 			</f:view>
 		</ui:define>
 

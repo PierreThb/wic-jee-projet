@@ -3,9 +3,11 @@ package fr.uga.miashs.album.control;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URI;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.zip.*;
 
 import javax.enterprise.context.RequestScoped;
@@ -15,10 +17,16 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import fr.uga.miashs.album.model.Album;
+import fr.uga.miashs.album.model.AppUser;
+import fr.uga.miashs.album.model.Picture;
 import fr.uga.miashs.album.service.AlbumService;
+import fr.uga.miashs.album.service.PictureService;
 import fr.uga.miashs.album.service.ServiceException;
 import fr.uga.miashs.album.util.Pages;
 
@@ -31,16 +39,17 @@ public class AlbumController {
 	
 	@Inject
 	private AlbumService albumService;
+	
+	@Inject
+	private PictureService pictureService;
 
 	
 	private Album album;
 	
-	private String nomAlbum;
-	
 	private Part zip;
 	
 	public Part getZip() {
-		return zip;
+		return zip; 
 	}
 
 	public void setZip(Part zip) {
@@ -57,13 +66,34 @@ public class AlbumController {
 	
 	
 	public String createAlbum() {
+		AppUser connectedUser = appUserSession.getConnectedUser();
+		
 		try {
+			// Ajout de l'album à la BDD
 			albumService.create(album);
+			
+			// upload du zip dans le dossier ../userID/AlbumID
+			Path rootDir = Paths.get(FacesContext.getCurrentInstance().getExternalContext().getInitParameter("directory"));
+			Path albPath = rootDir.resolve(connectedUser.getId()+"/"+album.getId());
+			Files.createDirectories(albPath);
+			saveFiles(new ZipInputStream(zip.getInputStream()), albPath);
 		} catch (ServiceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return Pages.list_album;
+	}
+	
+	public String displayAlbum(Long id) {
+		try {
+			this.album = albumService.getAlbumById(String.valueOf(id));
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+		return Pages.display_album;
 	}
 	
 	public List<Album> getListAlbumOwnedByCurrentUser() {
@@ -74,16 +104,6 @@ public class AlbumController {
 			e.printStackTrace();
 		}
 		return null;
-	}
-	
-	/* add the zip files */
-	
-	public String getNomAlbum() {
-		return nomAlbum;
-	}
-
-	public void setNomAlbum(String nomAlbum) {
-		this.nomAlbum = nomAlbum;
 	}
 
 	public void validerNomAlbum(FacesContext ctx, UIComponent comp, Object value) {
@@ -110,20 +130,6 @@ public class AlbumController {
 		if (!msgs.isEmpty()) {
 			throw new ValidatorException(msgs);
 		}
-	}
-
-	public String creerAlbum() {
-		Path rootDir = Paths.get(FacesContext.getCurrentInstance().getExternalContext().getInitParameter("directory"));
-		Path albPath = rootDir.resolve(nomAlbum);
-		try {
-			Files.createDirectories(albPath);
-			saveFiles(new ZipInputStream(zip.getInputStream()), albPath);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "faces/albums.xhtml";
-
 	}
 
 	private void saveFiles(ZipInputStream zis, Path whereDir) {
@@ -159,8 +165,16 @@ public class AlbumController {
 							.getMimeType(path.toString().toLowerCase());
 					// si le type mime du fichier n'est pas une image, on la
 					// supprime.
-					if (mime == null || !mime.startsWith("image/"))
+					if (mime == null || !mime.startsWith("image/")){
 						Files.delete(path);
+					}else{
+						Picture picture = new Picture(album,filename,path);
+						try {
+							pictureService.create(picture);
+						} catch (ServiceException e) {
+							e.printStackTrace();
+						}
+					}
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
