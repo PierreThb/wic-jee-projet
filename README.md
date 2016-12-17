@@ -46,10 +46,54 @@ Quand : Ressources dates/évènements
 Rechercher les photos de la région rhones-alpes qui contient des montagnes 
 - ex : La croix de chamrousse, objet DBPedia, fait partie de RhonesAlpes 
 
+## Run & Install project (Derby embedded) : 
+* Download [eclipse JEE](http://www.eclipse.org/downloads/packages/) 
+* Download [Apache Tomcat JEE jaxrs-1.7.4 2](https://tomee.apache.org/download/archives.html)
+* Download [derby and myfaces JAR files](http://imss-www.upmf-grenoble.fr/~davidjer/javaee/)
+* Unzip Eclipse and TomEE
+* Copy downloaded JARs in `[TomEE_DIR/lib]`
+* Create new Project > Dynamique Web Project (Windows : run Eclipse as admin)
+	* Clone your existing project in this new project
+* Create new Eclipse runtime server : 
+	* New > Server
+	* Tomcat v7.0 Server
+	* Server runtime environment > add
+	* Tomcat installation directory : path to the previously downloaded and dezipped tomcat directory	
+* Configure web.xml :
+	* Change the `directory` parameter to where you want your album to be upload (make sure you have the rights on this directory)
+* Configure `src/META-INF/persistence.xml` to match your database
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://java.sun.com/xml/ns/persistence" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="EssaiJPA" transaction-type="RESOURCE_LOCAL">
+		<non-jta-data-source>albumDS</non-jta-data-source>
+		<class>fr.uga.miashs.album.model.Album</class>
+		<class>fr.uga.miashs.album.model.AppUser</class>
+		<class>fr.uga.miashs.album.model.Picture</class>
+	<properties>
+		<property name="openjpa.jdbc.Schema" value="DATABASE_NAME"/>
+		<property name='openjpa.jdbc.SynchronizeMappings' value='buildSchema(ForeignKeys=true)' />
+	</properties>
+	</persistence-unit>
+</persistence>
+```
 
+* Right click on you server in Eclipse > import > General > file System > browse to `[TomEE_DIR/conf]` > import `logging.properties`,`system.properties`, `tomee.xml` :
+* Configure `tomee.xml` to match your database (make sure you have the rights on the db directory)
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<tomee>
+	<Resource id="albumDS" type="DataSource">
+		JdbcDriver org.apache.derby.jdbc.EmbeddedDriver
+		JdbcUrl jdbc:derby:PATH/TO/DB;create=true
+		JtaManaged=false
+	</Resource>
+</tomee>
+```
 
-
-## Run & Install project on eclipse : 
+## Run & Install project (MySQL 4.x) : 
 
 * Download [eclipse JEE Kepler RS2](http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/keplerr) 
 * Download [Apache Tomcat JEE jaxrs-1.7.4 2](https://tomee.apache.org/downloads.html)
