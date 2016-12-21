@@ -23,6 +23,6 @@
   </context-param>
   <context-param>
     <param-name>directory</param-name>
-    <param-value>E:\Ben\Eclipse\ProjetAlbum</param-value>
+    <param-value>public/albums</param-value>
   </context-param>
 </web-app>

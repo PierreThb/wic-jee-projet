@@ -1,30 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:f="http://java.sun.com/jsf/core" 
-	xmlns:h="http://java.sun.com/jsf/html"     
-	xmlns:p="http://primefaces.org/ui"  >
-	
-    <body>
-	    <ui:composition>
-			<h:form>  
-			    <p:growl id="messages"/>
-			 
-			    <p:menubar>     
-	                <p:menuitem value="Tout les Albums" url="list-album.xhtml" icon="ui-icon-extlink" />
-	                <p:menuitem value="Ajouter un Album" url="add-album.xhtml" icon="ui-icon-extlink" />
-		            <p:menuitem value="Ajouter un utilisateur" url="add-user.xhtml" icon="ui-icon-extlink"/>
-	               	<p:menuitem value="Lister les utilisateurs" url="list-user.xhtml" icon="ui-icon-extlink" />    
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
 
-					<p:menuitem type="button" value="Login" icon="ui-icon-extlink" url="login.xhtml" />
-			        <f:facet name="options">
-			            <p:inputText style="margin-right:10px" placeholder="Search"/>
-			            <p:commandButton value="Logout" action="#{appUserSession.logout()}" />
-			        </f:facet>
-			    </p:menubar>
-			</h:form>
-	    </ui:composition>
-    </body>
+<body>
+	<ui:composition>
+
+		<nav>
+			<div class="nav-wrapper">
+				<a href="#" data-activates="slide-out" class="button-collapse button-main-menu">
+					<i class="lnr lnr-menu"></i>
+				</a>
+				<a href="#" class="main-logo">Photos</a>
+				<ul class="right">
+					<li class="search-input">
+						<span class="lnr lnr-magnifier"></span>
+						<input type="text" id="search"  placeholder="Search for photos" />
+					</li>
+					<li><a href="faces/login.xhtml"><span class="lnr lnr-user"></span> Login</a></li>
+				</ul>
+			</div>
+		</nav>
+
+		<ul id="slide-out" class="side-nav">
+			<li>
+				<div class="userView">
+					<div class="background">
+						<h:graphicImage name="img/default-wallpaper.jpg"/>
+					</div>
+					<h:outputLink value="faces/account.xhtml">
+					    <h:graphicImage name="img/default-profil.gif" class="circle" />
+					</h:outputLink>
+					<a href="faces/account.xhtml"><span class="white-text name">John Doe</span></a>
+					<a href="#"><span class="white-text email">jdandturk@gmail.com</span></a>
+				</div>
+			</li>
+			<li><a href="#"><span class="lnr lnr-book"></span> Mes albums</a></li>
+			<li class="spacer"><a href="#"><span class="lnr lnr-picture"></span> Mes photos</a></li>
+			<li><div class="divider"></div></li>
+			<li></li>
+			<li><a href="#"><span class="lnr lnr-lock"></span> Logout</a></li>
+			<li class="bottom-logo"><a href="#">Photos</a></li>
+		</ul>
+		
+	</ui:composition>
+</body>
 </html>

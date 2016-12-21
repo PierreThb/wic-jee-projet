@@ -16,20 +16,28 @@
 	<!-- Redefinition de la zone 'content' du layout  -->
 		<ui:define name="content">
 			<f:view>
-				<h:form>
-					<h:outputLabel for="email" value="Adresse email : " />
-					<h:inputText id="email" value="#{appUserSession.email}" 
-						title="Renseignez votre email"/>
-						<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
-					<br/>
-					
-					<h:inputSecret id="password" value="#{appUserSession.password}" 
-						title="Donnez un mot de passe"/>
-						<!-- validator="#{ajoutAlbum.validerZip}"  -->
-					<br/>
-					
-					<h:commandButton action="#{appUserSession.login()}" value="Me connecter"/>
-				</h:form>
+				<div class="row">
+					<div class="col s12 l6 offset-l3">
+						<div class="card">
+							<div class="card-content white-text">
+								<h:form>
+									<h:outputLabel for="email" value="Email" />
+									<h:inputText id="email" value="#{appUserSession.email}" placeholder="john@doe.com" title="Renseignez votre email"/>
+										<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
+									<br/>
+									
+									<h:inputSecret id="password" value="#{appUserSession.password}" 
+										title="Donnez un mot de passe"/>
+										<!-- validator="#{ajoutAlbum.validerZip}"  -->
+									<br/>
+									
+									<h:commandButton class="waves-effect waves-light btn" action="#{appUserSession.login()}" value="Me connecter"/>
+								</h:form>
+							</div>
+						</div>
+					</div>
+				</div>
+				
 			</f:view>
 		</ui:define>
 
