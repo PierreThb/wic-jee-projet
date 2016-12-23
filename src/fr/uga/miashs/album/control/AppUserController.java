@@ -53,7 +53,7 @@ public class AppUserController implements Serializable {
 			return null;
 		}
 		
-		return Pages.list_user;
+		return "index?faces-redirect=true";
 		
 	}
 	

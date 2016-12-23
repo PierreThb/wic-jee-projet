@@ -57,7 +57,7 @@ public class AppUserSession implements Serializable {
 	}
 	
 	public String logout() {
-	FacesContext context = FacesContext.getCurrentInstance();
+		FacesContext context = FacesContext.getCurrentInstance();
 		((HttpSession) context.getExternalContext().getSession(false)).invalidate();
 		connectedUser=null;
 		return "index?faces-redirect=true";

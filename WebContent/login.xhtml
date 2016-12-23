@@ -13,31 +13,92 @@
 	<!-- DECLARATION DU TEMPLATE DONT LA PAGE EST CLIENTE -->
 	<ui:composition template="/template/layout.xhtml">
 
-	<!-- Redefinition de la zone 'content' du layout  -->
+		<!-- Redefinition de la zone 'content' du layout  -->
 		<ui:define name="content">
 			<f:view>
-				<div class="row">
+				<div class="row login-content">
 					<div class="col s12 l6 offset-l3">
 						<div class="card">
-							<div class="card-content white-text">
-								<h:form>
-									<h:outputLabel for="email" value="Email" />
-									<h:inputText id="email" value="#{appUserSession.email}" placeholder="john@doe.com" title="Renseignez votre email"/>
-										<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
-									<br/>
-									
-									<h:inputSecret id="password" value="#{appUserSession.password}" 
-										title="Donnez un mot de passe"/>
-										<!-- validator="#{ajoutAlbum.validerZip}"  -->
-									<br/>
-									
-									<h:commandButton class="waves-effect waves-light btn" action="#{appUserSession.login()}" value="Me connecter"/>
-								</h:form>
+							<div class="card-content">
+								<div class="row">
+									<div class="col s12">
+										<ul class="tabs">
+											<li class="tab col s3">
+												<a id="signin-link" class="active" href="#signin">Sign in</a>
+											</li>
+											<li class="tab col s3">
+												<a id="signup-link" href="#signup">Sign up</a>
+											</li>
+										</ul>
+									</div>
+									<div id="signin" class="col s12 login-card">
+										<p class="center-align">
+											To access the application, please login. <br /> No account
+											yet ? <a class="tab-link" href="signup-link">Create one.</a>
+										</p>
+										<h:form>
+											<div class="input-field">
+												<h:outputLabel for="email" value="Email" />
+												<h:inputText id="email" value="#{appUserSession.email}"
+													placeholder="john@doe.com" title="Renseignez votre email" />
+												<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
+											</div>
+											<div class="input-field">
+												<h:outputLabel for="password" value="Password" />
+												<h:inputSecret id="password"
+													value="#{appUserSession.password}"
+													title="Donnez un mot de passe" />
+												<!-- validator="#{ajoutAlbum.validerZip}"  -->
+											</div>
+											<h:commandButton class="btn light-blue"
+												action="#{appUserSession.login()}" value="Sign in" />
+										</h:form>
+									</div>
+									<div id="signup" class="col s12 login-card">
+										<p class="center-align">To create an account please fill
+											this form.</p>
+										<h:form>
+											<div class="input-field">
+												<h:outputLabel for="email" value="Adresse email : " />
+												<h:inputText id="email"
+													value="#{appUserController.user.email}"
+													title="Renseignez votre email" />
+												<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
+											</div>
+											<div class="input-field">
+												<h:outputLabel for="lastname" value="Nom : " />
+												<h:inputText id="lastname"
+													value="#{appUserController.user.lastname}"
+													title="Donnez votre nom" />
+												<!-- validator="#{ajoutAlbum.validerZip}"  -->
+											</div>
+											<div class="input-field">
+												<h:outputLabel for="firstname" value="Prénom : " />
+												<h:inputText id="firstname"
+													value="#{appUserController.user.firstname}"
+													title="Donnez votre prénom" />
+												<!-- validator="#{ajoutAlbum.validerZip}"  -->
+											</div>
+											<div class="input-field">
+
+												<h:inputSecret id="password"
+													value="#{appUserController.user.password}"
+													title="Donnez un mot de passe" />
+												<!-- validator="#{ajoutAlbum.validerZip}"  -->
+											</div>
+
+											<h:commandButton class="btn light-blue"
+												action="#{appUserController.create()}"
+												value="Create account" />
+										</h:form>
+									</div>
+								</div>
+
+
 							</div>
 						</div>
 					</div>
 				</div>
-				
 			</f:view>
 		</ui:define>
 

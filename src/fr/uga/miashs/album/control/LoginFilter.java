@@ -1,6 +1,7 @@
 package fr.uga.miashs.album.control;
 
 import java.io.IOException;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -9,59 +10,51 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.uga.miashs.album.util.Pages;
 
-/**
- * Servlet Filter implementation class LoginFilter
- */
-@WebFilter("/faces/*")
+@WebFilter("*.xhtml")
 public class LoginFilter implements Filter {
 
 	
-	public String[] filteredPages;
-    
-	/**
-     * Default constructor. 
-     */
+	public String[] publicPages;
     public LoginFilter() {
         // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
+    
 	public void init(FilterConfig fConfig) throws ServletException {
-		filteredPages = new String[] {
-				Pages.add_album,
-				Pages.list_album
+		publicPages = new String[] {
+				Pages.login
 		};
 	}
-	
-	
-	/**
-	 * @see Filter#destroy()
-	 */
+
 	public void destroy() {
 		// TODO Auto-generated method stub
 	}
 
-	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		
-		String requestedUri = ((HttpServletRequest) request).getRequestURI().substring(((HttpServletRequest) request).getContextPath().length()+1);
-		for (String s : filteredPages) {
-			if (s.equals(requestedUri)) {
-				 HttpSession session = ((HttpServletRequest) request).getSession(false);
-				 if (session == null || 
-						 ((AppUserSession) session.getAttribute("appUserSession")) == null ||
-								 ((AppUserSession) session.getAttribute("appUserSession")).getConnectedUser()==null) {
-					 request.setAttribute("requestedUri", requestedUri);
-					 request.getRequestDispatcher(Pages.login).forward(request, response);
-				 }
+		String requestedUri = ((HttpServletRequest) request).getRequestURI();
+		boolean isPublic = false;
+		
+		for (String page : publicPages) {
+			if (requestedUri.contains(page) || requestedUri.contains("javax.faces.resource")) {
+				isPublic = true;
+			}
+		}
+		
+		if(!isPublic){
+			HttpSession session = ((HttpServletRequest) request).getSession(false);
+			AppUserSession userSession = null;
+			if(session != null){
+				userSession = (AppUserSession) session.getAttribute("appUserSession");
+			}
+			
+			if(session == null || userSession == null || userSession.getConnectedUser() == null){
+				HttpServletResponse res = (HttpServletResponse) response;
+				res.sendRedirect(((HttpServletRequest) request).getContextPath() + "/login.xhtml");
 			}
 		}
 

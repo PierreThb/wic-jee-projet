@@ -41,14 +41,6 @@ h1,h2,h3,h4,h5,h6 {
     margin-bottom: 0px;
 }
 
-footer.page-footer{
-	background-color: #09a0f6;
-}
-
-nav{
-	background-color: #09a0f6;
-}
-
 .button-collapse.button-main-menu{
 	display:block;
 }
@@ -56,6 +48,7 @@ nav{
 .main-logo{
 	font-size:1.5em;
 	font-weight:600;
+	margin-left:10px;
 }
 
 .bottom-logo{
@@ -68,8 +61,6 @@ nav{
 .bottom-logo a{
 	font-size:1.5em;
 	font-weight:600;
-	text-align:center;
-	color:#09A0F6;
 }
 
 .bottom-logo a:hover{
@@ -109,6 +100,29 @@ nav{
 
 .side-nav .spacer{
 	margin-bottom: 50px;
+}
+
+.tabs .tab a{
+    color:#0091ea;
+}
+.tabs .tab a:hover,.tabs .tab a.active {
+	background-color:transparent;
+	color:#0091ea;
+}
+.tabs .indicator {
+	background-color:#0091ea;
+}
+
+.card .login-card{
+	padding: 40px;
+}
+
+.login-card h3{
+	font-weight: 500;
+}
+
+.login-card form{
+	padding: 30px 0;
 }
 
 @media only screen and (max-width : 992px) {
