@@ -1,10 +1,10 @@
 # Projet Album JEE gestion [Rendu 09/01/2017]
 
--Doc : [http://imss-www.upmf-grenoble.fr/~davidjer/javaee/]('http://imss-www.upmf-grenoble.fr/~davidjer/javaee/')
--Install : [http://tomee.apache.org/tomee-and-eclipse.html]('http://tomee.apache.org/tomee-and-eclipse.html')
--Icons : https://linearicons.com/free
--Framework CSS : http://materializecss.com/
--JSF Cheatsheet : https://www.tutorialspoint.com/jsf/jsf_basic_tags.htm
+- Doc : [http://imss-www.upmf-grenoble.fr/~davidjer/javaee/]('http://imss-www.upmf-grenoble.fr/~davidjer/javaee/')
+- Install : [http://tomee.apache.org/tomee-and-eclipse.html]('http://tomee.apache.org/tomee-and-eclipse.html')
+- Icons : https://linearicons.com/free
+- Framework CSS : http://materializecss.com/
+- JSF Cheatsheet : https://www.tutorialspoint.com/jsf/jsf_basic_tags.htm
 
 Technos : 
 * JSF pour les vues
