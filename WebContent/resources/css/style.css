@@ -125,6 +125,10 @@ h1,h2,h3,h4,h5,h6 {
 	padding: 30px 0;
 }
 
+.modal{
+	max-width: 800px;
+}
+
 .modal h4{
 	margin-bottom: 30px;
 }
@@ -132,6 +136,16 @@ h1,h2,h3,h4,h5,h6 {
 .modal .spacer{
 	float:right;
 	margin:3px;
+}
+
+.modal .modal-content{
+	min-height: 300px;
+	overflow:hidden;
+}
+
+.dropzone {
+    min-height: 200px;
+    border: 3px dashed #0091ea;
 }
 
 @media only screen and (max-width : 992px) {

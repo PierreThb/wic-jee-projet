@@ -2,6 +2,7 @@ package fr.uga.miashs.album.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +13,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+
 
 @Entity
 @NamedQueries({
@@ -36,7 +38,7 @@ public class Album {
 	@ManyToMany
 	private Set<AppUser> sharedWith;
 	
-	@OneToMany(mappedBy="album")
+	@OneToMany(mappedBy="album", cascade=CascadeType.ALL)
 	private Set<Picture> pictures;
 
 	protected Album() {

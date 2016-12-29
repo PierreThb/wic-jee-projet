@@ -7,3 +7,5 @@ $(document).ready(function(){
 		$("#"+$(this).attr("href")).click();
 	});
 });
+
+Dropzone.options.uploadForm = { paramName: "uploadForm:file" };

@@ -1,21 +1,35 @@
 package fr.uga.miashs.album.control;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.Part;
+
+import org.apache.myfaces.util.FilenameUtils;
+
 import fr.uga.miashs.album.model.Album;
+import fr.uga.miashs.album.model.Picture;
 import fr.uga.miashs.album.service.AlbumService;
+import fr.uga.miashs.album.service.PictureService;
 import fr.uga.miashs.album.service.ServiceException;
 import fr.uga.miashs.album.util.Pages;
 
 @Named
+@ManagedBean
 @RequestScoped
 public class AlbumController {
 
@@ -25,7 +39,26 @@ public class AlbumController {
 	@Inject
 	private AlbumService albumService;
 	
+	@Inject
+	private PictureService pictureService;
+
+	
 	private Album album;
+	
+	private Part file;
+	
+	// Set the current album if 
+	@PostConstruct
+    public void init() {
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String albumId = params.get("albumId");
+        
+        if(albumId != null){
+            try {
+    			album = albumService.getAlbumById(albumId);
+    		} catch (ServiceException e) {}
+        }
+    }
 	
 	
 	public Album getAlbum() {
@@ -46,11 +79,6 @@ public class AlbumController {
 	}
 	
 	public String displayAlbum(Long id) {
-		try {
-			this.album = albumService.getAlbumById(String.valueOf(id));
-		} catch (ServiceException e) {
-			e.printStackTrace();
-		}
 		return "album?faces-redirect=true&albumId="+id;
 	}
 	
@@ -74,5 +102,61 @@ public class AlbumController {
 		if (!msgs.isEmpty()) {
 			throw new ValidatorException(msgs);
 		}
+	}
+	
+	public Part getFile() {
+        return file;
+    }
+
+    public void setFile(Part file) throws IOException {
+    	try (InputStream input = file.getInputStream()) {
+	        this.file = file;
+	        uploadPictures();
+    	}
+	    catch (IOException e) {
+	    }
+    }
+
+	public void uploadPictures() {
+		try (InputStream input = file.getInputStream()) {
+			String disposition = file.getHeader("Content-Disposition"); 
+			String fullname = disposition.replaceFirst("(?i)^.*filename=\"([^\"]+)\".*$", "$1");
+			
+			String filename = FilenameUtils.getBaseName(fullname);
+			System.out.println("filename : "+filename);
+			String extension = FilenameUtils.getExtension(fullname);
+			System.out.println("extension : "+extension);
+			Path folder = Paths.get("E:\\Ben\\Eclipse\\ProjetAlbum\\uploads\\");
+			System.out.println("folder : "+folder);
+			Path filepath = Files.createTempFile(folder, filename + "-", "." + extension);
+			System.out.println("filepath : "+filepath);
+			Files.copy(input, filepath, StandardCopyOption.REPLACE_EXISTING);
+			
+			ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		    String albumId = ec.getRequestParameterMap().get("uploadForm:albumId");
+	        
+	        if(albumId != null){
+	            try {
+	    			album = albumService.getAlbumById(albumId);
+	    		} catch (ServiceException e) {}
+	        }
+			
+			Picture picture = new Picture(album,fullname,filepath);
+			try {
+				System.out.println("album : "+album.getOwner().getFirstname());
+				pictureService.create(picture);
+			} catch (ServiceException e) {
+				e.printStackTrace();
+			}
+			
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+		    ExternalContext externalContext = facesContext.getExternalContext();
+		    externalContext.setResponseContentType("application/json");
+		    externalContext.setResponseCharacterEncoding("UTF-8");
+		    externalContext.getResponseOutputWriter().write("{filepath :"+filepath+"}");
+		    facesContext.responseComplete();
+	    }
+	    catch (IOException e) {
+	    }
 	}
 }

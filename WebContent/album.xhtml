@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:c="http://java.sun.com/jsp/jstl/core">
 <head>
@@ -17,8 +17,32 @@
 	<!-- Redefinition de la zone 'content' du layout  -->
 		<ui:define name="content">
 			<f:view>
+				<div class="row">
+					<div class="col s12">
+						<a class="btn light-blue" href="#modalAddPictures"><span class="lnr lnr-plus-circle"></span> Add pictures</a>
+						<div id="modalAddPictures" class="modal">
+						  <div class="modal-content">
+						    <h4>Click or drop files below</h4>
+						    <h:form id="uploadForm" enctype="multipart/form-data" styleClass="dropzone">
+					    		<h:inputHidden id="albumId" value="#{albumController.album.id}"/>
+							    <div class="fallback">
+						            <h:inputFile id="file" value="#{albumController.file}" />
+						            <h:commandButton id="submit" value="submit" />
+						        </div>
+						    </h:form>
+						  </div>
+						  <div class="modal-footer">
+						  	<a href="#!" class="btn light-blue modal-close" data-target="">Ok</a>
+						  	<span class="spacer"></span>
+						    <a href="#!" class="btn grey lighten-2 close-modal modal-close" data-target="">Cancel</a>
+						  </div>
+						</div>
+					</div>
+				</div>
 				<c:forEach var="pic" items="#{albumController.album.getPictures()}">
 					<h:outputText value="${pic.title}"/>
+					<h:outputText value="${pic.localfile}"/>
+					<h:graphicImage name="${pic.localfile}"/>
 				</c:forEach>	
 			</f:view>
 		</ui:define>

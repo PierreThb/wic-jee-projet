@@ -5,6 +5,7 @@
 - Icons : https://linearicons.com/free
 - Framework CSS : http://materializecss.com/
 - JSF Cheatsheet : https://www.tutorialspoint.com/jsf/jsf_basic_tags.htm
+- Upload File dropzone + JSF : http://stackoverflow.com/questions/38018632/use-dropzone-with-jsf
 
 Technos : 
 * JSF pour les vues
