@@ -1,7 +1,9 @@
 package fr.uga.miashs.album.control;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +143,7 @@ public class AlbumController {
 	    		} catch (ServiceException e) {}
 	        }
 			
-			Picture picture = new Picture(album,fullname,filepath);
+			Picture picture = new Picture(album,filepath.getFileName().toString(),filepath);
 			try {
 				System.out.println("album : "+album.getOwner().getFirstname());
 				pictureService.create(picture);
@@ -158,5 +160,23 @@ public class AlbumController {
 	    }
 	    catch (IOException e) {
 	    }
+	}
+	
+	public void displayPicture(String filename) throws IOException {
+		FacesContext fc = FacesContext.getCurrentInstance();
+	    ExternalContext ec = fc.getExternalContext();
+	    
+	    File file = new File("E:\\Ben\\Eclipse\\ProjetAlbum\\uploads\\"+filename);
+		String fileName = file.getName();
+		String contentType = ec.getMimeType(fileName);
+		int contentLength = (int) file.length();
+
+	    ec.responseReset(); 
+	    ec.setResponseContentType(contentType); 
+	    ec.setResponseContentLength(contentLength); 
+	    ec.setResponseHeader("Content-disposition", "inline;filename=\"" + fileName + "\""); 
+	    OutputStream output = ec.getResponseOutputStream(); 
+
+		Files.copy(file.toPath(), output);
 	}
 }
