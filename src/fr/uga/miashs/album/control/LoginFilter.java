@@ -2,6 +2,7 @@ package fr.uga.miashs.album.control;
 
 import java.io.IOException;
 
+import javax.faces.bean.SessionScoped;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import fr.uga.miashs.album.util.Pages;
 
 @WebFilter("*.xhtml")
+@SessionScoped
 public class LoginFilter implements Filter {
 
 	

@@ -8,4 +8,8 @@ $(document).ready(function(){
 	});
 });
 
-Dropzone.options.uploadForm = { paramName: "uploadForm:file" };
+Dropzone.options.uploadForm = {
+	paramName: "uploadForm:file",
+	autoProcessQueue: true,
+	parallelUploads: 1
+};

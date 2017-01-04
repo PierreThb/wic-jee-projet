@@ -13,6 +13,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
@@ -33,7 +34,8 @@ import fr.uga.miashs.album.util.Pages;
 @Named
 @ManagedBean
 @RequestScoped
-public class AlbumController {
+@SessionScoped
+public class AlbumController { 
 
 	@Inject
 	private AppUserSession appUserSession;
@@ -120,6 +122,9 @@ public class AlbumController {
     }
 
 	public void uploadPictures() {
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+	    ExternalContext externalContext = facesContext.getExternalContext();
+	    
 		try (InputStream input = file.getInputStream()) {
 			String disposition = file.getHeader("Content-Disposition"); 
 			String fullname = disposition.replaceFirst("(?i)^.*filename=\"([^\"]+)\".*$", "$1");
@@ -128,7 +133,7 @@ public class AlbumController {
 			System.out.println("filename : "+filename);
 			String extension = FilenameUtils.getExtension(fullname);
 			System.out.println("extension : "+extension);
-			Path folder = Paths.get("E:\\Ben\\Eclipse\\ProjetAlbum\\uploads\\");
+			Path folder = Paths.get(externalContext.getInitParameter("directory"));
 			System.out.println("folder : "+folder);
 			Path filepath = Files.createTempFile(folder, filename + "-", "." + extension);
 			System.out.println("filepath : "+filepath);
@@ -151,8 +156,7 @@ public class AlbumController {
 				e.printStackTrace();
 			}
 			
-			FacesContext facesContext = FacesContext.getCurrentInstance();
-		    ExternalContext externalContext = facesContext.getExternalContext();
+			
 		    externalContext.setResponseContentType("application/json");
 		    externalContext.setResponseCharacterEncoding("UTF-8");
 		    externalContext.getResponseOutputWriter().write("{filepath :"+filepath+"}");
@@ -166,7 +170,7 @@ public class AlbumController {
 		FacesContext fc = FacesContext.getCurrentInstance();
 	    ExternalContext ec = fc.getExternalContext();
 	    
-	    File file = new File("E:\\Ben\\Eclipse\\ProjetAlbum\\uploads\\"+filename);
+	    File file = new File(ec.getInitParameter("directory")+filename);
 		String fileName = file.getName();
 		String contentType = ec.getMimeType(fileName);
 		int contentLength = (int) file.length();
