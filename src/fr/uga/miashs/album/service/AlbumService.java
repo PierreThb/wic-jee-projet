@@ -12,8 +12,10 @@ import fr.uga.miashs.album.model.Picture;
 public class AlbumService extends JpaService<Long,Album> {
 
 	public Album getAlbumById(String id) throws ServiceException {
-		
-		return getEm().find(Album.class, id);
+		Album album = getEm().find(Album.class, id);
+		Album mergedAlbum =getEm().merge(album);
+		getEm().refresh(mergedAlbum);
+		return mergedAlbum;
 	}
 	
 	public void create(Album a) throws ServiceException {

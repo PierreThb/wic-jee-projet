@@ -8,6 +8,7 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -59,15 +60,21 @@ public class AlbumController {
         
         if(albumId != null){
             try {
-    			album = albumService.getAlbumById(albumId);
+    			album = albumService.getAlbumById(albumId);   			
     		} catch (ServiceException e) {}
         }
     }
 	
 	
 	public Album getAlbum() {
+		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String albumId = params.get("albumId");
+        
 		if (album==null) {
-			album = new Album(appUserSession.getConnectedUser());
+			try {
+				return albumService.getAlbumById(albumId);   			
+    		} catch (ServiceException e) {}
+			return new Album(appUserSession.getConnectedUser());
 		}
 		return album;
 	}
@@ -86,14 +93,8 @@ public class AlbumController {
 		return "album?faces-redirect=true&albumId="+id;
 	}
 	
-	public List<Album> getListAlbumOwnedByCurrentUser() {
-		try {
-			return albumService.listAlbumOwnedBy(appUserSession.getConnectedUser());
-		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
+	public List<Album> getListAlbumOwnedByCurrentUser() throws ServiceException {
+		return albumService.listAlbumOwnedBy(appUserSession.getConnectedUser());
 	}
 
 	public void validerNomAlbum(FacesContext ctx, UIComponent comp, Object value) {
@@ -164,6 +165,14 @@ public class AlbumController {
 	    }
 	    catch (IOException e) {
 	    }
+	}
+	
+	public Set<Picture> getListPictureFromAlbum() throws ServiceException {
+		if(album != null){
+			System.out.println("Get List image of album : "+album.getId());
+			return albumService.getAlbumById(String.valueOf(album.getId())).getPictures();
+		}
+		return null;
 	}
 	
 	public void displayPicture(String filename) throws IOException {

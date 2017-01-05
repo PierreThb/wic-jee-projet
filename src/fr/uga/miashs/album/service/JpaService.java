@@ -49,7 +49,8 @@ public abstract class JpaService<K,V> implements GenericService<K,V>, Serializab
 	public void create(V v) throws ServiceException {
 		EntityTransaction t = em.getTransaction();
 		t.begin();
-		em.persist(v);	
+		em.persist(v);
+		em.flush();
 		t.commit();
 	}
 	

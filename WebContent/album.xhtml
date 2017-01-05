@@ -40,7 +40,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<c:forEach var="pic" items="#{albumController.album.getPictures()}">
+					<c:forEach var="pic" items="#{albumController.getListPictureFromAlbum()}">
 						<div class="col s12 m4 l3">
 							<img src="#{request.contextPath}/images/${pic.title}" class="responsive-img materialboxed"/>
 						</div>	
