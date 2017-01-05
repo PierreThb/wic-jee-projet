@@ -56,14 +56,14 @@ public class LoginFilter implements Filter {
 			
 			if(session == null || userSession == null || userSession.getConnectedUser() == null){
 				HttpServletResponse res = (HttpServletResponse) response;
-				res.sendRedirect(((HttpServletRequest) request).getContextPath() + "/login.xhtml");
+				
+				res.sendRedirect(((HttpServletRequest) request).getContextPath() + "/login.xhtml?from="+requestedUri);
 				return;
 			}
 		}
 
 		// pass the request along the filter chain
 		chain.doFilter(request, response);
-		return;
 	}
 
 

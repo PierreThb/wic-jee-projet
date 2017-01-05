@@ -6,16 +6,15 @@ import javax.persistence.Query;
 
 import fr.uga.miashs.album.model.Album;
 import fr.uga.miashs.album.model.AppUser;
-import fr.uga.miashs.album.model.Picture;
 
 
 public class AlbumService extends JpaService<Long,Album> {
 
-	public Album getAlbumById(String id) throws ServiceException {
+	public Album getAlbumById(String id) throws ServiceException{
 		Album album = getEm().find(Album.class, id);
-		Album mergedAlbum =getEm().merge(album);
-		getEm().refresh(mergedAlbum);
-		return mergedAlbum;
+		getEm().refresh(album);
+		
+		return album;
 	}
 	
 	public void create(Album a) throws ServiceException {
@@ -24,7 +23,6 @@ public class AlbumService extends JpaService<Long,Album> {
 	}
 	
 	public List<Album> listAlbumOwnedBy(AppUser a) throws ServiceException {
-		//La requete est définie dans la classe Album grâce à une annotation
 		Query query = getEm().createNamedQuery("Album.findAllOwned");
 		query.setParameter("owner", getEm().merge(a));
 		return query.getResultList();

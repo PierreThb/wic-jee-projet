@@ -148,6 +148,31 @@ h1,h2,h3,h4,h5,h6 {
     border: 3px dashed #0091ea;
 }
 
+.wrapper-image{
+	position:relative;
+}
+
+.wrapper-image:before{
+	content:"";
+	display:block;
+	position:relative;
+	padding-bottom: 100%;
+}
+
+.inner-wrapper-image{
+	position:absolute;
+	top:0.75rem;
+	left:0.75rem;
+	right:0.75rem;
+	bottom:0.75rem;
+	background: grey url() no-repeat center center; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	overflow:hidden;
+}
+
 @media only screen and (max-width : 992px) {
   
 }

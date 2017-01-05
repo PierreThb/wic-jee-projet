@@ -32,17 +32,18 @@
 						    </h:form>
 						  </div>
 						  <div class="modal-footer">
-						  	<a href="#!" class="btn light-blue modal-close" data-target="">Ok</a>
+						  	<a href="#!" class="btn light-blue refresh-modal" data-action="refresh" data-target="">Ok</a>
 						  	<span class="spacer"></span>
-						    <a href="#!" class="btn grey lighten-2 close-modal modal-close" data-target="">Cancel</a>
+						    <a href="#!" class="btn grey lighten-2 modal-close" data-target="">Cancel</a>
 						  </div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<c:forEach var="pic" items="#{albumController.getListPictureFromAlbum()}">
-						<div class="col s12 m4 l3">
-							<img src="#{request.contextPath}/images/${pic.title}" class="responsive-img materialboxed"/>
+					<c:forEach var="pic" items="#{albumController.listPictureFromAlbum}">
+						<div class="col s12 m4 l3 wrapper-image">
+							<div class="inner-wrapper-image" style="background-image:url('#{request.contextPath}/images/${pic.title}');">
+							</div>
 						</div>	
 					</c:forEach>
 				</div>	

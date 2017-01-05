@@ -3,6 +3,7 @@ package fr.uga.miashs.album.model;
 import java.net.URI;
 import java.nio.file.Path;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,8 +13,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
+
 @Entity
 @NamedQueries({
+	@NamedQuery(name="Picture.findAllPicturesFromAlbum",
+		    query="SELECT p FROM Picture p WHERE p.album=:album"),
 })
 public class Picture {
 
@@ -21,7 +25,7 @@ public class Picture {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Album album;
 	
 	@NotNull

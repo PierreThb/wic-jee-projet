@@ -50,8 +50,9 @@
 													title="Donnez un mot de passe" />
 												<!-- validator="#{ajoutAlbum.validerZip}"  -->
 											</div>
-											<h:commandButton class="btn light-blue"
-												action="#{appUserSession.login()}" value="Sign in" />
+											<h:commandButton class="btn light-blue" action="#{appUserSession.login()}" value="Sign in" >
+											    <f:param name="from" value="${param.from}" />
+											</h:commandButton>
 										</h:form>
 									</div>
 									<div id="signup" class="col s12 login-card">

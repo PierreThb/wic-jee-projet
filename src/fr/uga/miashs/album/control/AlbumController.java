@@ -35,7 +35,6 @@ import fr.uga.miashs.album.util.Pages;
 @Named
 @ManagedBean
 @RequestScoped
-@SessionScoped
 public class AlbumController { 
 
 	@Inject
@@ -60,25 +59,21 @@ public class AlbumController {
         
         if(albumId != null){
             try {
-    			album = albumService.getAlbumById(albumId);   			
-    		} catch (ServiceException e) {}
+    			album = albumService.getAlbumById(albumId);
+    		} catch (ServiceException e) {
+    			
+    		}
+        }else{
+        	album = new Album(appUserSession.getConnectedUser());
         }
-    }
-	
+    }	
 	
 	public Album getAlbum() {
-		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        String albumId = params.get("albumId");
-        
 		if (album==null) {
-			try {
-				return albumService.getAlbumById(albumId);   			
-    		} catch (ServiceException e) {}
-			return new Album(appUserSession.getConnectedUser());
+			album = new Album(appUserSession.getConnectedUser());
 		}
 		return album;
 	}
-	
 	
 	public String createAlbum() {		
 		try {
@@ -95,6 +90,14 @@ public class AlbumController {
 	
 	public List<Album> getListAlbumOwnedByCurrentUser() throws ServiceException {
 		return albumService.listAlbumOwnedBy(appUserSession.getConnectedUser());
+	}
+	
+	public List<Picture> getListPictureFromAlbum() throws ServiceException {
+		if(album.getId() != 0){
+			List<Picture> listPictures = pictureService.listPictureFromAlbum(album);
+			return pictureService.listPictureFromAlbum(album);
+		}
+		return null;
 	}
 
 	public void validerNomAlbum(FacesContext ctx, UIComponent comp, Object value) {
@@ -157,7 +160,6 @@ public class AlbumController {
 				e.printStackTrace();
 			}
 			
-			
 		    externalContext.setResponseContentType("application/json");
 		    externalContext.setResponseCharacterEncoding("UTF-8");
 		    externalContext.getResponseOutputWriter().write("{filepath :"+filepath+"}");
@@ -165,14 +167,6 @@ public class AlbumController {
 	    }
 	    catch (IOException e) {
 	    }
-	}
-	
-	public Set<Picture> getListPictureFromAlbum() throws ServiceException {
-		if(album != null){
-			System.out.println("Get List image of album : "+album.getId());
-			return albumService.getAlbumById(String.valueOf(album.getId())).getPictures();
-		}
-		return null;
 	}
 	
 	public void displayPicture(String filename) throws IOException {
