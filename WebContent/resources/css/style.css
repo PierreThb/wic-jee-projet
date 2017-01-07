@@ -173,6 +173,43 @@ h1,h2,h3,h4,h5,h6 {
 	overflow:hidden;
 }
 
+.inner-wrapper-image .overlay-actions{
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	background: rgba(0,0,0,0.5); 
+	opacity:0;
+	transform:scale(0.5);
+	transition: all .3s ease;
+}
+
+.inner-wrapper-image:hover .overlay-actions{
+	opacity:1;
+	transform:scale(1);
+}
+
+.actions-wrapper{
+	position:relative;
+	top:50%;
+	margin-top:-15px;
+	text-align:center;
+}
+
+.actions-wrapper .action{
+	display:inline-block;
+	margin: 0 5px;
+	background:none;
+	border:none;
+	font-size: 30px;
+	color:white;
+}
+
+.actions-wrapper .action:hover{
+	color:#0091ea;
+}
+
 @media only screen and (max-width : 992px) {
   
 }

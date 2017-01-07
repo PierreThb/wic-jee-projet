@@ -75,6 +75,17 @@ public class AlbumController {
 		return album;
 	}
 	
+	public String checkAlbum() {
+		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        String albumId = params.get("albumId");
+        
+        if(albumId == null || albumId == ""){
+	    	return "list-album?faces-redirect=true";
+	    } else {
+	        return null; // Stay on current page.
+	    }
+	}
+	
 	public String createAlbum() {		
 		try {
 			albumService.create(album);
@@ -167,6 +178,14 @@ public class AlbumController {
 	    }
 	    catch (IOException e) {
 	    }
+	}
+	
+	public void deletePicture() {
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+	    String pictureId = ec.getRequestParameterMap().get("deleteHiddenForm:pictureId");
+		System.out.println("delete image : "+pictureId);
+		
+		//TODO
 	}
 	
 	public void displayPicture(String filename) throws IOException {

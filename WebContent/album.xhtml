@@ -11,6 +11,10 @@
 </head>
 
 <body>
+
+	<f:metadata>
+	    <f:viewAction action="#{albumController.checkAlbum()}" />
+	</f:metadata>
 	<!-- DECLARATION DU TEMPLATE DONT LA PAGE EST CLIENTE -->
 	<ui:composition template="/template/layout.xhtml">
 
@@ -43,10 +47,23 @@
 					<c:forEach var="pic" items="#{albumController.listPictureFromAlbum}">
 						<div class="col s12 m4 l3 wrapper-image">
 							<div class="inner-wrapper-image" style="background-image:url('#{request.contextPath}/images/${pic.title}');">
+								<div class="overlay-actions">
+									<div class="actions-wrapper">
+										<a class="action delete-image" href="#" data-target="${pic.id}"><span class="lnr lnr-trash"></span></a>
+										<a class="action" href="${request.contextPath}/images/${pic.title}" target="_blank"><span class="lnr lnr-eye"></span></a>
+									</div>	
+								</div>
 							</div>
 						</div>	
 					</c:forEach>
-				</div>	
+				</div>
+				
+				<h:form id="deleteHiddenForm" style="display: none;">
+				    <h:inputHidden id="pictureId" value="" />
+				    <h:commandButton id="submitDeleteHiddenForm">
+				        <f:ajax execute="@form" listener="#{albumController.deletePicture()}" onevent="refreshPage" />
+				    </h:commandButton>
+				</h:form>
 			</f:view>
 		</ui:define>
 
