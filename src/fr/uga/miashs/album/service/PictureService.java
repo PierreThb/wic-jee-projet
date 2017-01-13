@@ -9,7 +9,8 @@ import fr.uga.miashs.album.model.AppUser;
 import fr.uga.miashs.album.model.Picture;
 
 public class PictureService extends JpaService<Long,Picture> {
-
+	
+	
 	public void create(Picture p) throws ServiceException {
 		Album album = p.getAlbum();
 		album.setOwner(getEm().merge(getEm().merge( album.getOwner())));

@@ -30,6 +30,7 @@ import fr.uga.miashs.album.model.Picture;
 import fr.uga.miashs.album.service.AlbumService;
 import fr.uga.miashs.album.service.PictureService;
 import fr.uga.miashs.album.service.ServiceException;
+import fr.uga.miashs.album.service.SparqlService;
 import fr.uga.miashs.album.util.Pages;
 
 @Named
@@ -45,7 +46,7 @@ public class AlbumController {
 	
 	@Inject
 	private PictureService pictureService;
-
+	
 	
 	private Album album;
 	
@@ -167,6 +168,8 @@ public class AlbumController {
 			try {
 				System.out.println("album : "+album.getOwner().getFirstname());
 				pictureService.create(picture);
+				SparqlService spq = new SparqlService();
+				spq.insertData("coucou");
 			} catch (ServiceException e) {
 				e.printStackTrace();
 			}

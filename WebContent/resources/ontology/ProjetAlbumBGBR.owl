@@ -1,0 +1,494 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="http://www.semanticweb.org/projetAlbum"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="http://www.semanticweb.org/projetAlbum">
+    <Prefix name="dc" IRI="http://purl.org/dc/elements/1.1"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="foaf" IRI="http://xmlns.com/foaf/0.1"/>
+    <Prefix name="geon" IRI="http://www.geonames.org/ontology#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="dbpedia" IRI="http://dbpedia.org/resource/"/>
+    <Declaration>
+        <ObjectProperty IRI="#categorieHas"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="dbpedia:city"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Animal"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#sharedWith"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Unicorn"/>
+    </Declaration>
+    <Declaration>
+        <Datatype IRI="http://xmlns.com/foaf/0.1/person"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#createdBy"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isInCategorie"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Subject"/>
+    </Declaration>
+    <Declaration>
+        <Datatype IRI="http://purl.org/dc/elements/1.1/title"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#User"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Music"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#title"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Nature"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#creatorOf"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Rock"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Boris"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Categorie"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#what"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Running"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#nudes"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Place"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#who"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Album"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#architecture"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isFriendWith"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Salsa"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#where"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Bike"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#roger"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Ben"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Ski"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isIn"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#creationDate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Travel"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Beach"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Sport"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Party"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Donald"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Mountain"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isFromAlbum"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Birthday"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#Desert"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://xmlns.com/foaf/0.1/Person"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Picture"/>
+    </Declaration>
+    <Declaration>
+        <Datatype IRI="http://purl.org/dc/elements/1.1/date"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Art"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="dbpedia:country"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/description"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/title"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/date"/>
+    </Declaration>
+    <EquivalentClasses>
+        <Class IRI="#Categorie"/>
+        <ObjectUnionOf>
+            <Class IRI="#Art"/>
+            <Class IRI="#Music"/>
+            <Class IRI="#Party"/>
+            <Class IRI="#Sport"/>
+            <Class IRI="#Travel"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <EquivalentClasses>
+        <Class IRI="#Subject"/>
+        <ObjectUnionOf>
+            <Class IRI="#Animal"/>
+            <Class IRI="#Place"/>
+            <Class IRI="http://xmlns.com/foaf/0.1/Person"/>
+        </ObjectUnionOf>
+    </EquivalentClasses>
+    <SubClassOf>
+        <Class abbreviatedIRI="dbpedia:city"/>
+        <Class IRI="#Place"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class abbreviatedIRI="dbpedia:country"/>
+        <Class IRI="#Place"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Animal"/>
+        <Class IRI="#Subject"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Art"/>
+        <Class IRI="#Categorie"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Music"/>
+        <Class IRI="#Categorie"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Nature"/>
+        <Class IRI="#Place"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Party"/>
+        <Class IRI="#Categorie"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Picture"/>
+        <ObjectMaxCardinality cardinality="2">
+            <ObjectProperty IRI="#isInCategorie"/>
+            <Class IRI="#Categorie"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Place"/>
+        <Class IRI="#Subject"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Sport"/>
+        <Class IRI="#Categorie"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Travel"/>
+        <Class IRI="#Categorie"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Unicorn"/>
+        <Class IRI="#Animal"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#User"/>
+        <Class IRI="http://xmlns.com/foaf/0.1/Person"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://xmlns.com/foaf/0.1/Person"/>
+        <Class IRI="#Subject"/>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class abbreviatedIRI="dbpedia:city"/>
+        <Class abbreviatedIRI="dbpedia:country"/>
+        <Class IRI="#Nature"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Album"/>
+        <Class IRI="#Picture"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Animal"/>
+        <Class IRI="#Place"/>
+        <Class IRI="http://xmlns.com/foaf/0.1/Person"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#Categorie"/>
+        <Class IRI="#Picture"/>
+        <Class IRI="#Subject"/>
+    </DisjointClasses>
+    <ClassAssertion>
+        <Class IRI="#Nature"/>
+        <NamedIndividual IRI="#Beach"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#User"/>
+        <NamedIndividual IRI="#Ben"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://xmlns.com/foaf/0.1/Person"/>
+        <NamedIndividual IRI="#Ben"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sport"/>
+        <NamedIndividual IRI="#Bike"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Party"/>
+        <NamedIndividual IRI="#Birthday"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#User"/>
+        <NamedIndividual IRI="#Boris"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://xmlns.com/foaf/0.1/Person"/>
+        <NamedIndividual IRI="#Boris"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Nature"/>
+        <NamedIndividual IRI="#Desert"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://xmlns.com/foaf/0.1/Person"/>
+        <NamedIndividual IRI="#Donald"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Nature"/>
+        <NamedIndividual IRI="#Mountain"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Music"/>
+        <NamedIndividual IRI="#Rock"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sport"/>
+        <NamedIndividual IRI="#Running"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Music"/>
+        <NamedIndividual IRI="#Salsa"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Sport"/>
+        <NamedIndividual IRI="#Ski"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Art"/>
+        <NamedIndividual IRI="#architecture"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Art"/>
+        <NamedIndividual IRI="#nudes"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="#Unicorn"/>
+        <NamedIndividual IRI="#roger"/>
+    </ClassAssertion>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#categorieHas"/>
+        <ObjectProperty IRI="#isInCategorie"/>
+    </InverseObjectProperties>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#createdBy"/>
+        <ObjectProperty IRI="#creatorOf"/>
+    </InverseObjectProperties>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#createdBy"/>
+    </FunctionalObjectProperty>
+    <FunctionalObjectProperty>
+        <ObjectProperty IRI="#isFromAlbum"/>
+    </FunctionalObjectProperty>
+    <SymmetricObjectProperty>
+        <ObjectProperty IRI="#isFriendWith"/>
+    </SymmetricObjectProperty>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#createdBy"/>
+        <Class IRI="#Album"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#createdBy"/>
+        <Class IRI="#Picture"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#creatorOf"/>
+        <Class IRI="http://xmlns.com/foaf/0.1/Person"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isFriendWith"/>
+        <Class IRI="http://xmlns.com/foaf/0.1/Person"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isFromAlbum"/>
+        <Class IRI="#Picture"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isInCategorie"/>
+        <Class IRI="#Album"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isInCategorie"/>
+        <Class IRI="#Picture"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#sharedWith"/>
+        <Class IRI="#Picture"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#what"/>
+        <Class IRI="#Picture"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#where"/>
+        <Class IRI="#Picture"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#who"/>
+        <Class IRI="#Picture"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#createdBy"/>
+        <Class IRI="http://xmlns.com/foaf/0.1/Person"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#creatorOf"/>
+        <Class IRI="#Album"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#creatorOf"/>
+        <Class IRI="#Picture"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isFriendWith"/>
+        <Class IRI="http://xmlns.com/foaf/0.1/Person"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isFromAlbum"/>
+        <Class IRI="#Album"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#isInCategorie"/>
+        <Class IRI="#Categorie"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#sharedWith"/>
+        <Class IRI="#User"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#what"/>
+        <Class IRI="#Subject"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#where"/>
+        <Class IRI="#Place"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#who"/>
+        <Class IRI="#Animal"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#who"/>
+        <Class IRI="http://xmlns.com/foaf/0.1/Person"/>
+    </ObjectPropertyRange>
+    <FunctionalDataProperty>
+        <DataProperty IRI="#title"/>
+    </FunctionalDataProperty>
+    <DataPropertyDomain>
+        <DataProperty IRI="#creationDate"/>
+        <Class IRI="#Picture"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#title"/>
+        <Class IRI="#Picture"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#creationDate"/>
+        <Datatype IRI="http://purl.org/dc/elements/1.1/date"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#title"/>
+        <Datatype IRI="http://purl.org/dc/elements/1.1/title"/>
+    </DataPropertyRange>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/date"/>
+        <IRI>#Album</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/description"/>
+        <IRI>#Album</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/title"/>
+        <IRI>#Album</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/date"/>
+        <IRI>#Picture</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/description"/>
+        <IRI>#Picture</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"></Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/title"/>
+        <IRI>#Picture</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral"></Literal>
+    </AnnotationAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.2.6.20160910-2108) https://github.com/owlcs/owlapi -->
+

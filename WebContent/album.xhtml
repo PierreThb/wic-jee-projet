@@ -51,12 +51,49 @@
 									<div class="actions-wrapper">
 										<a class="action delete-image" href="#" data-target="${pic.id}"><span class="lnr lnr-trash"></span></a>
 										<a class="action" href="${request.contextPath}/images/${pic.title}" target="_blank"><span class="lnr lnr-eye"></span></a>
+										<a class="action" href="#modalAddLabel" target="_blank"><span class="lnr lnr-tag"></span></a>						
 									</div>	
 								</div>
 							</div>
-						</div>	
+						</div>					
 					</c:forEach>
 				</div>
+				<div id="modalAddLabel" class="modal">
+						  <div class="modal-content">
+						    <h4>Add labels to your pictures</h4>
+						    <h:form id="labelForm" enctype="multipart/form-data">
+					    		<h:inputHidden id="pictureId" value="#"/>
+							    <div class="input-field">
+									<h:outputLabel for="who" value="Who is in the picture ?" />
+									<h:inputText id="who"  />
+									<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
+								</div>
+								<div class="input-field">
+									<h:outputLabel for="what" value="What is in the picture ?" />
+									<h:inputText id="what" />
+									<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
+								</div>
+								<div class="input-field">
+									<h:outputLabel for="where" value="Where was the picture taken ?" />
+									<h:inputText id="where" />
+									<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
+								</div>
+								<div class="input-field">
+									<h:outputLabel for="when" value="When was the picture taken ?" />
+									<h:inputText id="when" />
+									<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
+								</div>
+
+						        <h:commandButton id="submit" value="Tag" />
+					        
+						    </h:form>
+						  </div>
+						  <div class="modal-footer">
+						  	<a href="#!" class="btn light-blue refresh-modal" data-action="refresh" data-target="">Ok</a>
+						  	<span class="spacer"></span>
+						    <a href="#!" class="btn grey lighten-2 modal-close" data-target="">Cancel</a>
+						  </div>
+						</div>	
 				
 				<h:form id="deleteHiddenForm" style="display: none;">
 				    <h:inputHidden id="pictureId" value="" />
