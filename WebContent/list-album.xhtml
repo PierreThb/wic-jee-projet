@@ -62,15 +62,22 @@
 					              <h:commandLink action="#{albumController.displayAlbum(album.id)}">
 					              	<span class="lnr lnr-picture"></span> See
 					              </h:commandLink>
-					              <h:commandLink action="#{albumController.deleteAlbum(album.id)}">
+					              <a class="delete-album" href="#" data-target="${album.id}">
 					              	<span class="lnr lnr-trash"></span> Delete
-					              </h:commandLink>
+					              </a>
 				              </h:form>
 				            </div>
 				          </div>
 				        </div>
 					</c:forEach>
 				</div>
+				
+				<h:form id="deleteHiddenForm" style="display: none;">
+				    <h:inputHidden id="albumId" value="" />
+				    <h:commandButton id="submitDeleteHiddenForm">
+				        <f:ajax execute="@form" listener="#{albumController.deleteAlbum()}" onevent="refreshPage" />
+				    </h:commandButton>
+				</h:form>
 			</f:view>
 		</ui:define>
 

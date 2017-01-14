@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.Query;
 
 import fr.uga.miashs.album.model.Album;
-import fr.uga.miashs.album.model.AppUser;
 import fr.uga.miashs.album.model.Picture;
 
 public class PictureService extends JpaService<Long,Picture> {
@@ -18,10 +17,24 @@ public class PictureService extends JpaService<Long,Picture> {
 		super.create(p);
 	}
 	
+	public Picture getPictureById(String id) throws ServiceException{
+		Picture picture = getEm().find(Picture.class, id);
+		getEm().refresh(picture);
+		
+		return picture;
+	}
+	
 	public List<Picture> listPictureFromAlbum(Album a){
 		System.out.println(a.getId());
 		Query query = getEm().createNamedQuery("Picture.findAllPicturesFromAlbum");
 		query.setParameter("album", getEm().merge(a));
 		return query.getResultList();
+	}
+	
+	public void deletePictureById(String id) throws ServiceException{
+		Picture picture = getEm().find(Picture.class, id);
+		getEm().getTransaction().begin();
+		getEm().remove(picture);
+		getEm().getTransaction().commit();
 	}
 }

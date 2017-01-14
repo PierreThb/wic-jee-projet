@@ -190,29 +190,51 @@ public class AlbumController {
 	    }
 	}
 	
-	public void deletePicture() {
+	public void deleteAlbum() {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-	    String pictureId = ec.getRequestParameterMap().get("deleteHiddenForm:pictureId");
-		System.out.println("delete image : "+pictureId);
+		String albumId = ec.getRequestParameterMap().get("deleteHiddenForm:albumId");
+		System.out.println("delete album : "+albumId);
 		
-		//TODO
+		try {
+			Album album = albumService.getAlbumById(albumId);
+			List<Picture> pictures = pictureService.listPictureFromAlbum(album);
+			
+			for(Picture picture : pictures){
+				deletePicture(picture);
+			}
+			
+			albumService.deleteAlbumById(albumId);
+			
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public void displayPicture(String filename) throws IOException {
-		FacesContext fc = FacesContext.getCurrentInstance();
-	    ExternalContext ec = fc.getExternalContext();
-	    
-	    File file = new File(ec.getInitParameter("directory")+filename);
-		String fileName = file.getName();
-		String contentType = ec.getMimeType(fileName);
-		int contentLength = (int) file.length();
-
-	    ec.responseReset(); 
-	    ec.setResponseContentType(contentType); 
-	    ec.setResponseContentLength(contentLength); 
-	    ec.setResponseHeader("Content-disposition", "inline;filename=\"" + fileName + "\""); 
-	    OutputStream output = ec.getResponseOutputStream(); 
-
-		Files.copy(file.toPath(), output);
+	public void deletePicture() {
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		String pictureId = ec.getRequestParameterMap().get("deleteHiddenForm:pictureId");
+		System.out.println("delete image : "+pictureId);
+		
+		try {
+			Picture picture = pictureService.getPictureById(pictureId);
+			Path filepath = Paths.get(picture.getLocalfile());
+			Files.deleteIfExists(filepath);
+			pictureService.deletePictureById(pictureId);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deletePicture(Picture picture) {
+		System.out.println("delete image : "+picture.getId());
+		
+		try {
+			Path filepath = Paths.get(picture.getLocalfile());
+			Files.deleteIfExists(filepath);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
