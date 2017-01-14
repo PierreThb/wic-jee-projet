@@ -1,15 +1,26 @@
 package fr.uga.miashs.album.control;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 
+import fr.uga.miashs.album.model.Album;
 import fr.uga.miashs.album.model.AppUser;
+import fr.uga.miashs.album.model.Picture;
+import fr.uga.miashs.album.service.AlbumService;
 import fr.uga.miashs.album.service.AppUserService;
+import fr.uga.miashs.album.service.PictureService;
 import fr.uga.miashs.album.service.ServiceException;
 import fr.uga.miashs.album.util.Pages;
 
@@ -28,6 +39,15 @@ public class AppUserController implements Serializable {
 
 	@Inject
 	private AppUserService appUserService;
+
+	@Inject
+	private AlbumService albumService;
+	
+	@Inject
+	private PictureService pictureService;
+	
+	@Inject
+	private AppUserSession appUserSession;
 	
 	private AppUser user;
 	
@@ -57,10 +77,57 @@ public class AppUserController implements Serializable {
 		
 	}
 	
-	public String delete(long userId) {
-		appUserService.deleteById(userId);
+	public void delete() {
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		String userId = ec.getRequestParameterMap().get("deleteHiddenForm:userId");
+		System.out.println("delete user : "+userId);
 		
-		return Pages.list_user;
+		try {
+			AppUser user = appUserService.getUserById(userId);
+			List<Album> albums = albumService.listAlbumOwnedBy(user);
+			
+			for(Album album : albums){
+				deleteAlbum(album);
+			}
+			
+			appUserService.deleteUserById(userId);
+			
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+		
+		if(String.valueOf(appUserSession.getConnectedUser().getId()).equals(userId)){
+			FacesContext context = FacesContext.getCurrentInstance();
+			((HttpSession) context.getExternalContext().getSession(false)).invalidate();
+			appUserSession.setConnectedUser(null);
+		}
+	}
+	
+	public void deleteAlbum(Album album) {
+		System.out.println("delete album : "+album.getId());
+		
+		try {
+			List<Picture> pictures = pictureService.listPictureFromAlbum(album);
+			for(Picture picture : pictures){
+				deletePicture(picture);
+			}
+			
+			albumService.deleteAlbumById(String.valueOf(album.getId()));
+			
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deletePicture(Picture picture) {
+		System.out.println("delete image : "+picture.getId());
+		
+		try {
+			Path filepath = Paths.get(picture.getLocalfile());
+			Files.deleteIfExists(filepath);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

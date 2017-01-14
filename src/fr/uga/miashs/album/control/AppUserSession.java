@@ -92,4 +92,8 @@ public class AppUserSession implements Serializable {
 	public AppUser getConnectedUser() {
 		return connectedUser;
 	}
+	
+	public void setConnectedUser(AppUser user) {
+		this.connectedUser = user;
+	}
 }

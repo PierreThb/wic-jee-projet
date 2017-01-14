@@ -95,65 +95,36 @@ Rechercher les photos de la région rhones-alpes qui contient des montagnes
 </tomee>
 ```
 
-## Run & Install project (MySQL 4.x) : 
+## Configurations
 
-* Download [eclipse JEE Kepler RS2](http://www.eclipse.org/downloads/packages/eclipse-ide-java-ee-developers/keplerr) 
-* Download [Apache Tomcat JEE jaxrs-1.7.4 2](https://tomee.apache.org/downloads.html)
-* Download [MySQL JDBC Driver](https://dev.mysql.com/downloads/connector/j/)
-* Copy `mysql-connector-java-5.1.40-bin.jar` to `[TomEE_install_dir]/lib`
-* Create new Project > Dynamique Web Project
-	* Clone your existing project in this new project
-* Create new Eclipse runtime server : 
-	* New > Server
-	* Tomcat v7.0 Server
-	* Server runtime environment > add
-	* Tomcat installation directory : path to the previously downloaded and dezipped tomcat directory
-
-* Configure web.xml :
-	* Change the `directory` parameter to where you want your album to be upload
-	* And add the following if not already there :
-```xml 
-<resource-env-ref>
-    <resource-env-ref-name>jdbc/DATABASE_NAME</resource-env-ref-name>
-    <resource-env-ref-type>javax.sql.DataSource</resource-env-ref-type>
-</resource-env-ref>
-``` 
-
-* Configure `WebContent/META-INF/context.xml` to connect with your database (MySQL)
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<Context>
-    <Resource
-        name="jdbc/DATABASE_NAME" type="javax.sql.DataSource"
-        maxActive="100" maxIdle="30" maxWait="10000" 
-        url="jdbc:mysql://localhost:3306/DATABASE_NAME"
-        driverClassName="com.mysql.jdbc.Driver"
-        username="root" password=""
-    />
-</Context>
+web.xml PC portable Benoit :
 ```
-
-* Configure `src/META-INF/persistence.xml` to match your database
-```xml
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.1" xmlns="http://java.sun.com/xml/ns/persistence" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="EssaiJPA" transaction-type="RESOURCE_LOCAL">
-		<non-jta-data-source>albumDS</non-jta-data-source>
-		<class>fr.uga.miashs.album.model.Album</class>
-		<class>fr.uga.miashs.album.model.AppUser</class>
-		<class>fr.uga.miashs.album.model.Picture</class>
-	<properties>
-		<property name="openjpa.jdbc.Schema" value="DATABASE_NAME"/>
-		<property name='openjpa.jdbc.SynchronizeMappings' value='buildSchema(ForeignKeys=true)' />
-	</properties>
-	</persistence-unit>
-</persistence>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>ProjetAlbum</display-name>
+  <servlet>
+    <servlet-name>Faces Servlet</servlet-name>
+    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.xhtml</url-pattern>
+  </servlet-mapping>
+  <context-param>
+    <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
+    <param-value>true</param-value>
+  </context-param>
+  <context-param>
+    <param-name>javax.faces.PROJECT_STAGE</param-name>
+    <param-value>Development</param-value>
+  </context-param>
+  <context-param>
+    <param-name>directory</param-name>
+    <param-value>C:\\Users\\ben\\Documents\\Dev\\Fac\\utils\\uploads</param-value>
+  </context-param>
+</web-app>
 ```
-### Known issues quick fix :	
-* If the project is not runing, check for unbound librairies: Right Click on Project > BuildPath > ConfigureBuildPath and add unbound librairies
-* If the MySQL table creation fail, check your version of MySQL and OpenJPA (http://stackoverflow.com/a/6597724)
 
 
 ## Triple Store Installation 

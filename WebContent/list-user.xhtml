@@ -35,10 +35,19 @@
 					      <h:outputText value="#{user.password}"/>
 					   </h:column>
 					   <h:column>
-					      <h:commandLink action="#{appUserController.delete(user.id)}" value="delete"/>
+					   	  <a class="delete-user" href="#" data-target="${user.id}">
+			              	<span class="lnr lnr-trash"></span> Delete
+			              </a>
 					   </h:column>
 					</h:dataTable>					
-				</h:form>	
+				</h:form>
+				
+				<h:form id="deleteHiddenForm" style="display: none;">
+				    <h:inputHidden id="userId" value="" />
+				    <h:commandButton id="submitDeleteHiddenForm">
+				        <f:ajax execute="@form" listener="#{appUserController.delete()}" onevent="refreshPage" />
+				    </h:commandButton>
+				</h:form>
 			</f:view>
 		</ui:define>
 

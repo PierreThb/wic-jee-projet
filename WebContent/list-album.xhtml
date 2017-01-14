@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
@@ -40,7 +41,7 @@
 							  <div class="modal-footer">
 							    <h:commandButton class="btn light-blue" action="#{albumController.createAlbum()}" value="Create Album"/>
 							    <span class="spacer"></span>
-							    <a href="#!" class="btn grey lighten-2 close-modal" data-target="">Cancel</a>
+							    <a href="#!" class="btn grey lighten-2 modal-close close-modal" data-target="">Cancel</a>
 							  </div>
 						  </h:form>
 						</div>
@@ -50,12 +51,30 @@
 					<c:forEach var="album" items="#{albumController.listAlbumOwnedByCurrentUser}">
 						<div class="col s12 m6 l4">
 				          <div class="card">
-				            <div class="card-image">
-				              <h:graphicImage name="img/default-wallpaper.jpg"/>
-				              <span class="card-title">#{album.title}</span>
-				            </div>
+					          <h:form class="card-image">
+					            <h:commandLink action="#{albumController.displayAlbum(album.id)}">				           
+					              	<c:set var="pictures" value="${album.getPictures()}" />
+					              	<c:choose>
+									    <c:when test="${fn:length(pictures) gt 0}">
+									    	<div class="thumbnail" style="background-image:url('#{request.contextPath}/images/#{pictures.toArray()[0].title}');"></div>
+									    </c:when>
+									    <c:otherwise>
+									        <div class="thumbnail"></div>
+									    </c:otherwise>
+									</c:choose>
+					              
+					              <span class="card-title">#{album.title} (${fn:length(album.getPictures())})</span>
+					            </h:commandLink>
+					           </h:form>
 				            <div class="card-content">
-				              <p>#{album.description}</p>
+				            	<c:choose>
+								    <c:when test="${fn:length(album.description) gt 0}">
+								    	<p>#{album.description}</p>
+								    </c:when>
+								    <c:otherwise>
+								    	<p>This album has no description.</p>
+								    </c:otherwise>
+								</c:choose>
 				            </div>
 				            <div class="card-action">
 				            	<h:form>

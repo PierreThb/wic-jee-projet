@@ -9,6 +9,7 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.RollbackException;
 
+import fr.uga.miashs.album.model.Album;
 import fr.uga.miashs.album.model.AppUser;
 
 @Named
@@ -46,5 +47,19 @@ public class AppUserService extends JpaService<Long,AppUser> {
 	public List<AppUser> listUsers() {
 		 Query query = getEm().createNamedQuery("AppUser.findAll");
 		 return query.getResultList();
+	}
+	
+	public AppUser getUserById(String id) throws ServiceException{
+		AppUser user = getEm().find(AppUser.class, id);
+		getEm().refresh(user);
+		
+		return user;
+	}
+	
+	public void deleteUserById(String id) throws ServiceException{
+		AppUser user = getEm().find(AppUser.class, id);
+		getEm().getTransaction().begin();
+		getEm().remove(user);
+		getEm().getTransaction().commit();
 	}
 }

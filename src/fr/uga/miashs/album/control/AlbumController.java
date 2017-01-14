@@ -21,6 +21,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.ValidatorException;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.apache.myfaces.util.FilenameUtils;
@@ -106,7 +107,7 @@ public class AlbumController {
 	public List<Picture> getListPictureFromAlbum() throws ServiceException {
 		if(album.getId() != 0){
 			List<Picture> listPictures = pictureService.listPictureFromAlbum(album);
-			return pictureService.listPictureFromAlbum(album);
+			return listPictures;
 		}
 		return null;
 	}
@@ -198,6 +199,9 @@ public class AlbumController {
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
+		
+		FacesContext context = FacesContext.getCurrentInstance();
+		((HttpSession) context.getExternalContext().getSession(false)).invalidate();
 	}
 	
 	public void deletePicture() {
