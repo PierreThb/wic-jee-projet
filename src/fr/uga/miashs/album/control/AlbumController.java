@@ -23,11 +23,16 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.Part;
 
+import org.apache.jena.update.UpdateExecutionFactory;
+import org.apache.jena.update.UpdateFactory;
+import org.apache.jena.update.UpdateProcessor;
+import org.apache.jena.update.UpdateRequest;
 import org.apache.myfaces.util.FilenameUtils;
 
 import fr.uga.miashs.album.model.Album;
 import fr.uga.miashs.album.model.Picture;
 import fr.uga.miashs.album.service.AlbumService;
+import fr.uga.miashs.album.service.PictureAnnotationService;
 import fr.uga.miashs.album.service.PictureService;
 import fr.uga.miashs.album.service.ServiceException;
 import fr.uga.miashs.album.service.SparqlService;
@@ -47,6 +52,8 @@ public class AlbumController {
 	@Inject
 	private PictureService pictureService;
 	
+	@Inject
+	private PictureAnnotationService pictureAnnotationService;
 	
 	private Album album;
 	
@@ -168,8 +175,8 @@ public class AlbumController {
 			try {
 				System.out.println("album : "+album.getOwner().getFirstname());
 				pictureService.create(picture);
-				SparqlService spq = new SparqlService();
-				spq.insertData("coucou");
+				//sparqlService.insertData("coucou");
+				pictureAnnotationService.pushup();
 			} catch (ServiceException e) {
 				e.printStackTrace();
 			}
