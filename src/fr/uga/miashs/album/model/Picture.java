@@ -39,11 +39,12 @@ public class Picture {
 	public Picture() {
 	}
 
-	public Picture(Album album, String title, Path localfile) {
+	public Picture(Album album, String title, Path localfile, URI uri) {
 		super();
 		this.album = album;
 		this.title = title;
 		this.localfile = localfile.toString();
+		this.uri = uri;
 	}
 
 	public long getId() {

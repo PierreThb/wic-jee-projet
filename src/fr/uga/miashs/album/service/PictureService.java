@@ -9,12 +9,15 @@ import fr.uga.miashs.album.model.Picture;
 
 public class PictureService extends JpaService<Long,Picture> {
 	
+	private SparqlUpdateService sparqlUpdateService = new SparqlUpdateService();
 	
 	public void create(Picture p) throws ServiceException {
 		Album album = p.getAlbum();
 		album.setOwner(getEm().merge(getEm().merge( album.getOwner())));
 		p.setAlbum(getEm().merge(getEm().merge(album)));
 		super.create(p);
+		
+		sparqlUpdateService.insertPicture(p);
 	}
 	
 	public Picture getPictureById(String id) throws ServiceException{

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +34,9 @@ import org.apache.myfaces.util.FilenameUtils;
 import fr.uga.miashs.album.model.Album;
 import fr.uga.miashs.album.model.Picture;
 import fr.uga.miashs.album.service.AlbumService;
-import fr.uga.miashs.album.service.PictureAnnotationService;
+import fr.uga.miashs.album.service.SparqlUpdateService;
 import fr.uga.miashs.album.service.PictureService;
 import fr.uga.miashs.album.service.ServiceException;
-import fr.uga.miashs.album.service.SparqlService;
 import fr.uga.miashs.album.util.Pages;
 
 @Named
@@ -52,8 +53,7 @@ public class AlbumController {
 	@Inject
 	private PictureService pictureService;
 	
-	@Inject
-	private PictureAnnotationService pictureAnnotationService;
+	
 	
 	private Album album;
 	
@@ -140,11 +140,11 @@ public class AlbumController {
 	        this.file = file;
 	        uploadPictures();
     	}
-	    catch (IOException e) {
+	    catch (IOException | URISyntaxException e) {
 	    }
     }
 
-	public void uploadPictures() {
+	public void uploadPictures() throws URISyntaxException {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 	    ExternalContext externalContext = facesContext.getExternalContext();
 	    
@@ -171,12 +171,13 @@ public class AlbumController {
 	    		} catch (ServiceException e) {}
 	        }
 			
-			Picture picture = new Picture(album,filepath.getFileName().toString(),filepath);
+	        URI uri = new URI("http://www.semanticweb.org/projetAlbum#" + filepath.getFileName());
+	        
+			Picture picture = new Picture(album,filepath.getFileName().toString(),filepath, uri);
 			try {
 				System.out.println("album : "+album.getOwner().getFirstname());
 				pictureService.create(picture);
-				//sparqlService.insertData("coucou");
-				pictureAnnotationService.pushup();
+				
 			} catch (ServiceException e) {
 				e.printStackTrace();
 			}
@@ -185,8 +186,10 @@ public class AlbumController {
 		    externalContext.setResponseCharacterEncoding("UTF-8");
 		    externalContext.getResponseOutputWriter().write("{filepath :"+filepath+"}");
 		    facesContext.responseComplete();
+		    
 	    }
 	    catch (IOException e) {
+	    	e.printStackTrace();
 	    }
 	}
 	
