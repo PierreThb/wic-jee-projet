@@ -3,7 +3,6 @@ package fr.uga.miashs.album.model;
 import java.net.URI;
 import java.nio.file.Path;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +24,7 @@ public class Picture {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private Album album;
 	
 	@NotNull

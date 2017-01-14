@@ -187,22 +187,4 @@ public class AlbumController {
 		
 		//TODO
 	}
-	
-	public void displayPicture(String filename) throws IOException {
-		FacesContext fc = FacesContext.getCurrentInstance();
-	    ExternalContext ec = fc.getExternalContext();
-	    
-	    File file = new File(ec.getInitParameter("directory")+filename);
-		String fileName = file.getName();
-		String contentType = ec.getMimeType(fileName);
-		int contentLength = (int) file.length();
-
-	    ec.responseReset(); 
-	    ec.setResponseContentType(contentType); 
-	    ec.setResponseContentLength(contentLength); 
-	    ec.setResponseHeader("Content-disposition", "inline;filename=\"" + fileName + "\""); 
-	    OutputStream output = ec.getResponseOutputStream(); 
-
-		Files.copy(file.toPath(), output);
-	}
 }
