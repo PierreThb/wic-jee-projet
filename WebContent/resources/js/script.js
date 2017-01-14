@@ -34,8 +34,29 @@ $(document).ready(function() {
 		document.getElementById('deleteHiddenForm:pictureId').value = $(this).data("target");
 		
 		swal({
+			title: "Are you sure?",
+			text: "You will not be able to recover this file (id : "+$(this).data("target")+")",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes, delete it!",
+			closeOnConfirm: true
+		},
+		function(){
+			document.getElementById('deleteHiddenForm:submitDeleteHiddenForm').click();
+		});
+	});
+	
+	
+	//ajax to delete album
+	$('.delete-album').click(function(e) {
+		e.preventDefault();
+		
+		document.getElementById('deleteHiddenForm:albumId').value = $(this).data("target");
+		
+		swal({
 		  title: "Are you sure?",
-		  text: "You will not be able to recover this file (id : "+$(this).data("target")+")",
+		  text: "You will not be able to recover this album and all its pictures",
 		  type: "warning",
 		  showCancelButton: true,
 		  confirmButtonColor: "#DD6B55",

@@ -180,9 +180,29 @@ public class AlbumController {
 	    }
 	}
 	
+	public void deleteAlbum() {
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		String albumId = ec.getRequestParameterMap().get("deleteHiddenForm:albumId");
+		System.out.println("delete album : "+albumId);
+		
+		try {
+			Album album = albumService.getAlbumById(albumId);
+			List<Picture> pictures = pictureService.listPictureFromAlbum(album);
+			
+			for(Picture picture : pictures){
+				deletePicture(picture);
+			}
+			
+			albumService.deleteAlbumById(albumId);
+			
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void deletePicture() {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-	    String pictureId = ec.getRequestParameterMap().get("deleteHiddenForm:pictureId");
+		String pictureId = ec.getRequestParameterMap().get("deleteHiddenForm:pictureId");
 		System.out.println("delete image : "+pictureId);
 		
 		try {
@@ -192,6 +212,17 @@ public class AlbumController {
 			pictureService.deletePictureById(pictureId);
 		} catch (ServiceException e) {
 			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deletePicture(Picture picture) {
+		System.out.println("delete image : "+picture.getId());
+		
+		try {
+			Path filepath = Paths.get(picture.getLocalfile());
+			Files.deleteIfExists(filepath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
