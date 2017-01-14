@@ -185,6 +185,15 @@ public class AlbumController {
 	    String pictureId = ec.getRequestParameterMap().get("deleteHiddenForm:pictureId");
 		System.out.println("delete image : "+pictureId);
 		
-		//TODO
+		try {
+			Picture picture = pictureService.getPictureById(pictureId);
+			Path filepath = Paths.get(picture.getLocalfile());
+			Files.deleteIfExists(filepath);
+			pictureService.deletePictureById(pictureId);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
