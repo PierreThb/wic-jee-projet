@@ -53,7 +53,8 @@ public class AlbumController {
 	@Inject
 	private PictureService pictureService;
 	
-	
+	@Inject
+	private SparqlUpdateService sparqlUpdateService;
 	
 	private Album album;
 	

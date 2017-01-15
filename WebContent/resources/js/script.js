@@ -26,7 +26,47 @@ $(document).ready(function() {
 	});
 	$('.refresh-modal').hide();
 	
+	//ajax adding labels 
+	$('.add-label').click(function(e){
+		e.preventDefault();
+		
+		document.getElementById('labelForm:pictureId').value = $(this).data("target");
+		
+	});
 	
+	$('.chips').material_chip();
+	$('.chips-initial').material_chip({
+	  data: [{
+	    tag: 'Apple',
+	  }, {
+	    tag: 'Microsoft',
+	  }, {
+	    tag: 'Google',
+	  }],
+	});
+	$('#chips-who').material_chip({
+	  placeholder: 'Enter a tag',
+	  secondaryPlaceholder: '+roger',
+	});
+	
+	$('#chips-what').material_chip({
+	  placeholder: 'Enter a tag',
+	  secondaryPlaceholder: '+Flower',
+	});
+	
+	$('#chips-what').on('chip.add', function(e, chip) {
+		
+		document.getElementById('whatTagHiddenForm:pictureId').value = document.getElementById('labelForm:pictureId').value;
+		document.getElementById('whatTagHiddenForm:what').value = chip.tag;
+		document.getElementById('whatTagHiddenForm:submitWhatTagHiddenForm').click();
+	});
+	
+	$('#chips-who').on('chip.add', function(e, chip) {
+		document.getElementById('whoTagHiddenForm:pictureId').value = document.getElementById('labelForm:pictureId').value;
+		document.getElementById('whoTagHiddenForm:who').value = chip.tag;
+		document.getElementById('whoTagHiddenForm:submitWhoTagHiddenForm').click();
+	});
+	  
 	//ajax to delete image
 	$('.delete-image').click(function(e) {
 		e.preventDefault();
@@ -86,4 +126,6 @@ function refreshPage(data){
 	if (data.status == "success") {
 		window.location.reload();
     }
+
+
 }

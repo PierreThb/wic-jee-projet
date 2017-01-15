@@ -51,7 +51,7 @@
 									<div class="actions-wrapper">
 										<a class="action delete-image" href="#" data-target="${pic.id}"><span class="lnr lnr-trash"></span></a>
 										<a class="action" href="${request.contextPath}/images/${pic.title}" target="_blank"><span class="lnr lnr-eye"></span></a>
-										<a class="action" href="#modalAddLabel" target="_blank"><span class="lnr lnr-tag"></span></a>						
+										<a class="action add-label" href="#modalAddLabel" data-target="${pic.id}"><span class="lnr lnr-tag"></span></a>						
 									</div>	
 								</div>
 							</div>
@@ -59,46 +59,58 @@
 					</c:forEach>
 				</div>
 				<div id="modalAddLabel" class="modal">
+					<h:form id="labelForm" enctype="multipart/form-data">
 						  <div class="modal-content">
-						    <h4>Add labels to your pictures</h4>
-						    <h:form id="labelForm" enctype="multipart/form-data">
-					    		<h:inputHidden id="pictureId" value="#"/>
-							    <div class="input-field">
-									<h:outputLabel for="who" value="Who is in the picture ?" />
-									<h:inputText id="who"  />
-									<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
+						    <h4>Add informations about your pictures</h4>
+						    
+					    		<h:inputHidden id="pictureId" value=""/>
+					    		<p>Who's in the picture :</p>
+							    <div id="chips-who">
 								</div>
-								<div class="input-field">
-									<h:outputLabel for="what" value="What is in the picture ?" />
-									<h:inputText id="what" />
-									<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
+								<p>What's in the picture :</p>
+								<div  id="chips-what">
 								</div>
 								<div class="input-field">
 									<h:outputLabel for="where" value="Where was the picture taken ?" />
 									<h:inputText id="where" />
 									<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
 								</div>
-								<div class="input-field">
+								<div class="datepicker">
+									
+								<!-- 
 									<h:outputLabel for="when" value="When was the picture taken ?" />
-									<h:inputText id="when" />
+									<h:inputText a:type="date" id="when" /> -->
 									<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
-								</div>
-
-						        <h:commandButton id="submit" value="Tag" />
-					        
-						    </h:form>
+								</div>			   
 						  </div>
 						  <div class="modal-footer">
-						  	<a href="#!" class="btn light-blue refresh-modal" data-action="refresh" data-target="">Ok</a>
+						    <h:commandButton id="submitLabelForm" class="btn light-blue" value="Tag">	
+					        	<f:ajax execute="@form" listener="#{annotationController.tagPicture()}" onevent="refreshPage" />
+					        </h:commandButton>
 						  	<span class="spacer"></span>
 						    <a href="#!" class="btn grey lighten-2 modal-close" data-target="">Cancel</a>
 						  </div>
-						</div>	
+					   </h:form>
+					</div>	
 				
 				<h:form id="deleteHiddenForm" style="display: none;">
 				    <h:inputHidden id="pictureId" value="" />
 				    <h:commandButton id="submitDeleteHiddenForm">
 				        <f:ajax execute="@form" listener="#{albumController.deletePicture()}" onevent="refreshPage" />
+				    </h:commandButton>
+				</h:form>
+				<h:form id="whoTagHiddenForm" style="display: none;">
+				    <h:inputHidden id="pictureId" value="" />
+				    <h:inputHidden id="who" value="" />
+				    <h:commandButton id="submitWhoTagHiddenForm">
+				        <f:ajax execute="@form" listener="#{annotationController.whoTagPicture()}" />
+				    </h:commandButton>
+				</h:form>
+				<h:form id="whatTagHiddenForm" style="display: none;">
+				    <h:inputHidden id="pictureId" value="" />
+				    <h:inputHidden id="what" value="" />
+				    <h:commandButton id="submitWhatTagHiddenForm">
+				        <f:ajax execute="@form" listener="#{annotationController.whatTagPicture()}" />
 				    </h:commandButton>
 				</h:form>
 			</f:view>
