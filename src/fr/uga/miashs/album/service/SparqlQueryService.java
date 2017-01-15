@@ -1,5 +1,8 @@
 package fr.uga.miashs.album.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
@@ -24,40 +27,42 @@ public class SparqlQueryService {
 	public static final String DC = "<http://purl.org/dc/elements/1.1/>";
 	public static final String SOURCE_TRIPLE_STORE = "http://localhost:3030/ALBUM/update";
 	
-	public void getAllPictures(){
+	public List<String> getAllPictures(){
 		String queryString = "SELECT ?p  WHERE {?p a ns:Picture .}";
-		getQuery(queryString);
+		return getQuery(queryString);
 	}
 	
-	public void getWhatTagPicture(String strURI) {
+	public List<String> getWhatTagPicture(String strURI) {
 		String queryString = "SELECT ?p WHERE { <" + strURI + "> ns:what ?p .}";
 		System.out.println(queryString);
-		getQuery(queryString);
+		return getQuery(queryString);
 	}
 
-	public void getWhoTagPicture(String strURI) {
+	public List<String> getWhoTagPicture(String strURI) {
 		String queryString = "SELECT ?p WHERE { <" + strURI + "> ns:who ?p .}";
 		System.out.println(queryString);
-		getQuery(queryString);
+		return getQuery(queryString);
 	}
 	
-	public void getWhenTagPicture(String strURI) {
+	public List<String> getWhenTagPicture(String strURI) {
 		String queryString = "SELECT ?p WHERE { <" + strURI + "> ns:when ?p .}";
-		getQuery(queryString);
+		return getQuery(queryString);
 	}
 	
-	public void getWhereTagPicture(String strURI) {
+	public List<String> getWhereTagPicture(String strURI) {
 		String queryString = "SELECT ?p WHERE { <" + strURI + "> ns:where ?p .}";
-		getQuery(queryString);
+		return getQuery(queryString);
 	}
 	
-	public void getQuery(String queryString) {
+	public List<String> getQuery(String queryString) {
 		Query query = QueryFactory.create(
 				"PREFIX rdfs: " + RDFS + "\n" +
 				"PREFIX foaf: " + FOAF + "\n" +
 				"PREFIX ns: " + NS_PREFIX + "\n" +
 				"PREFIX dc: " + DC + "\n" +
 				queryString);
+		
+		List<String> resultList = new ArrayList<String>();
 		
 		  try (QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/ALBUM/sparql",query)) {
 		    ResultSet results = qexec.execSelect() ;
@@ -68,9 +73,35 @@ public class SparqlQueryService {
 		      Resource r = soln.getResource("p") ; // Get a result variable - must be a resource
 		      Literal l = soln.getLiteral("o") ;   // Get a result variable - must be a literal
 		      System.out.println(x+" "+r+" "+l);
+		      
+		      if (r != null){
+		    	  resultList.add(r.toString());
+		      }
 		    }
-		    System.out.println(results);
+		    System.out.println(resultList);
 		  }
+		  
+		  return resultList;
+	}
+
+	public List<String> getUnicorn() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<String> getRogerAndBen() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<String> getPeople() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public List<String> getWithoutPeople() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

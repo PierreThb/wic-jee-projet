@@ -40,12 +40,13 @@
 	 					       	<h:selectOneRadio value="#{searchController.radioSelectedQuery}" layout="pageDirection" >
 	 					       		<f:selectItems value="#{searchController.mapStaticQuery}"></f:selectItems>
 								</h:selectOneRadio>
-					        <h:commandButton class="btn" id="submit" action="#{searchController.getStaticQuery}" value="search" >
+					        <h:commandButton class="btn" id="submit" value="search" action="#{searchController.getStaticQuery}" >
+					        	<f:ajax execute="@form" render="result" />
 					        </h:commandButton>	
 					    </h:form>
 				  	</div>
 				</div>
-<!-- 				<div class="row">
+ 				<div class="row">
 					<c:forEach var="pic" items="#{searchController.listPictureFromQuery}">
 						<div class="col s12 m4 l3 wrapper-image">
 							<div class="inner-wrapper-image" style="background-image:url('#{request.contextPath}/images/${pic.title}');">
@@ -59,7 +60,13 @@
 							</div>
 						</div>					
 					</c:forEach>
-				</div> -->
+				</div> 
+				<div class="row">
+					<h:panelGroup id="result" rendered="#{not empty searchController.listPictureFromQuery}">
+   						<ui:repeat value="#{searchController.listPictureFromQuery}" var="pic2">
+   						</ui:repeat>
+   					</h:panelGroup>
+				</div>
 			</f:view>
 		</ui:define>
 	</ui:composition>
