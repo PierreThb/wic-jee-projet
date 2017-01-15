@@ -20,6 +20,9 @@
 				<a href="#" class="main-logo"> Photos</a>
 				<ul class="right">
 					<ui:fragment rendered="#{sessionScope.appUserSession != null}">
+						<li class="search">
+							<a href="search.xhtml" class="button"> Search Engine </a>
+						</li>
 						<li class="search-input">
 							<span class="lnr lnr-magnifier"></span>
 							<input type="text" id="search"  placeholder="Search for photos" />

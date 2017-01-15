@@ -13,14 +13,14 @@ public class SparqlUpdateService {
 	public static final String NS_PREFIX = "<" + NS + ">";
 	public static final String RDFS = "<http://www.w3.org/2000/01/rdf-schema#>";
 	public static final String FOAF = "<http://xmlns.com/foaf/0.1/>";
-	public static final String DC = "<http://purl.org/dc/elements/1.1>";
+	public static final String DC = "<http://purl.org/dc/elements/1.1/>";
 	public static final String SOURCE_TRIPLE_STORE = "http://localhost:3030/ALBUM/update";
+	public static final String XSD = "<http://www.w3.org/2001/XMLSchema#>";
 	
 	public void insertWhatProperty(String pictureURI, String what){	
 		
 		String whatURI = "<" + NS + what + ">"; //we assume that it exist
-		String queryString = "<" + pictureURI + "> ns:what " + whatURI + " .\n" +
-								whatURI + " a ns:Subject .";
+		String queryString = "<" + pictureURI + "> ns:what " + whatURI + " .";
 		System.out.println("What : " + queryString);
 		insertData(queryString);
 	}
@@ -45,7 +45,7 @@ public class SparqlUpdateService {
 	
 	public void insertWhenProperty(String pictureURI, String when){
 
-		String queryString = "<" + pictureURI + "> ns:when " + when + " .";
+		String queryString = "<" + pictureURI + "> dc:date \"" + when + "\" .";
 		System.out.println("When : " + queryString);
 		insertData(queryString);
 	}
@@ -88,6 +88,7 @@ public class SparqlUpdateService {
 				"PREFIX foaf: " + FOAF + "\n" +
 				"PREFIX ns: " + NS_PREFIX + "\n" +
 				"PREFIX dc: " + DC + "\n" +
+				"PREFIX xsd: " + XSD + "\n" +
 				"INSERT DATA {\n" +
 					insertDataString + "}");
 		

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>Search - JEE WIC</title>
+</head>
+
+<body>
+<!-- 
+	<f:metadata>
+	    <f:viewAction action="#{albumController.checkAlbum()}" />
+	</f:metadata> -->
+	<!-- DECLARATION DU TEMPLATE DONT LA PAGE EST CLIENTE -->
+	<ui:composition template="/template/layout.xhtml">
+
+	<!-- Redefinition de la zone 'content' du layout  -->
+		<ui:define name="content">
+			<f:view>
+<!-- 				<div class="row">
+					<div class="col s12">
+					    <h4>Dynamic Search Engine</h4>
+					    <h:form id="dynamicQueryForm" enctype="multipart/form-data">
+						    <div class="fallback">
+					            <h:inputFile id="file" value="#{albumController.file}" />
+					            <h:commandButton id="submit" value="submit" />
+					        </div>
+					    </h:form>
+				  	</div>
+				</div> -->
+				
+				<div class="row">
+					<div class="col s12">
+					    <h4>Static Search Engine</h4>
+					    <h:form id="staticQueryForm" enctype="multipart/form-data">
+	 					       	<h:selectOneRadio value="#{searchController.radioSelectedQuery}" layout="pageDirection" >
+	 					       		<f:selectItems value="#{searchController.mapStaticQuery}"></f:selectItems>
+								</h:selectOneRadio>
+					        <h:commandButton class="btn" id="submit" action="#{searchController.getStaticQuery}" value="search" >
+					        </h:commandButton>	
+					    </h:form>
+				  	</div>
+				</div>
+<!-- 				<div class="row">
+					<c:forEach var="pic" items="#{searchController.listPictureFromQuery}">
+						<div class="col s12 m4 l3 wrapper-image">
+							<div class="inner-wrapper-image" style="background-image:url('#{request.contextPath}/images/${pic.title}');">
+								<div class="overlay-actions">
+									<div class="actions-wrapper">
+										<a class="action delete-image" href="#" data-target="${pic.id}"><span class="lnr lnr-trash"></span></a>
+										<a class="action" href="${request.contextPath}/images/${pic.title}" target="_blank"><span class="lnr lnr-eye"></span></a>
+										<a class="action add-label" href="#modalAddLabel" data-target="${pic.id}"><span class="lnr lnr-tag"></span></a>						
+									</div>	
+								</div>
+							</div>
+						</div>					
+					</c:forEach>
+				</div> -->
+			</f:view>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>

@@ -21,7 +21,7 @@ public class SparqlQueryService {
 	public static final String NS_PREFIX = "<" + NS + ">";
 	public static final String RDFS = "<http://www.w3.org/2000/01/rdf-schema#>";
 	public static final String FOAF = "<http://xmlns.com/foaf/0.1/>";
-	public static final String DC = "<http://purl.org/dc/elements/1.1>";
+	public static final String DC = "<http://purl.org/dc/elements/1.1/>";
 	public static final String SOURCE_TRIPLE_STORE = "http://localhost:3030/ALBUM/update";
 	
 	public void getAllPictures(){

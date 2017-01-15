@@ -35,14 +35,11 @@ public class AnnotationController {
 	public void tagPicture(){
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		String pictureId = ec.getRequestParameterMap().get("labelForm:pictureId");
-		String lblWhere = ec.getRequestParameterMap().get("labelForm:where");
 		String lblWhen = ec.getRequestParameterMap().get("labelForm:when");
+		//basic date regex : \d{4}-\d{2}-\d{2}
 		
 		try {
 			Picture picture = pictureService.getPictureById(pictureId);
-			if (lblWhere != "" && lblWhere != null){
-				sparqlUpdateService.insertWhereProperty(picture.getUri().toString(), lblWhere);
-			}
 			if (lblWhen != "" && lblWhen != null){
 				sparqlUpdateService.insertWhenProperty(picture.getUri().toString(), lblWhen);
 			}
