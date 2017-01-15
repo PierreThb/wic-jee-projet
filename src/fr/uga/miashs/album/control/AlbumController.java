@@ -111,6 +111,14 @@ public class AlbumController {
 		}
 		return null;
 	}
+	
+	public List<Picture> picturesFromAlbum(Album album) throws ServiceException {
+		if(album.getId() != 0){
+			List<Picture> listPictures = pictureService.listPictureFromAlbum(album);
+			return listPictures;
+		}
+		return null;
+	}
 
 	public void validerNomAlbum(FacesContext ctx, UIComponent comp, Object value) {
 		List<FacesMessage> msgs = new ArrayList<FacesMessage>();
@@ -199,9 +207,6 @@ public class AlbumController {
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
-		
-		FacesContext context = FacesContext.getCurrentInstance();
-		((HttpSession) context.getExternalContext().getSession(false)).invalidate();
 	}
 	
 	public void deletePicture() {

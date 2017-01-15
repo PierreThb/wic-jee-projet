@@ -53,7 +53,7 @@
 				          <div class="card">
 					          <h:form class="card-image">
 					            <h:commandLink action="#{albumController.displayAlbum(album.id)}">				           
-					              	<c:set var="pictures" value="${album.getPictures()}" />
+					              	<c:set var="pictures" value="${albumController.picturesFromAlbum(album)}" />
 					              	<c:choose>
 									    <c:when test="${fn:length(pictures) gt 0}">
 									    	<div class="thumbnail" style="background-image:url('#{request.contextPath}/images/#{pictures.toArray()[0].title}');"></div>
@@ -63,7 +63,7 @@
 									    </c:otherwise>
 									</c:choose>
 					              
-					              <span class="card-title">#{album.title} (${fn:length(album.getPictures())})</span>
+					              <span class="card-title">#{album.title} (${fn:length(pictures)})</span>
 					            </h:commandLink>
 					           </h:form>
 				            <div class="card-content">
