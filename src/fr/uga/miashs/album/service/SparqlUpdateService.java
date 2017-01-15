@@ -6,7 +6,7 @@ import fr.uga.miashs.album.model.Album;
 import fr.uga.miashs.album.model.AppUser;
 import fr.uga.miashs.album.model.Picture;
 
-public class SparqlUpdateService extends JpaService<Long, Picture> {
+public class SparqlUpdateService {
 	
 	public static final String BASE_URL = "http://www.semanticweb.org/projetAlbum";
 	public static final String NS = BASE_URL + "#";
@@ -18,8 +18,9 @@ public class SparqlUpdateService extends JpaService<Long, Picture> {
 	
 	public void insertWhatProperty(String pictureURI, String what){	
 		
-		String whatURI = "<" + NS + what + ">";
-		String queryString = "<" + pictureURI + "> ns:what " + what + " .";
+		String whatURI = "<" + NS + what + ">"; //we assume that it exist
+		String queryString = "<" + pictureURI + "> ns:what " + whatURI + " .\n" +
+								whatURI + " a ns:Subject .";
 		System.out.println("What : " + queryString);
 		insertData(queryString);
 	}
@@ -36,7 +37,8 @@ public class SparqlUpdateService extends JpaService<Long, Picture> {
 		
 		//We create the uri of the who assuming it's a foaf:person
 		String whoURI = "<" + NS + who + ">";
-		String queryString = "<" + pictureURI + "> ns:who " + whoURI + " .";
+		String queryString = "<" + pictureURI + "> ns:who " + whoURI + " .\n" +
+								whoURI + " ns:isIn <" + pictureURI + ">";
 		System.out.println("Who : " + queryString);
 		insertData(queryString);
 	}

@@ -68,12 +68,10 @@
 							    <div id="chips-who">
 								</div>
 								<p>What's in the picture :</p>
-								<div  id="chips-what">
+								<div id="chips-what">
 								</div>
-								<div class="input-field">
-									<h:outputLabel for="where" value="Where was the picture taken ?" />
-									<h:inputText id="where" />
-									<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
+								<p>Where was the picture taken :</p>
+								<div id="chips-where">
 								</div>
 								<div class="datepicker">
 									
@@ -111,6 +109,13 @@
 				    <h:inputHidden id="what" value="" />
 				    <h:commandButton id="submitWhatTagHiddenForm">
 				        <f:ajax execute="@form" listener="#{annotationController.whatTagPicture()}" />
+				    </h:commandButton>
+				</h:form>
+				<h:form id="whereTagHiddenForm" style="display: none;">
+				    <h:inputHidden id="pictureId" value="" />
+				    <h:inputHidden id="where" value="" />
+				    <h:commandButton id="submitWhereTagHiddenForm">
+				        <f:ajax execute="@form" listener="#{annotationController.whereTagPicture()}" />
 				    </h:commandButton>
 				</h:form>
 			</f:view>

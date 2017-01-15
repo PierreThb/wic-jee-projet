@@ -29,9 +29,10 @@ $(document).ready(function() {
 	//ajax adding labels 
 	$('.add-label').click(function(e){
 		e.preventDefault();
-		
 		document.getElementById('labelForm:pictureId').value = $(this).data("target");
-		
+		document.getElementById('whatTagHiddenForm:pictureId').value = $(this).data("target");
+		document.getElementById('whoTagHiddenForm:pictureId').value = $(this).data("target");
+		document.getElementById('whereTagHiddenForm:pictureId').value = $(this).data("target");
 	});
 	
 	$('.chips').material_chip();
@@ -54,17 +55,24 @@ $(document).ready(function() {
 	  secondaryPlaceholder: '+Flower',
 	});
 	
-	$('#chips-what').on('chip.add', function(e, chip) {
-		
-		document.getElementById('whatTagHiddenForm:pictureId').value = document.getElementById('labelForm:pictureId').value;
+	$('#chips-where').material_chip({
+		  placeholder: 'Enter a tag',
+		  secondaryPlaceholder: '+Tokyo',
+	});
+	
+	$('#chips-what').on('chip.add', function(e, chip) {		
 		document.getElementById('whatTagHiddenForm:what').value = chip.tag;
 		document.getElementById('whatTagHiddenForm:submitWhatTagHiddenForm').click();
 	});
 	
 	$('#chips-who').on('chip.add', function(e, chip) {
-		document.getElementById('whoTagHiddenForm:pictureId').value = document.getElementById('labelForm:pictureId').value;
 		document.getElementById('whoTagHiddenForm:who').value = chip.tag;
 		document.getElementById('whoTagHiddenForm:submitWhoTagHiddenForm').click();
+	});
+	
+	$('#chips-where').on('chip.add', function(e, chip) {
+		document.getElementById('whereTagHiddenForm:where').value = chip.tag;
+		document.getElementById('whereTagHiddenForm:submitWhereTagHiddenForm').click();
 	});
 	  
 	//ajax to delete image
