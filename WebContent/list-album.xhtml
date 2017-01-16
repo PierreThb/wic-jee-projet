@@ -84,6 +84,9 @@
 					              <a class="delete-album" href="#" data-target="${album.id}">
 					              	<span class="lnr lnr-trash"></span> Delete
 					              </a>
+					              <a class="share-album" href="#modalShareAlbum" data-target="${album.id}">
+					              	<span class="lnr lnr-users"></span> Share
+					              </a>
 				              </h:form>
 				            </div>
 				          </div>
@@ -97,6 +100,31 @@
 				        <f:ajax execute="@form" listener="#{albumController.deleteAlbum()}" onevent="refreshPage" />
 				    </h:commandButton>
 				</h:form>
+				
+				<div id="modalShareAlbum" class="modal">
+					<h:form id="shareAlbumForm">
+					  <div class="modal-content">
+					    <h4 class="modal-title">Share album</h4>
+					    <div class="row">
+					    	<c:set var="currentUser" value="#{sessionScope.appUserSession.getConnectedUser()}" />
+							<h:outputLabel for="user" value="User"/>
+							<h:selectOneMenu id="userId" class="browser-default">
+								<c:forEach var="user" items="#{appUserService.listUsers()}">
+									<c:if test="#{user.id == currentUser.id}">
+								   		<f:selectItem itemValue="#{user.id}" itemLabel="#{user.firstname} #{user.lastname}" />
+								   	</c:if>
+							   	</c:forEach>   							
+							</h:selectOneMenu>
+							<h:inputHidden id="albumId" value="" />
+						</div>
+					  </div>
+					  <div class="modal-footer">
+					    <h:commandButton class="btn light-blue" action="#{albumController.shareAlbum()}" value="Create Album"/>
+					    <span class="spacer"></span>
+					    <a href="#!" class="btn grey lighten-2 modal-close close-modal">Cancel</a>
+					  </div>
+				  </h:form>
+				</div>
 			</f:view>
 		</ui:define>
 

@@ -87,6 +87,13 @@ $(document).ready(function() {
 			document.getElementById('deleteHiddenForm:submitDeleteHiddenForm').click();
 		});
 	});
+	
+	//event to preset form to share album
+	$('.share-album').click(function(e) {
+		//ugliest thing ever
+		$("#modalShareAlbum").find('.modal-title').html("Share "+$(this).parent().parent().parent().find(".card-title").html());
+		document.getElementById('shareAlbumForm:albumId').value = $(this).data("target");
+	});
 });
 
 Dropzone.options.uploadForm = {

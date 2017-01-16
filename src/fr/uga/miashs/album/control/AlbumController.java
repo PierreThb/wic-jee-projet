@@ -236,4 +236,18 @@ public class AlbumController {
 			e.printStackTrace();
 		}
 	}
+	
+	public String shareAlbum() {
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		String albumId = ec.getRequestParameterMap().get("shareAlbumForm:albumId");
+		String userId = ec.getRequestParameterMap().get("shareAlbumForm:userId");
+		System.out.println("share album "+albumId+" with user "+userId);
+		
+		try {
+			albumService.share(albumId,userId);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
+		return "list-album?faces-redirect=true";
+	}
 }

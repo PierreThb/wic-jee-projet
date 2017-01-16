@@ -35,11 +35,11 @@ public class Album {
 	@ManyToOne
 	private AppUser owner;
 	
-	@ManyToMany
-	private Set<AppUser> sharedWith;
-	
 	@OneToMany(mappedBy="album", cascade=CascadeType.ALL)
 	private Set<Picture> pictures;
+	
+	@ManyToMany(cascade=CascadeType.ALL)
+	private Set<AppUser> sharedWith;
 
 	protected Album() {
 	}

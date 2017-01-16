@@ -59,7 +59,11 @@ public abstract class JpaService<K,V> implements GenericService<K,V>, Serializab
 	}
 	
 	public V update(V v) {
-		return em.merge(v);
+		EntityTransaction t = em.getTransaction();
+		t.begin();
+		v = em.merge(v);
+		t.commit();
+		return v;
 	}
 	
 	public void delete(V v) {

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -46,6 +47,9 @@ public class AppUser {
 	
 	@OneToMany(mappedBy="owner", cascade=CascadeType.ALL)
 	private List<Album> userAlbums;
+
+	@ManyToMany(mappedBy="sharedWith", cascade=CascadeType.ALL)
+	private List<Album> sharedAlbums;
 
 	public AppUser() {
 	}
@@ -88,6 +92,14 @@ public class AppUser {
 	
 	public List<Album> getUserAlbums() {
 		return userAlbums;
+	}
+	
+	public List<Album> getSharedAlbums() {
+		return sharedAlbums;
+	}
+
+	public void setSharedAlbums(List<Album> sharedAlbums) {
+		this.sharedAlbums = sharedAlbums;
 	}
 
 	@Override
