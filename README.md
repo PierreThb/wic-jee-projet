@@ -1,12 +1,14 @@
-# Projet Album JEE gestion [Rendu 09/01/2017]
+# Projet Album "Gràfico" JavaEE & Web Sémantique 
 
 - Doc : [http://imss-www.upmf-grenoble.fr/~davidjer/javaee/]('http://imss-www.upmf-grenoble.fr/~davidjer/javaee/')
 - Install : [http://tomee.apache.org/tomee-and-eclipse.html]('http://tomee.apache.org/tomee-and-eclipse.html')
+- WS-Subject : [http://imss-www.upmf-grenoble.fr/~atenciam/WS/Projet/projet.pdf]('http://imss-www.upmf-grenoble.fr/~atenciam/WS/Projet/projet.pdf')
 - Icons : https://linearicons.com/free
 - Framework CSS : http://materializecss.com/
 - JSF Cheatsheet : https://www.tutorialspoint.com/jsf/jsf_basic_tags.htm
 - Upload File dropzone + JSF : http://stackoverflow.com/questions/38018632/use-dropzone-with-jsf
 
+## Java EE
 Technos : 
 * JSF pour les vues
 * JPA pour le mapping relationnel de données (~Doctrine Symfony) 
@@ -48,7 +50,9 @@ Quand : Ressources dates/évènements
 Rechercher les photos de la région rhones-alpes qui contient des montagnes 
 - ex : La croix de chamrousse, objet DBPedia, fait partie de RhonesAlpes 
 
-## Run & Install project (Derby embedded) : 
+## Install & Run project : 
+
+### Configure eclipse & Derby Embedded Database
 * Download [eclipse JEE](http://www.eclipse.org/downloads/packages/) 
 * Download [Apache Tomcat JEE jaxrs-1.7.4 2](https://tomee.apache.org/download/archives.html)
 * Download [derby and myfaces JAR files](http://imss-www.upmf-grenoble.fr/~davidjer/javaee/)
@@ -94,7 +98,18 @@ Rechercher les photos de la région rhones-alpes qui contient des montagnes
 	</Resource>
 </tomee>
 ```
+### Fuseki Triple Store & Apache Jena
+* Download [Apache Jena](https://jena.apache.org/download/index.cgi) 
+	* Add Jena librairies to Tomcat Server lib directory
+	* Create new UserLibrairies in Eclipse (JenaLibs) and add them to the projet build-path
+* Download [Apache Jena Fuseki](https://jena.apache.org/download/index.cgi)
+	* Download [fuseki dataset configuration](http://imss-www.upmf-grenoble.fr/~atenciam/WS/Projet/fusekiDatasetConfig.ttl)
+	* add configuration file in run/configuration/
+	* run server : "./fuseki"
 
+* Unzip each 
+* 
+* 
 ## Configurations
 
 web.xml PC portable Benoit :
