@@ -16,6 +16,8 @@ public class PictureService extends JpaService<Long,Picture> {
 	
 	private SparqlUpdateService sparqlUpdateService = new SparqlUpdateService();
 	
+	private SparqlDeleteService sparqlDeleteService = new SparqlDeleteService();
+	
 	public void create(Picture p) throws ServiceException {
 		Album album = p.getAlbum();
 		album.setOwner(getEm().merge(getEm().merge( album.getOwner())));
@@ -64,5 +66,7 @@ public class PictureService extends JpaService<Long,Picture> {
 		getEm().getTransaction().begin();
 		getEm().remove(picture);
 		getEm().getTransaction().commit();
+		
+		// sparqlDeleteService.deletePicture(picture);
 	}
 }

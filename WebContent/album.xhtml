@@ -134,6 +134,27 @@
 				        <f:ajax execute="@form" listener="#{annotationController.whereTagPicture()}" />
 				    </h:commandButton>
 				</h:form>
+				<h:form id="whoDeleteTagHiddenForm" style="display: none;">
+				    <h:inputHidden id="pictureId" value="" />
+				    <h:inputHidden id="who" value="" />
+				    <h:commandButton id="submitWhoDeleteTagHiddenForm">
+				        <f:ajax execute="@form" listener="#{annotationController.whoDeleteTagPicture()}" />
+				    </h:commandButton>
+				</h:form>
+				<h:form id="whatDeleteTagHiddenForm" style="display: none;">
+				    <h:inputHidden id="pictureId" value="" />
+				    <h:inputHidden id="what" value="" />
+				    <h:commandButton id="submitWhatDeleteTagHiddenForm">
+				        <f:ajax execute="@form" listener="#{annotationController.whatDeleteTagPicture()}" />
+				    </h:commandButton>
+				</h:form>
+				<h:form id="whereDeleteTagHiddenForm" style="display: none;">
+				    <h:inputHidden id="pictureId" value="" />
+				    <h:inputHidden id="where" value="" />
+				    <h:commandButton id="submitWhereDeleteTagHiddenForm">
+				        <f:ajax execute="@form" listener="#{annotationController.whereDeleteTagPicture()}" />
+				    </h:commandButton>
+				</h:form>
 			</f:view>
 		</ui:define>
 

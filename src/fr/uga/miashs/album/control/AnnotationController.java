@@ -13,6 +13,7 @@ import fr.uga.miashs.album.model.Picture;
 import fr.uga.miashs.album.service.AlbumService;
 import fr.uga.miashs.album.service.PictureService;
 import fr.uga.miashs.album.service.ServiceException;
+import fr.uga.miashs.album.service.SparqlDeleteService;
 import fr.uga.miashs.album.service.SparqlQueryService;
 import fr.uga.miashs.album.service.SparqlUpdateService;
 
@@ -29,6 +30,9 @@ public class AnnotationController {
 	
 	@Inject 
 	private SparqlQueryService sparqlQueryService;
+	
+	@Inject
+	private SparqlDeleteService sparqlDeleteService;
 	
 	private Picture picture;
 	
@@ -129,5 +133,50 @@ public class AnnotationController {
 		} catch (ServiceException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void whoDeleteTagPicture(){
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		String pictureId = ec.getRequestParameterMap().get("whoDeleteTagHiddenForm:pictureId");
+		String lblWho = ec.getRequestParameterMap().get("whoDeleteTagHiddenForm:who");
+		
+		try {
+			Picture picture = pictureService.getPictureById(pictureId);
+			if (lblWho != "" && lblWho != null){
+				sparqlDeleteService.deleteWhoProperty(picture.getUri().toString(), lblWho);
+			}
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	public void whatDeleteTagPicture(){
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		String pictureId = ec.getRequestParameterMap().get("whatDeleteTagHiddenForm:pictureId");
+		String lblWhat = ec.getRequestParameterMap().get("whatDeleteTagHiddenForm:what");
+		
+		try {
+			Picture picture = pictureService.getPictureById(pictureId);
+			if (lblWhat != "" && lblWhat != null){
+				sparqlDeleteService.deleteWhatProperty(picture.getUri().toString(), lblWhat);
+			}
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}	
+	}
+	
+	public void whereDeleteTagPicture(){
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		String pictureId = ec.getRequestParameterMap().get("whereDeleteTagHiddenForm:pictureId");
+		String lblWhere = ec.getRequestParameterMap().get("whereDeleteTagHiddenForm:where");
+		
+		try {
+			Picture picture = pictureService.getPictureById(pictureId);
+			if (lblWhere != "" && lblWhere != null){
+				sparqlDeleteService.deleteWhereProperty(picture.getUri().toString(), lblWhere);
+			}
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}	
 	}
 }

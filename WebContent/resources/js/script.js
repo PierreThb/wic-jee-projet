@@ -33,6 +33,9 @@ $(document).ready(function() {
 		document.getElementById('whatTagHiddenForm:pictureId').value = $(this).data("target");
 		document.getElementById('whoTagHiddenForm:pictureId').value = $(this).data("target");
 		document.getElementById('whereTagHiddenForm:pictureId').value = $(this).data("target");
+		document.getElementById('whatDeleteTagHiddenForm:pictureId').value = $(this).data("target");
+		document.getElementById('whoDeleteTagHiddenForm:pictureId').value = $(this).data("target");
+		document.getElementById('whereDeleteTagHiddenForm:pictureId').value = $(this).data("target");
 		
 		$('#chips-who').material_chip({
 		  placeholder: 'Enter a tag',
@@ -84,6 +87,21 @@ $(document).ready(function() {
 	$('#chips-where').on('chip.add', function(e, chip) {
 		document.getElementById('whereTagHiddenForm:where').value = chip.tag;
 		document.getElementById('whereTagHiddenForm:submitWhereTagHiddenForm').click();
+	});
+	
+	$('#chips-what').on('chip.delete', function(e, chip) {		
+		document.getElementById('whatDeleteTagHiddenForm:what').value = chip.tag;
+		document.getElementById('whatDeleteTagHiddenForm:submitWhatDeleteTagHiddenForm').click();
+	});
+	
+	$('#chips-who').on('chip.delete', function(e, chip) {
+		document.getElementById('whoDeleteTagHiddenForm:who').value = chip.tag;
+		document.getElementById('whoDeleteTagHiddenForm:submitWhoDeleteTagHiddenForm').click();
+	});
+	
+	$('#chips-where').on('chip.delete', function(e, chip) {
+		document.getElementById('whereDeleteTagHiddenForm:where').value = chip.tag;
+		document.getElementById('whereDeleteTagHiddenForm:submitWhereDeleteTagHiddenForm').click();
 	});
 	  
 	//ajax to delete image
