@@ -110,7 +110,7 @@
 							<h:outputLabel for="user" value="User"/>
 							<h:selectOneMenu id="userId" class="browser-default">
 								<c:forEach var="user" items="#{appUserService.listUsers()}">
-									<c:if test="#{user.id == currentUser.id}">
+									<c:if test="#{user.id != currentUser.id}">
 								   		<f:selectItem itemValue="#{user.id}" itemLabel="#{user.firstname} #{user.lastname}" />
 								   	</c:if>
 							   	</c:forEach>   							
@@ -119,7 +119,7 @@
 						</div>
 					  </div>
 					  <div class="modal-footer">
-					    <h:commandButton class="btn light-blue" action="#{albumController.shareAlbum()}" value="Create Album"/>
+					    <h:commandButton class="btn light-blue" action="#{albumController.shareAlbum()}" value="Share Album"/>
 					    <span class="spacer"></span>
 					    <a href="#!" class="btn grey lighten-2 modal-close close-modal">Cancel</a>
 					  </div>
