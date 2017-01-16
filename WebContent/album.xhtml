@@ -44,12 +44,15 @@
 					</div>
 				</div>
 				<div class="row">
+					<c:set var="currentUser" value="#{sessionScope.appUserSession.getConnectedUser()}" />
 					<c:forEach var="pic" items="#{albumController.listPictureFromAlbum}">
 						<div class="col s12 m4 l3 wrapper-image">
 							<div class="inner-wrapper-image" style="background-image:url('#{request.contextPath}/images/${pic.title}');">
 								<div class="overlay-actions">
 									<div class="actions-wrapper">
-										<a class="action delete-image" href="#" data-target="${pic.id}"><span class="lnr lnr-trash"></span></a>
+										<c:if test="#{pic.album.owner.id == currentUser.id}">
+									   		<a class="action delete-image" href="#" data-target="${pic.id}"><span class="lnr lnr-trash"></span></a>
+									   	</c:if>
 										<a class="action" href="${request.contextPath}/images/${pic.title}" target="_blank"><span class="lnr lnr-eye"></span></a>
 									</div>	
 								</div>

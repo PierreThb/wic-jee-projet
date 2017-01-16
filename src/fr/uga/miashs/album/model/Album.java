@@ -19,6 +19,8 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
     @NamedQuery(name="Album.findAllOwned",
                 query="SELECT a FROM Album a WHERE a.owner=:owner"),
+    @NamedQuery(name="Album.findAlbumSharedWith",
+				query="SELECT a FROM Album a WHERE :sharedWith MEMBER OF a.sharedWith"),
 })
 public class Album {
 	

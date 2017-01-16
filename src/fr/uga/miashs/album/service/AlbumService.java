@@ -26,9 +26,10 @@ public class AlbumService extends JpaService<Long,Album> {
 	public void share(String albumId, String userId) throws ServiceException {
 		Album a = getEm().find(Album.class, albumId);
 		AppUser u = getEm().find(AppUser.class, userId);
-		u.getSharedAlbums().add(a);
-		
-		getEm().merge(u);
+		a.getSharedWith().add(u);
+		getEm().getTransaction().begin();
+		getEm().merge(a);
+		getEm().getTransaction().commit();
 	}
 	
 	public List<Album> listAlbumOwnedBy(AppUser a) throws ServiceException {
@@ -38,8 +39,9 @@ public class AlbumService extends JpaService<Long,Album> {
 	}
 	
 	public List<Album> listAlbumSharedWith(AppUser a) throws ServiceException {
-		
-		return null;
+		Query query = getEm().createNamedQuery("Album.findAlbumSharedWith");
+		query.setParameter("sharedWith", getEm().merge(a));
+		return query.getResultList();
 	}
 
 	

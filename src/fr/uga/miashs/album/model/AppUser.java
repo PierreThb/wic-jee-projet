@@ -48,8 +48,8 @@ public class AppUser {
 	@OneToMany(mappedBy="owner", cascade=CascadeType.ALL)
 	private List<Album> userAlbums;
 
-	@ManyToMany(mappedBy="sharedWith", cascade=CascadeType.ALL)
-	private List<Album> sharedAlbums;
+//	@ManyToMany(mappedBy="sharedWith", cascade=CascadeType.ALL) // bilateral not working
+//	private List<Album> sharedAlbums;
 
 	public AppUser() {
 	}
@@ -94,13 +94,13 @@ public class AppUser {
 		return userAlbums;
 	}
 	
-	public List<Album> getSharedAlbums() {
-		return sharedAlbums;
-	}
-
-	public void setSharedAlbums(List<Album> sharedAlbums) {
-		this.sharedAlbums = sharedAlbums;
-	}
+//	public List<Album> getSharedAlbums() {
+//		return sharedAlbums;
+//	}
+//
+//	public void setSharedAlbums(List<Album> sharedAlbums) {
+//		this.sharedAlbums = sharedAlbums;
+//	}
 
 	@Override
 	public int hashCode() {

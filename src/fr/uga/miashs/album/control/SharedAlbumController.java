@@ -23,6 +23,6 @@ public class SharedAlbumController {
 	private AlbumService albumService;
 	
 	public List<Album> getListAlbumSharedWithCurrentUser() throws ServiceException {
-		return appUserSession.getConnectedUser().getSharedAlbums();
+		return albumService.listAlbumSharedWith(appUserSession.getConnectedUser());
 	}
 }
