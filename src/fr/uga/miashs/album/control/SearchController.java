@@ -53,6 +53,7 @@ public class SearchController {
 		mapStaticQuery.put("All Pictures of Sport", "sport");
 		mapStaticQuery.put("All Pictures of Nature", "nature");
 		mapStaticQuery.put("All Pictures taken last year", "lastYear");
+		mapStaticQuery.put("All Pictures taken in region Rhône-Alpes", "rhoneAlpes");
 	}
 
 	@PostConstruct
@@ -84,16 +85,23 @@ public class SearchController {
 					break;
 				case "sport":
 					listURI = sparqlQueryService.getSport();
+					break;
 				case "nature":
 					listURI = sparqlQueryService.getNature();
+					break;
 				case "lastYear":
 					listURI = sparqlQueryService.getLastYear();
+					break;
+				case "rhoneAlpes":
+					listURI = sparqlQueryService.getRhoneAlpes();
+					break;
 				default:
 					listURI = null;
 					break;
 				}
 				
 				if(listURI != null && !listURI.isEmpty()){
+					
 					this.pictures = pictureService.listPictureFromListURI(listURI);
 				}
 				

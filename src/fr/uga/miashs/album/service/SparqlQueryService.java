@@ -85,9 +85,13 @@ public class SparqlQueryService {
 		  
 		  return resultList;
 	}
+	
+/*
+ *  List of the Static Queries 
+ */
 
 	public List<String> getUnicorn() {
-		String queryString = "SELECT ?p  WHERE {?p a ns:Picture ;"
+		String queryString = "SELECT DISTINCT ?p  WHERE {?p a ns:Picture ;"
 								+ "ns:who ?who ."
 								+ "?who a ns:Unicorn .}";
 		
@@ -95,14 +99,14 @@ public class SparqlQueryService {
 	}
 
 	public List<String> getRoger() {
-		String queryString = "SELECT ?p  WHERE {?p a ns:Picture ;"
+		String queryString = "SELECT DISTINCT ?p  WHERE {?p a ns:Picture ;"
 								+ "ns:who ns:roger .}";
 
 		return getQuery(queryString);
 	}
 	
 	public List<String> getRogerAndBen() {	
-		String queryString = "SELECT ?p  WHERE {?p a ns:Picture ;"
+		String queryString = "SELECT DISTINCT ?p  WHERE {?p a ns:Picture ;"
 								+ "ns:who ns:roger ;"
 								+ "ns:who ns:Ben .}";
 	
@@ -110,43 +114,45 @@ public class SparqlQueryService {
 	}
 
 	public List<String> getPeople() {
-		String queryString = "SELECT ?p  WHERE {?p a ns:Picture ;"
+		String queryString = "SELECT DISTINCT ?p  WHERE {?p a ns:Picture ;"
 								+ "ns:who ?who ."
-								+ "who a foaf:Person .}";
+								+ "?who a foaf:Person .}";
 
 		return getQuery(queryString);
 	}
 
 	public List<String> getWithoutPeople() {
 		String queryString = 
-				"SELECT ?p  WHERE {?p a ns:Picture ."
+				"SELECT DISTINCT ?p  WHERE {?p a ns:Picture ."
 				+ "OPTIONAL {"
 					+ "?p ns:who ?who ."
 					+ "FILTER (?who != foaf:Person)"
-					+ "}";
+					+ "} "
+				+ "}";
 		
 		return getQuery(queryString);
 	}
 
 	public List<String> getSport() {
 		String queryString = 
-				"SELECT ?p  WHERE {"
-					+ "{ ?p a ns:Picture ;"
-						+ " ns:what ?what ."
-						+ "?what a ns:Sport ."
-						+ "}"
-					+ "UNION "
-					+ "{?p a ns:Picture ;"
-						+ "ns:what ns:Sport ."
-						+ "}"
-				+ "}";
+				"SELECT DISTINCT ?p WHERE {\n" +
+				"	{?p a ns:Picture;\n" +
+				"		ns:what ?what. \n" +
+				"		?what a ns:Sport. \n" +
+				"	} UNION {\n" +
+				"		?p a ns:Picture ;\n" +
+				"		ns:what ns:Sport .\n" +
+				"	}\n" +
+				"}\n";
+							
+		System.out.println(queryString);
 		
 		return getQuery(queryString);
 	}
 
 	public List<String> getNature() {
 		String queryString = 
-				"SELECT ?p  WHERE {"
+				"SELECT ?p  WHERE {"
 					+ "{ ?p a ns:Picture ;"
 						+ " ns:what ?what ."
 						+ "?what a ns:Nature ."
@@ -162,7 +168,7 @@ public class SparqlQueryService {
 
 	public List<String> getLastYear() {
 		String queryString = 
-				"SELECT ?p  WHERE {"
+				"SELECT DISTINCT ?p  WHERE {"
 				+ "?p a ns:Picture ;"
 					+ "dc:date ?d ."
 					+ "bind(strdt(?d, xsd:date) as ?date)"
@@ -170,5 +176,23 @@ public class SparqlQueryService {
 				+ "}";
 		return getQuery(queryString);
 	}
+
+	public List<String> getRhoneAlpes() {
+		String queryString = 
+				"PREFIX dbr: <http://dbpedia.org/resource/>\n" +
+				"PREFIX db-owl: <http://dbpedia.org/ontology/>\n" +
+				"SELECT DISTINCT ?p" +
+				"WHERE {\n" +
+				"  ?p a ns:Picture ;\n" +
+				"     ns:where ?city .\n" +
+				"  SERVICE <http://dbpedia.org/sparql>\n" +
+				"  {\n" +
+				"    ?city db-owl:region dbr:Rhône-Alpes .\n" +
+				"  }\n" +
+				"}\n";
+		return getQuery(queryString);
+	}
+	
+	//At least we discover http://www.buildmystring.com/
 	
 }
