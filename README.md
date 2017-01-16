@@ -36,12 +36,7 @@ Nous avons défini une ontologie `/WebContent/resources/ontology/ProjetAlbumBGBR
 
 - Un Moteur de recherche Static est implémenté, dont vous trouverez la liste `/ProjetAlbumData/list-query.sql`
 
-Pour pouvoir tester directement le moteur de recherche, un jeu de données est mis à votre disposition (cf. PreSet Data) 
-
-## Requètes de recherche (SPARQL) 
-
-Rechercher les photos de la région rhones-alpes qui contient des montagnes 
-- ex : La croix de chamrousse, objet DBPedia, fait partie de RhonesAlpes 
+Pour pouvoir tester directement le moteur de recherche, un jeu de données est mis à votre disposition (cf. Jeu de données) 
 
 ## Install & Run project : 
 
@@ -104,7 +99,7 @@ Rechercher les photos de la région rhones-alpes qui contient des montagnes
 * 
 * 
 
-## PreSet Data pour éxecuter les requêtes
+## Jeu de données pour éxecuter les requêtes
 
 Il est possible de récupérer les données suivantes afin de pouvoir tester les requêtes (Search Images)
 `/ProjetAlbumData`
