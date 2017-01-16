@@ -38,6 +38,7 @@ import fr.uga.miashs.album.service.AlbumService;
 import fr.uga.miashs.album.service.SparqlUpdateService;
 import fr.uga.miashs.album.service.PictureService;
 import fr.uga.miashs.album.service.ServiceException;
+import fr.uga.miashs.album.service.SparqlQueryService;
 import fr.uga.miashs.album.util.Pages;
 
 @Named
@@ -56,6 +57,9 @@ public class AlbumController {
 	
 	@Inject
 	private SparqlUpdateService sparqlUpdateService;
+	
+	@Inject
+	private SparqlQueryService sparqlQueryService;
 	
 	private Album album;
 	
@@ -263,5 +267,41 @@ public class AlbumController {
 			e.printStackTrace();
 		}
 		return "list-album?faces-redirect=true";
+	}
+	
+	public List<String> getWhoTags(String uri){
+		List<String> whoTags = sparqlQueryService.getWhoTagPicture(uri);
+		
+		for(int i=0;i<whoTags.size();i++){
+			whoTags.set(i, whoTags.get(i).split("#")[1]);
+		}
+		
+		return whoTags;
+	}
+	
+	public List<String> getWhatTags(String uri){
+		List<String> whatTags = sparqlQueryService.getWhatTagPicture(uri);
+		
+		for(int i=0;i<whatTags.size();i++){
+			whatTags.set(i, whatTags.get(i).split("#")[1]);
+		}
+		
+		return whatTags;
+	}
+	
+	public List<String> getWhereTags(String uri){
+		List<String> whereTags = sparqlQueryService.getWhereTagPicture(uri);
+		
+		return whereTags;
+	}
+	
+	public String getWhenTags(String uri){
+		List<String> whenTags = sparqlQueryService.getWhenTagPicture(uri);
+		
+		if(whenTags.size() > 0){
+			return whenTags.get(0);
+		}
+		
+		return null;
 	}
 }

@@ -84,10 +84,13 @@ public class SearchController {
 					break;
 				case "sport":
 					listURI = sparqlQueryService.getSport();
+					break;
 				case "nature":
 					listURI = sparqlQueryService.getNature();
+					break;
 				case "lastYear":
 					listURI = sparqlQueryService.getLastYear();
+					break;
 				default:
 					listURI = null;
 					break;

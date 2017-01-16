@@ -46,12 +46,12 @@ public class SparqlQueryService {
 	}
 	
 	public List<String> getWhenTagPicture(String strURI) {
-		String queryString = "SELECT ?p WHERE { <" + strURI + "> ns:when ?p .}";
+		String queryString = "SELECT ?l WHERE { <" + strURI + "> dc:date ?l .}";
 		return getQuery(queryString);
 	}
 	
 	public List<String> getWhereTagPicture(String strURI) {
-		String queryString = "SELECT ?p WHERE { <" + strURI + "> ns:where ?p .}";
+		String queryString = "SELECT ?l WHERE { <" + strURI + "> ns:where ?l .}";
 		return getQuery(queryString);
 	}
 	
@@ -73,11 +73,14 @@ public class SparqlQueryService {
 		      QuerySolution soln = results.nextSolution() ;
 		      RDFNode x = soln.get("s") ;       // Get a result variable by name.
 		      Resource r = soln.getResource("p") ; // Get a result variable - must be a resource
-		      Literal l = soln.getLiteral("o") ;   // Get a result variable - must be a literal
+		      Literal l = soln.getLiteral("l") ;   // Get a result variable - must be a literal
 		      System.out.println(x+" "+r+" "+l);
 		      
 		      if (r != null){
 		    	  resultList.add(r.toString());
+		      }
+		      if (l != null){
+		    	  resultList.add(l.toString());
 		      }
 		    }
 		    System.out.println(resultList);
