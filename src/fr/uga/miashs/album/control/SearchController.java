@@ -36,14 +36,14 @@ public class SearchController {
 	private SparqlQueryService sparqlQueryService;
 
 	private List<Picture> pictures;
-	
+
 	private String query;
-	
+
 	private String queryString;
 
-	private static Map<String,Object> mapStaticQuery;
-	static{
-		mapStaticQuery = new LinkedHashMap<String,Object>();
+	private static Map<String, Object> mapStaticQuery;
+	static {
+		mapStaticQuery = new LinkedHashMap<String, Object>();
 		mapStaticQuery.put("All Pictures", "all"); // label, value
 		mapStaticQuery.put("All Pictures with a Unicorn", "unicorn");
 		mapStaticQuery.put("All Pictures with Roger the Unicorn", "roger");
@@ -56,24 +56,57 @@ public class SearchController {
 	}
 
 	@PostConstruct
-    public void init() {
-        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        this.query = params.get("query");
-        
-        if(query != null){
-            try {
-            	List<String> listURI = sparqlQueryService.getAllPictures();
-            	this.pictures = pictureService.listPictureFromListURI(listURI);
-    		} catch (ServiceException e) {
-    			e.printStackTrace();
-    		}
-        }
-    }
-	
+	public void init() {
+		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		this.query = params.get("query");
+
+		if (query != null) {
+			try {
+				List<String> listURI;
+				switch (query) {
+				case "all":
+					listURI = sparqlQueryService.getAllPictures();
+					break;
+				case "unicorn":
+					listURI = sparqlQueryService.getUnicorn();
+					break;
+				case "roger":
+					listURI = sparqlQueryService.getRoger();
+					break;
+				case "rogerAndBen":
+					listURI = sparqlQueryService.getRogerAndBen();
+					break;
+				case "people":
+					listURI = sparqlQueryService.getPeople();
+					break;
+				case "withoutPeople":
+					listURI = sparqlQueryService.getWithoutPeople();
+					break;
+				case "sport":
+					listURI = sparqlQueryService.getSport();
+				case "nature":
+					listURI = sparqlQueryService.getNature();
+				case "lastYear":
+					listURI = sparqlQueryService.getLastYear();
+				default:
+					listURI = null;
+					break;
+				}
+				
+				if(listURI != null && !listURI.isEmpty()){
+					this.pictures = pictureService.listPictureFromListURI(listURI);
+				}
+				
+			} catch (ServiceException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	public String search() {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		String query = ec.getRequestParameterMap().get("searchForm:query");
-		return "search?faces-redirect=true&query="+query;
+		return "search?faces-redirect=true&query=" + query;
 	}
 
 	public String getQuery() {
@@ -91,8 +124,8 @@ public class SearchController {
 	public void setPictures(List<Picture> pictures) {
 		this.pictures = pictures;
 	}
-	
-	public Map<String,Object> getMapStaticQuery() {
+
+	public Map<String, Object> getMapStaticQuery() {
 		return mapStaticQuery;
 	}
 

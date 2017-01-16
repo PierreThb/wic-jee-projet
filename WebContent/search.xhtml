@@ -4,6 +4,7 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
@@ -29,19 +30,27 @@
 					</div>
 				</div>
 				<div class="row">
-					<c:forEach var="pic" items="#{searchController.pictures}">
-						<div class="col s12 m4 l3 wrapper-image">
-							<div class="inner-wrapper-image" style="background-image:url('#{request.contextPath}/images/${pic.title}');">
-								<div class="overlay-actions">
-									<div class="actions-wrapper">
-										<a class="action delete-image" href="#" data-target="${pic.id}"><span class="lnr lnr-trash"></span></a>
-										<a class="action" href="${request.contextPath}/images/${pic.title}" target="_blank"><span class="lnr lnr-eye"></span></a>
-										<a class="action add-label" href="#modalAddLabel" data-target="${pic.id}"><span class="lnr lnr-tag"></span></a>						
-									</div>	
-								</div>
-							</div>
-						</div>					
-					</c:forEach>
+					<c:choose>
+					    <c:when test="${fn:length(searchController.pictures) gt 0}">
+					    	<c:forEach var="pic" items="#{searchController.pictures}">
+								<div class="col s12 m4 l3 wrapper-image">
+									<div class="inner-wrapper-image" style="background-image:url('#{request.contextPath}/images/${pic.title}');">
+										<div class="overlay-actions">
+											<div class="actions-wrapper">
+												<a class="action" href="${request.contextPath}/images/${pic.title}" target="_blank"><span class="lnr lnr-eye"></span></a>					
+											</div>	
+										</div>
+									</div>
+								</div>					
+							</c:forEach>
+					    </c:when>
+					    <c:otherwise>
+					    	<div class="col s12">
+					    		Sorry, no result...
+					    	</div>					        
+					    </c:otherwise>
+					</c:choose>
+					
 				</div>
 			</f:view>
 		</ui:define>
