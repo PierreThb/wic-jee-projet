@@ -182,15 +182,20 @@ public class SparqlQueryService {
 
 	public List<String> getRhoneAlpes() {
 		String queryString = 
+				"PREFIX ns:<http://www.semanticweb.org/projetAlbum#>\n" +
+				"PREFIX dc: <http://purl.org/dc/elements/1.1/>\n" +
 				"PREFIX dbr: <http://dbpedia.org/resource/>\n" +
 				"PREFIX db-owl: <http://dbpedia.org/ontology/>\n" +
-				"SELECT DISTINCT ?p" +
+				"PREFIX db: <http://dbpedia.org/>\n" +
+				"PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n" +
+				"SELECT DISTINCT ?p\n" +
 				"WHERE {\n" +
 				"  ?p a ns:Picture ;\n" +
 				"     ns:where ?city .\n" +
+				"  BIND(IRI(CONCAT('http://dbpedia.org/resource/',?city)) AS ?cityResource)\n" +
 				"  SERVICE <http://dbpedia.org/sparql>\n" +
 				"  {\n" +
-				"    ?city db-owl:region dbr:Rhône-Alpes .\n" +
+				"    ?cityResource db-owl:region dbr:Rhône-Alpes .\n" +
 				"  }\n" +
 				"}\n";
 		return getQuery(queryString);
