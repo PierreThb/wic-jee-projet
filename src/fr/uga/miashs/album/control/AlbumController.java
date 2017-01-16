@@ -172,7 +172,7 @@ public class AlbumController {
 	    		} catch (ServiceException e) {}
 	        }
 			
-	        URI uri = new URI("http://www.semanticweb.org/projetAlbum#" + filepath.getFileName());
+	        String uri = "http://www.semanticweb.org/projetAlbum#" + filepath.getFileName();
 	        
 			Picture picture = new Picture(album,filepath.getFileName().toString(),filepath, uri);
 			try {

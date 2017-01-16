@@ -32,20 +32,15 @@ public class PictureService extends JpaService<Long,Picture> {
 	}
 	
 	public Picture getPictureByURI(String uri) throws ServiceException{
-		Picture picture = getEm().find(Picture.class, uri);
-		getEm().refresh(picture);
-		return picture;
+		Query query = getEm().createNamedQuery("Picture.findPictureByURI");
+		query.setParameter("uri", getEm().merge(uri));
+		return (Picture) query.getSingleResult();
 	}
 	
 	public List<Picture> listPictureFromListURI(List<String> listURI) throws NoSuchElementException, ServiceException{
-		List<Picture> listPicture = new ArrayList<Picture>();
-		
-		for (Iterator it = (Iterator) listURI.iterator(); it.hasNext() ;)
-		{
-			Picture p = getPictureByURI(it.next().toString());
-			listPicture.add(p);
-		}	
-		return listPicture;
+		Query query = getEm().createNamedQuery("Picture.findPictureByListUri");
+		query.setParameter("uri", listURI);
+		return query.getResultList();
 	}
 	
 	

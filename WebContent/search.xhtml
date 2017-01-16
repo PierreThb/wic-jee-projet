@@ -37,17 +37,17 @@
 					<div class="col s12">
 					    <h4>Static Search Engine</h4>
 					    <h:form id="staticQueryForm" enctype="multipart/form-data">
-	 					       	<h:selectOneRadio value="#{searchController.radioSelectedQuery}" layout="pageDirection" >
+	 					       	<h:selectOneRadio id="select" value="#{searchController.radioSelectedQuery}" layout="pageDirection" >
 	 					       		<f:selectItems value="#{searchController.mapStaticQuery}"></f:selectItems>
 								</h:selectOneRadio>
-					        <h:commandButton class="btn" id="submit" value="search" action="#{searchController.getStaticQuery}" >
-					        	<f:ajax execute="@form" render="result" />
+					        <h:commandButton class="btn" id="submit" value="search" >
+					        	<f:ajax execute="@form" listener="#{searchController.getStaticQuery}"  render=":searchForm:outputPanel" />
 					        </h:commandButton>	
 					    </h:form>
 				  	</div>
 				</div>
- 				<div class="row">
-					<c:forEach var="pic" items="#{searchController.listPictureFromQuery}">
+<!--  				<div class="row">
+					<c:forEach var="pic" items="#{searchController.listPicture}">
 						<div class="col s12 m4 l3 wrapper-image">
 							<div class="inner-wrapper-image" style="background-image:url('#{request.contextPath}/images/${pic.title}');">
 								<div class="overlay-actions">
@@ -60,12 +60,25 @@
 							</div>
 						</div>					
 					</c:forEach>
-				</div> 
+				</div>  -->
 				<div class="row">
-					<h:panelGroup id="result" rendered="#{not empty searchController.listPictureFromQuery}">
-   						<ui:repeat value="#{searchController.listPictureFromQuery}" var="pic2">
-   						</ui:repeat>
-   					</h:panelGroup>
+				<h:form id="searchForm">
+					<h:panelGroup id="outputPanel">
+   						 <ui:repeat value="#{searchController.listPicture}" var="pic">
+   						 	<div class="col s12 m4 l3 wrapper-image">
+								<div class="inner-wrapper-image" style="background-image:url('#{request.contextPath}/images/${pic.title}');">
+									<div class="overlay-actions">
+										<div class="actions-wrapper">
+											<a class="action delete-image" href="#" data-target="${pic.id}"><span class="lnr lnr-trash"></span></a>
+											<a class="action" href="${request.contextPath}/images/${pic.title}" target="_blank"><span class="lnr lnr-eye"></span></a>
+											<a class="action add-label" href="#modalAddLabel" data-target="${pic.id}"><span class="lnr lnr-tag"></span></a>						
+										</div>	
+									</div>
+								</div>
+							</div>	
+    					 </ui:repeat>
+					</h:panelGroup>	
+				</h:form>
 				</div>
 			</f:view>
 		</ui:define>

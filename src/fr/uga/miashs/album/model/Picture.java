@@ -17,6 +17,8 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
 	@NamedQuery(name="Picture.findAllPicturesFromAlbum",
 		    query="SELECT p FROM Picture p WHERE p.album=:album"),
+	@NamedQuery(name="Picture.findPictureByListUri",
+		    query="SELECT p FROM Picture p WHERE p.uri IN :uri"),
 })
 public class Picture {
 
@@ -31,7 +33,7 @@ public class Picture {
 	private String title;
 	
 	//@NotNull
-	private URI uri;
+	private String uri;
 	
 	@NotNull
 	private String localfile;
@@ -39,7 +41,7 @@ public class Picture {
 	public Picture() {
 	}
 
-	public Picture(Album album, String title, Path localfile, URI uri) {
+	public Picture(Album album, String title, Path localfile, String uri) {
 		super();
 		this.album = album;
 		this.title = title;
@@ -71,11 +73,11 @@ public class Picture {
 		this.title = title;
 	}
 
-	public URI getUri() {
+	public String getUri() {
 		return uri;
 	}
 
-	public void setUri(URI uri) {
+	public void setUri(String uri) {
 		this.uri = uri;
 	}
 
