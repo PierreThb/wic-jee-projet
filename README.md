@@ -8,42 +8,35 @@
 - JSF Cheatsheet : https://www.tutorialspoint.com/jsf/jsf_basic_tags.htm
 - Upload File dropzone + JSF : http://stackoverflow.com/questions/38018632/use-dropzone-with-jsf
 
-## Java EE
-Technos : 
-* JSF pour les vues
-* JPA pour le mapping relationnel de données (~Doctrine Symfony) 
-* REST pour la navigation | JAXRS pour la négociation de contenu
+## Fonctionnalitées JavaEE
 
+- CRUD de différents Modeles 
+	 Picture
+	 AppUser
+	 Album
+	 
+- Authentification et Redirection sur la page de login si l'utilisateur n'est pas connecté
+- Il est possible de partager un album avec un autre utilisateur
 
-- Applications avec Utilisateurs : 
-	- Authentification (Mail | mdp)
-	
-	Tout le monde : 
-		- créer un compte
-		
-	Admin :
-		- lister les comptes
-		- supprimer un compte (tout supprimer) 
-
-- Création d'albums : 
-	- Photos (CRUD)
-	- Possibilité de partage (avec d'autres utilisateurs)
+- Toutes les données sont persistées en BDD (Derby)
 
 ## Web Sémantique (JEE)
 
-* Triple Store : Base de Données RDF 
+Nous avons défini une ontologie `/WebContent/resources/ontology/ProjetAlbumBGBR.rdf` qui va nous servir de base afin d'effectuer des tests et des requètes 
 
-- Anotation sur une photo : 
-	- Personne(s) présente(s)
-	- Quoi ? Sujet
-	- Situation (Ou ?) (Tag Web Sémantique)
-	- Quand ? (date | évènement (ex : coupe Icare)
 
-Ex : photo {URI} avec la propriété {Qui} plus valeur {Mister Bean}
-Par exemple faire des groupes de personnes, propriété {Ami}
+- Lorsque chaque photo est ajouté son Uri est crée dans le triple Store
+- Lorsqu'un utilisateur est ajouté, nous définissons dans le triple Store une ressource de type foaf:Person
 
-Quoi :  Ressources DBPedia 
-Quand : Ressources dates/évènements 
+- Il est possible d'ajouter des Tags à une photo : 
+	- "propriete:who" défini qui est sur la photo (Par exemple roger notre Licorne)
+	- "propriete:what" défini le Sujet de la photo 
+	- "propriete:where" est du type "literal" et 
+	- "dc:date" correspond à la date de la photo (Doit être du format YYYY-MM-DD) 
+
+- Un Moteur de recherche Static est implémenté, dont vous trouverez la liste `/ProjetAlbumData/list-query.sql`
+
+Pour pouvoir tester directement le moteur de recherche, un jeu de données est mis à votre disposition (cf. PreSet Data) 
 
 ## Requètes de recherche (SPARQL) 
 
@@ -110,57 +103,17 @@ Rechercher les photos de la région rhones-alpes qui contient des montagnes
 * Unzip each 
 * 
 * 
-## Configurations
 
-web.xml PC portable Benoit :
-```
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
-  <display-name>ProjetAlbum</display-name>
-  <servlet>
-    <servlet-name>Faces Servlet</servlet-name>
-    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>*.xhtml</url-pattern>
-  </servlet-mapping>
-  <context-param>
-    <param-name>javax.faces.INTERPRET_EMPTY_STRING_SUBMITTED_VALUES_AS_NULL</param-name>
-    <param-value>true</param-value>
-  </context-param>
-  <context-param>
-    <param-name>javax.faces.PROJECT_STAGE</param-name>
-    <param-value>Development</param-value>
-  </context-param>
-  <context-param>
-    <param-name>directory</param-name>
-    <param-value>C:\\Users\\ben\\Documents\\Dev\\Fac\\utils\\uploads</param-value>
-  </context-param>
-</web-app>
-```
+## PreSet Data pour éxecuter les requêtes
 
+Il est possible de récupérer les données suivantes afin de pouvoir tester les requêtes (Search Images)
+`/ProjetAlbumData`
+* Un export du triple-store fuseki : 
+	EXPORT-FUSEKI-WITH-DATA.nq
+* La BDD Derby : 
+	/db
+* Les images uploadés : 
+	/uploads
+* La liste des requetes : 
+	list-query.sql 
 
-## Triple Store Installation 
-
-* Apache Jena Fuseki [2.4.1](https://jena.apache.org/download/) 
-* Installer les packages apache jena pour eclipse 
-
-## Documentation de déploiement 
-
-## Info méthode update data 
-
-```
-UpdateExecutionFactory
-UpdateRequest request = 
-	UpdateFactory create(
-	"PREFIX dc:<http://purl.org/dc/elements/1.1>" +
-	" INSERT DATA {" + 
-	" <http:///ex/boo> dc:title "anirset"; " + 
-	"dc:creator /"authoeur" 
-
-
-UpdateProcessor up= UpdateExecutionFactory.createRemote(request, "http://localhost:3030");
-up.execute();
-```
