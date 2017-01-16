@@ -98,6 +98,14 @@ h1,h2,h3,h4,h5,h6 {
 	color: white;
 }
 
+[type="radio"]:checked + label::after, .with-gap[type="radio"]:checked + label::after {
+    background-color: #0091ea;
+}
+
+[type="radio"]:checked + label::after, .with-gap[type="radio"]:checked + label::before, .with-gap[type="radio"]:checked + label::after {
+    border: 2px solid #0091ea;
+}
+
 .side-nav .spacer{
 	margin-bottom: 50px;
 }
