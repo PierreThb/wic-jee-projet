@@ -10,7 +10,9 @@ import fr.uga.miashs.album.model.Picture;
 
 
 public class AlbumService extends JpaService<Long,Album> {
-
+	
+	private SparqlUpdateService sparqlUpdateService = new SparqlUpdateService();
+	
 	public Album getAlbumById(String id) throws ServiceException{
 		Album album = getEm().find(Album.class, id);
 		getEm().refresh(album);
@@ -21,6 +23,8 @@ public class AlbumService extends JpaService<Long,Album> {
 	public void create(Album a) throws ServiceException {
 		a.setOwner(getEm().merge(getEm().merge( a.getOwner())));
 		super.create(a);
+		
+		sparqlUpdateService.insertAlbum(a);
 	}
 	
 	public void share(String albumId, String userId) throws ServiceException {

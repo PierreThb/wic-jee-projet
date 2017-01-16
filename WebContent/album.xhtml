@@ -54,17 +54,76 @@
 									   		<a class="action delete-image" href="#" data-target="${pic.id}"><span class="lnr lnr-trash"></span></a>
 									   	</c:if>
 										<a class="action" href="${request.contextPath}/images/${pic.title}" target="_blank"><span class="lnr lnr-eye"></span></a>
+										<a class="action add-label" href="#modalAddLabel" data-target="${pic.id}"><span class="lnr lnr-tag"></span></a>						
 									</div>	
 								</div>
 							</div>
-						</div>	
+						</div>					
 					</c:forEach>
 				</div>
+				<div id="modalAddLabel" class="modal">
+					<h:form id="labelForm" enctype="multipart/form-data">
+						  <div class="modal-content">
+						    <h4>Add informations about your pictures</h4>
+						    
+					    		<h:inputHidden id="pictureId" value=""/>
+					    		<p>Who's in the picture :</p>
+							    <div id="chips-who">
+								</div>
+								<p>What's in the picture :</p>
+								<div id="chips-what">
+								</div>
+								<p>Where was the picture taken :</p>
+								<div id="chips-where">
+								</div>
+								<div class ="input-field">
+									<h:outputLabel for="when" value="When was the picture taken ? (yyyy-mm-dd)" />
+									<h:inputText id="when" /> -->
+									<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
+								</div>
+								<div class="datepicker">
+									
+								<!-- 
+									<h:outputLabel for="when" value="When was the picture taken ?" />
+									<h:inputText a:type="date" id="when" /> -->
+									<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
+								</div>			   
+						  </div>
+						  <div class="modal-footer">
+						    <h:commandButton id="submitLabelForm" class="btn light-blue" value="Tag">	
+					        	<f:ajax execute="@form" listener="#{annotationController.tagPicture()}" onevent="refreshPage" />
+					        </h:commandButton>
+						  	<span class="spacer"></span>
+						    <a href="#!" class="btn grey lighten-2 modal-close" data-target="">Cancel</a>
+						  </div>
+					   </h:form>
+					</div>	
 				
 				<h:form id="deleteHiddenForm" style="display: none;">
 				    <h:inputHidden id="pictureId" value="" />
 				    <h:commandButton id="submitDeleteHiddenForm">
 				        <f:ajax execute="@form" listener="#{albumController.deletePicture()}" onevent="refreshPage" />
+				    </h:commandButton>
+				</h:form>
+				<h:form id="whoTagHiddenForm" style="display: none;">
+				    <h:inputHidden id="pictureId" value="" />
+				    <h:inputHidden id="who" value="" />
+				    <h:commandButton id="submitWhoTagHiddenForm">
+				        <f:ajax execute="@form" listener="#{annotationController.whoTagPicture()}" />
+				    </h:commandButton>
+				</h:form>
+				<h:form id="whatTagHiddenForm" style="display: none;">
+				    <h:inputHidden id="pictureId" value="" />
+				    <h:inputHidden id="what" value="" />
+				    <h:commandButton id="submitWhatTagHiddenForm">
+				        <f:ajax execute="@form" listener="#{annotationController.whatTagPicture()}" />
+				    </h:commandButton>
+				</h:form>
+				<h:form id="whereTagHiddenForm" style="display: none;">
+				    <h:inputHidden id="pictureId" value="" />
+				    <h:inputHidden id="where" value="" />
+				    <h:commandButton id="submitWhereTagHiddenForm">
+				        <f:ajax execute="@form" listener="#{annotationController.whereTagPicture()}" />
 				    </h:commandButton>
 				</h:form>
 			</f:view>

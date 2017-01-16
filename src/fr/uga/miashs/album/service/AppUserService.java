@@ -16,10 +16,13 @@ import fr.uga.miashs.album.model.AppUser;
 @ApplicationScoped
 public class AppUserService extends JpaService<Long,AppUser> {
 
+	private SparqlUpdateService sparqlUpdateService = new SparqlUpdateService();
+	
 	@Override
 	public void create(AppUser v) throws ServiceException {
 		try {
 			super.create(v);
+			
 		}
 		catch (RollbackException e) {
 			if (e.getCause() instanceof EntityExistsException) {
@@ -28,8 +31,8 @@ public class AppUserService extends JpaService<Long,AppUser> {
 			else {
 				new ServiceException(e);
 			}
-			//System.out.println("coucou");
 		}
+		sparqlUpdateService.insertPerson(v);
 	}
 
 	public AppUser login(String email, String password) throws ServiceException {
