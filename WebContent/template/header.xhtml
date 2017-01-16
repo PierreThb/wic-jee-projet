@@ -17,16 +17,19 @@
 						<i class="lnr lnr-menu"></i>
 					</a>
 				</ui:fragment>
-				<a href="#" class="main-logo"> Photos</a>
+				<a href="#" class="main-logo"> Gráfico <span class="lnr lnr-camera"></span></a>
 				<ul class="right">
 					<ui:fragment rendered="#{sessionScope.appUserSession != null}">
 						<li class="search">
-							<a href="search.xhtml" class="button"> Search Engine </a>
+							<a href="search.xhtml" class="button">
+								<span class="lnr lnr-magnifier"></span>
+								Search Engine
+							</a>
 						</li>
-						<li class="search-input">
+						<!--<li class="search-input">
 							<span class="lnr lnr-magnifier"></span>
 							<input type="text" id="search"  placeholder="Search for photos" />
-						</li>
+						</li>-->
 					</ui:fragment>
 					
 					<li>
@@ -61,11 +64,12 @@
 				<li><a href="list-user.xhtml"><span class="lnr lnr-users"></span> Utilisateurs</a></li>
 				<li><a href="list-album.xhtml"><span class="lnr lnr-book"></span> Mes albums</a></li>
 				<li><a href="list-photos.xhtml"><span class="lnr lnr-picture"></span> Mes photos</a></li>
-				<li class="spacer"><a href="list-shared-album.xhtml"><span class="lnr lnr-users"></span> Albums partagés</a></li>
+				<li><a href="list-shared-album.xhtml"><span class="lnr lnr-users"></span> Albums partagés</a></li>
+				<li class="spacer"><a href="search.xhtml"><span class="lnr lnr-magnifier"></span> Recherche</a></li>
 				<li><div class="divider"></div></li>
 				<li></li>
 				<li><h:form><h:commandLink action="#{appUserSession.logout()}" ><span class="lnr lnr-lock"></span> Logout</h:commandLink></h:form></li>
-				<li class="bottom-logo"><a href="#">Photos</a></li>
+				<li class="bottom-logo"><a href="#">Gráfico <span class="lnr lnr-camera"></span> </a></li>
 			</ul>
 		</ui:fragment>
 	</ui:composition>
