@@ -33,18 +33,28 @@ $(document).ready(function() {
 		document.getElementById('whatTagHiddenForm:pictureId').value = $(this).data("target");
 		document.getElementById('whoTagHiddenForm:pictureId').value = $(this).data("target");
 		document.getElementById('whereTagHiddenForm:pictureId').value = $(this).data("target");
+		
+		$('#chips-who').material_chip({
+		  placeholder: 'Enter a tag',
+		  secondaryPlaceholder: '+roger',
+		  data : dataTags.who['pic_'+$(this).data("target")],
+		});	
+		
+		$('#chips-what').material_chip({
+		  placeholder: 'Enter a tag',
+		  secondaryPlaceholder: '+Flower',
+		  data : dataTags.what['pic_'+$(this).data("target")],
+		});
+		
+		$('#chips-where').material_chip({
+		  placeholder: 'Enter a tag',
+		  secondaryPlaceholder: '+Tokyo',
+		  data : dataTags.where['pic_'+$(this).data("target")],
+		});
+				
+		document.getElementById('labelForm:when').value = dataTags.when['pic_'+$(this).data("target")];
 	});
 	
-	$('.chips').material_chip();
-	$('.chips-initial').material_chip({
-	  data: [{
-	    tag: 'Apple',
-	  }, {
-	    tag: 'Microsoft',
-	  }, {
-	    tag: 'Google',
-	  }],
-	});
 	$('#chips-who').material_chip({
 	  placeholder: 'Enter a tag',
 	  secondaryPlaceholder: '+roger',
@@ -66,6 +76,7 @@ $(document).ready(function() {
 	});
 	
 	$('#chips-who').on('chip.add', function(e, chip) {
+		console.log("add who");
 		document.getElementById('whoTagHiddenForm:who').value = chip.tag;
 		document.getElementById('whoTagHiddenForm:submitWhoTagHiddenForm').click();
 	});

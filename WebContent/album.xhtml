@@ -44,6 +44,7 @@
 					</div>
 				</div>
 				<div class="row">
+					
 					<c:set var="currentUser" value="#{sessionScope.appUserSession.getConnectedUser()}" />
 					<c:forEach var="pic" items="#{albumController.listPictureFromAlbum}">
 						<div class="col s12 m4 l3 wrapper-image">
@@ -54,10 +55,19 @@
 									   		<a class="action delete-image" href="#" data-target="${pic.id}"><span class="lnr lnr-trash"></span></a>
 									   	</c:if>
 										<a class="action" href="${request.contextPath}/images/${pic.title}" target="_blank"><span class="lnr lnr-eye"></span></a>
-										<a class="action add-label" href="#modalAddLabel" data-target="${pic.id}"><span class="lnr lnr-tag"></span></a>						
+										<a class="action add-label" href="#modalAddLabel" data-target="${pic.id}">
+											<span class="lnr lnr-tag"></span>
+											<script>
+												dataTags.who['pic_${pic.id}'] = [<c:forEach var="tag" items="#{albumController.getWhoTags(pic.uri)}">{tag: '#{tag}'},</c:forEach>];
+												dataTags.what['pic_${pic.id}'] = [<c:forEach var="tag" items="#{albumController.getWhatTags(pic.uri)}">{tag: '#{tag}'},</c:forEach>];
+												dataTags.where['pic_${pic.id}'] = [<c:forEach var="tag" items="#{albumController.getWhereTags(pic.uri)}">{tag: '#{tag}'},</c:forEach>];
+												dataTags.when['pic_${pic.id}'] = "#{albumController.getWhenTags(pic.uri)}";
+											</script>
+										</a>
 									</div>	
 								</div>
 							</div>
+								
 						</div>					
 					</c:forEach>
 				</div>
@@ -79,14 +89,12 @@
 								<div class ="input-field">
 									<h:outputLabel for="when" value="When was the picture taken ? (yyyy-mm-dd)" />
 									<h:inputText id="when" />
-									<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
 								</div>
 								<div class="datepicker">
 									
 								<!-- 
 									<h:outputLabel for="when" value="When was the picture taken ?" />
 									<h:inputText a:type="date" id="when" /> -->
-									<!-- validator="#{ajoutAlbum.validerNomAlbum}" -->
 								</div>			   
 						  </div>
 						  <div class="modal-footer">
