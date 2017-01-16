@@ -13,6 +13,8 @@ public class AlbumService extends JpaService<Long,Album> {
 	
 	private SparqlUpdateService sparqlUpdateService = new SparqlUpdateService();
 	
+	private SparqlDeleteService sparqlDeleteService = new SparqlDeleteService();
+	
 	public Album getAlbumById(String id) throws ServiceException{
 		Album album = getEm().find(Album.class, id);
 		getEm().refresh(album);
@@ -54,5 +56,7 @@ public class AlbumService extends JpaService<Long,Album> {
 		getEm().getTransaction().begin();
 		getEm().remove(album);
 		getEm().getTransaction().commit();
+		
+		// sparqlDeleteService.deleteAlbum(album);
 	}
 }

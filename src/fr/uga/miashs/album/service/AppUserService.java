@@ -18,6 +18,8 @@ public class AppUserService extends JpaService<Long,AppUser> {
 
 	private SparqlUpdateService sparqlUpdateService = new SparqlUpdateService();
 	
+	private SparqlDeleteService sparqlDeleteService = new SparqlDeleteService();
+	
 	@Override
 	public void create(AppUser v) throws ServiceException {
 		try {
@@ -64,5 +66,7 @@ public class AppUserService extends JpaService<Long,AppUser> {
 		getEm().getTransaction().begin();
 		getEm().remove(user);
 		getEm().getTransaction().commit();
+		
+		// sparqlDeleteService.deletePerson(user);
 	}
 }
