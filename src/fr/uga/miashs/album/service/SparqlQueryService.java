@@ -26,6 +26,7 @@ public class SparqlQueryService {
 	public static final String FOAF = "<http://xmlns.com/foaf/0.1/>";
 	public static final String DC = "<http://purl.org/dc/elements/1.1/>";
 	public static final String SOURCE_TRIPLE_STORE = "http://localhost:3030/ALBUM/update";
+	public static final String XSD = "<http://www.w3.org/2001/XMLSchema#>"; 
 	
 	public List<String> getAllPictures(){
 		String queryString = "SELECT ?p  WHERE {?p a ns:Picture .}";
@@ -60,6 +61,7 @@ public class SparqlQueryService {
 				"PREFIX foaf: " + FOAF + "\n" +
 				"PREFIX ns: " + NS_PREFIX + "\n" +
 				"PREFIX dc: " + DC + "\n" +
+				"PREFIX xsd: " + XSD + "\n" +
 				queryString);
 		
 		List<String> resultList = new ArrayList<String>();
@@ -159,10 +161,14 @@ public class SparqlQueryService {
 	}
 
 	public List<String> getLastYear() {
-		// TODO Auto-generated method stub
-		return null;
+		String queryString = 
+				"SELECT ?p  WHERE {"
+				+ "?p a ns:Picture ;"
+					+ "dc:date ?d ."
+					+ "bind(strdt(?d, xsd:date) as ?date)"
+					+ "FILTER (year(?date) = 2016 )"
+				+ "}";
+		return getQuery(queryString);
 	}
-
-	
 	
 }
