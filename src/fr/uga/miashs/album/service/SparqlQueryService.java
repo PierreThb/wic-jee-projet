@@ -171,7 +171,7 @@ public class SparqlQueryService {
 
 	public List<String> getLastYear() {
 		String queryString = 
-				"SELECT DISTINCT ?p  WHERE {"
+				"SELECT DISTINCT ?p  WHERE {"
 				+ "?p a ns:Picture ;"
 					+ "dc:date ?d ."
 					+ "bind(strdt(?d, xsd:date) as ?date)"
