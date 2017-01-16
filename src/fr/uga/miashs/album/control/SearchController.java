@@ -3,6 +3,7 @@ package fr.uga.miashs.album.control;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ApplicationScoped;
@@ -10,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -17,6 +19,7 @@ import javax.inject.Named;
 import org.apache.webbeans.context.RequestContext;
 
 import arq.sparql;
+import fr.uga.miashs.album.model.Album;
 import fr.uga.miashs.album.model.Picture;
 import fr.uga.miashs.album.service.PictureService;
 import fr.uga.miashs.album.service.ServiceException;
@@ -26,43 +29,17 @@ import fr.uga.miashs.album.service.SparqlQueryService;
 @ManagedBean
 @SessionScoped
 public class SearchController {
-	
 	@Inject
 	private PictureService pictureService;
-	
+
 	@Inject
 	private SparqlQueryService sparqlQueryService;
 
-	public String radioSelectedQuery;
+	private List<Picture> pictures;
 	
-	public List<String> listURI;
+	private String query;
 	
-	private List<Picture> listPicture;
-	
-	@PostConstruct
-    public void test() {
-        System.out.println("SearchController");
-		if(getListPicture() != null){
-			System.out.println("lisPic not null");
-		}
-        
-    }
-	
-	public String getRadioSelectedQuery() {
-		return radioSelectedQuery;
-	}
-	
-	public List<String> getListURI() {
-		return listURI;
-	}
-
-	public void setListURI(List<String> listURI) {
-		this.listURI = listURI;
-	}
-
-	public void setRadioSelectedQuery(String radioSelectedQuery) {
-		this.radioSelectedQuery = radioSelectedQuery;
-	}
+	private String queryString;
 
 	private static Map<String,Object> mapStaticQuery;
 	static{
@@ -77,66 +54,54 @@ public class SearchController {
 		mapStaticQuery.put("All Pictures of Nature", "nature");
 		mapStaticQuery.put("All Pictures taken last year", "lastYear");
 	}
+
+	@PostConstruct
+    public void init() {
+        Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        this.query = params.get("query");
+        
+        if(query != null){
+            try {
+            	List<String> listURI = sparqlQueryService.getAllPictures();
+            	this.pictures = pictureService.listPictureFromListURI(listURI);
+    		} catch (ServiceException e) {
+    			e.printStackTrace();
+    		}
+        }
+    }
+	
+	public String search() {
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		String query = ec.getRequestParameterMap().get("searchForm:query");
+		return "search?faces-redirect=true&query="+query;
+	}
+
+	public String getQuery() {
+		return query;
+	}
+
+	public void setQuery(String query) {
+		this.query = query;
+	}
+
+	public List<Picture> getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(List<Picture> pictures) {
+		this.pictures = pictures;
+	}
 	
 	public Map<String,Object> getMapStaticQuery() {
 		return mapStaticQuery;
 	}
-	
-	public void getListPictureFromQuery() throws ServiceException {
-		System.out.println("list pic from query + " + listURI);
-		if (listURI != null){
-			setListPicture(pictureService.listPictureFromListURI(listURI));
-		}	
-		
-		if(getListPicture() != null){
-			System.out.println("lisPic not null");
-		}
-	}
-	
 
-	public void getStaticQuery() throws ServiceException {
-		System.out.println(radioSelectedQuery);
-		if(radioSelectedQuery != null){
-			switch(radioSelectedQuery){
-				case "all":
-					listURI = sparqlQueryService.getAllPictures();
-					break;
-				case "unicorn":
-					listURI = sparqlQueryService.getUnicorn();
-					break;
-				case "roger":
-					listURI = sparqlQueryService.getRoger();
-					break;
-				case "rogerAndBen":
-					listURI = sparqlQueryService.getRogerAndBen();
-					break;
-				case "people":
-					listURI = sparqlQueryService.getPeople();
-					break;
-				case "withoutPeople":
-					listURI = sparqlQueryService.getWithoutPeople();
-					break;
-				case "sport":
-					listURI = sparqlQueryService.getSport();
-				case "nature":
-					listURI = sparqlQueryService.getNature();
-				case "lastYear":
-					listURI = sparqlQueryService.getLastYear();
-				default:
-					listURI = null;
-					break;
-			}
-		}
-		System.out.println(listURI);
-		getListPictureFromQuery();
+	public String getQueryString() {
+		return queryString;
 	}
 
-	public List<Picture> getListPicture() {
-		return listPicture;
-	}
-
-	public void setListPicture(List<Picture> listPicture) {
-		this.listPicture = listPicture;
+	public void setQueryString(String queryString) {
+		this.queryString = queryString;
 	}
 
 }
