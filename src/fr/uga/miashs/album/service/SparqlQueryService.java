@@ -85,23 +85,84 @@ public class SparqlQueryService {
 	}
 
 	public List<String> getUnicorn() {
-		// TODO Auto-generated method stub
-		return null;
+		String queryString = "SELECT ?p  WHERE {?p a ns:Picture ;"
+								+ "ns:who ?who ."
+								+ "?who a ns:Unicorn .}";
+		
+		return getQuery(queryString);
 	}
 
-	public List<String> getRogerAndBen() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> getRoger() {
+		String queryString = "SELECT ?p  WHERE {?p a ns:Picture ;"
+								+ "ns:who ns:roger .}";
+
+		return getQuery(queryString);
+	}
+	
+	public List<String> getRogerAndBen() {	
+		String queryString = "SELECT ?p  WHERE {?p a ns:Picture ;"
+								+ "ns:who ns:roger ;"
+								+ "ns:who ns:Ben .}";
+	
+		return getQuery(queryString);
 	}
 
 	public List<String> getPeople() {
+		String queryString = "SELECT ?p  WHERE {?p a ns:Picture ;"
+								+ "ns:who ?who ."
+								+ "who a foaf:Person .}";
+
+		return getQuery(queryString);
+	}
+
+	public List<String> getWithoutPeople() {
+		String queryString = 
+				"SELECT ?p  WHERE {?p a ns:Picture ."
+				+ "OPTIONAL {"
+					+ "?p ns:who ?who ."
+					+ "FILTER (?who != foaf:Person)"
+					+ "}";
+		
+		return getQuery(queryString);
+	}
+
+	public List<String> getSport() {
+		String queryString = 
+				"SELECT ?p  WHERE {"
+					+ "{ ?p a ns:Picture ;"
+						+ " ns:what ?what ."
+						+ "?what a ns:Sport ."
+						+ "}"
+					+ "UNION "
+					+ "{?p a ns:Picture ;"
+						+ "ns:what ns:Sport ."
+						+ "}"
+				+ "}";
+		
+		return getQuery(queryString);
+	}
+
+	public List<String> getNature() {
+		String queryString = 
+				"SELECT ?p  WHERE {"
+					+ "{ ?p a ns:Picture ;"
+						+ " ns:what ?what ."
+						+ "?what a ns:Nature ."
+						+ "}"
+					+ "UNION "
+					+ "{?p a ns:Picture ;"
+						+ "ns:what ns:Nature ."
+						+ "}"
+				+ "}";
+		
+		return getQuery(queryString);
+	}
+
+	public List<String> getLastYear() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public List<String> getWithoutPeople() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	
 }

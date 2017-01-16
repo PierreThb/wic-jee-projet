@@ -73,6 +73,9 @@ public class SearchController {
 		mapStaticQuery.put("All Pictures with Roger and Ben", "rogerAndBen");
 		mapStaticQuery.put("All Pictures with People", "people");
 		mapStaticQuery.put("All Pictures without People", "withoutPeople");
+		mapStaticQuery.put("All Pictures of Sport", "sport");
+		mapStaticQuery.put("All Pictures of Nature", "nature");
+		mapStaticQuery.put("All Pictures taken last year", "lastYear");
 	}
 	
 	public Map<String,Object> getMapStaticQuery() {
@@ -102,7 +105,7 @@ public class SearchController {
 					listURI = sparqlQueryService.getUnicorn();
 					break;
 				case "roger":
-					listURI = sparqlQueryService.getRogerAndBen();
+					listURI = sparqlQueryService.getRoger();
 					break;
 				case "rogerAndBen":
 					listURI = sparqlQueryService.getRogerAndBen();
@@ -113,6 +116,12 @@ public class SearchController {
 				case "withoutPeople":
 					listURI = sparqlQueryService.getWithoutPeople();
 					break;
+				case "sport":
+					listURI = sparqlQueryService.getSport();
+				case "nature":
+					listURI = sparqlQueryService.getNature();
+				case "lastYear":
+					listURI = sparqlQueryService.getLastYear();
 				default:
 					listURI = null;
 					break;
