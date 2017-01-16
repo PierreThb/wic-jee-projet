@@ -30,6 +30,7 @@ public class SparqlQueryService {
 	
 	public List<String> getAllPictures(){
 		String queryString = "SELECT ?p  WHERE {?p a ns:Picture .}";
+		System.out.println(queryString);
 		return getQuery(queryString);
 	}
 	
@@ -97,6 +98,7 @@ public class SparqlQueryService {
 		String queryString = "SELECT DISTINCT ?p  WHERE {?p a ns:Picture ;"
 								+ "ns:who ?who ."
 								+ "?who a ns:Unicorn .}";
+		System.out.println(queryString);
 		
 		return getQuery(queryString);
 	}
@@ -104,6 +106,7 @@ public class SparqlQueryService {
 	public List<String> getRoger() {
 		String queryString = "SELECT DISTINCT ?p  WHERE {?p a ns:Picture ;"
 								+ "ns:who ns:roger .}";
+		System.out.println(queryString);
 
 		return getQuery(queryString);
 	}
@@ -112,6 +115,7 @@ public class SparqlQueryService {
 		String queryString = "SELECT DISTINCT ?p  WHERE {?p a ns:Picture ;"
 								+ "ns:who ns:roger ;"
 								+ "ns:who ns:Ben .}";
+		System.out.println(queryString);
 	
 		return getQuery(queryString);
 	}
@@ -120,18 +124,20 @@ public class SparqlQueryService {
 		String queryString = "SELECT DISTINCT ?p  WHERE {?p a ns:Picture ;"
 								+ "ns:who ?who ."
 								+ "?who a foaf:Person .}";
+		System.out.println(queryString);
 
 		return getQuery(queryString);
 	}
 
 	public List<String> getWithoutPeople() {
 		String queryString = 
-				"SELECT DISTINCT ?p  WHERE {?p a ns:Picture ."
+				"SELECT DISTINCT ?p  WHERE {?p a ns:Picture ."
 				+ "OPTIONAL {"
 					+ "?p ns:who ?who ."
 					+ "FILTER (?who != foaf:Person)"
 					+ "} "
 				+ "}";
+		System.out.println(queryString);
 		
 		return getQuery(queryString);
 	}
@@ -155,16 +161,16 @@ public class SparqlQueryService {
 
 	public List<String> getNature() {
 		String queryString = 
-				"SELECT ?p  WHERE {"
-					+ "{ ?p a ns:Picture ;"
-						+ " ns:what ?what ."
-						+ "?what a ns:Nature ."
-						+ "}"
-					+ "UNION "
-					+ "{?p a ns:Picture ;"
-						+ "ns:what ns:Nature ."
-						+ "}"
-				+ "}";
+				"SELECT DISTINCT ?p WHERE {\n" +
+				"	{?p a ns:Picture;\n" +
+				"		ns:what ?what. \n" +
+				"		?what a ns:Nature. \n" +
+				"	} UNION {\n" +
+				"		?p a ns:Picture ;\n" +
+				"		ns:what ns:Nature .\n" +
+				"	}\n" +
+				"}\n";
+		System.out.println(queryString);
 		
 		return getQuery(queryString);
 	}
@@ -177,6 +183,7 @@ public class SparqlQueryService {
 					+ "bind(strdt(?d, xsd:date) as ?date)"
 					+ "FILTER (year(?date) = 2016 )"
 				+ "}";
+		System.out.println(queryString);
 		return getQuery(queryString);
 	}
 
@@ -198,6 +205,7 @@ public class SparqlQueryService {
 				"    ?cityResource db-owl:region dbr:Rhône-Alpes .\n" +
 				"  }\n" +
 				"}\n";
+		System.out.println(queryString);
 		return getQuery(queryString);
 	}
 	
