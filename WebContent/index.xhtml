@@ -18,7 +18,27 @@
 		<ui:define name="content">
 			<f:view>
 				<c:set var="user" value="#{sessionScope.appUserSession.getConnectedUser()}" />
-				<h2>Bienvenue #{user.firstname}</h2>
+				
+				<div class="row">
+					<h2 class="col s12">Bienvenue #{user.firstname}</h2>
+					<c:forEach var="album" items="${albumController.getListAlbumOwnedByCurrentUser()}">
+						<div class="row">
+							<span class="album-top-title col s12">${album.title}</span>
+							<c:forEach var="picture" items="${albumController.picturesFromAlbum(album)}">
+								<div class="col s12 m4 l3 wrapper-image">
+									<div class="inner-wrapper-image" style="background-image:url('#{request.contextPath}/images/${picture.title}');">
+										<div class="overlay-actions">
+											<div class="actions-wrapper">
+												<a class="action delete-image" href="#" data-target="${picture.id}"><span class="lnr lnr-trash"></span></a>
+												<a class="action" href="${request.contextPath}/images/${picture.title}" target="_blank"><span class="lnr lnr-eye"></span></a>
+											</div>	
+										</div>
+									</div>
+								</div>	
+							</c:forEach>
+						</div>
+					</c:forEach>
+				</div>
 			</f:view>
 		</ui:define>
 

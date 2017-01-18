@@ -73,6 +73,15 @@ public class AppUserSession implements Serializable {
 		return "login?faces-redirect=true";
 	}
 	
+	public String homeRedirect(){
+		FacesContext context = FacesContext.getCurrentInstance();
+		HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+		if(connectedUser != null && session != null){
+			return "index.xhtml?faces-redirect=true";
+		}
+		return null;
+	}
+	
 	public String getEmail() {
 		return email;
 	}
