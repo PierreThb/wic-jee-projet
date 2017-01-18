@@ -86,3 +86,11 @@ WHERE {
     ?cityResource db-owl:region dbr:Rhône-Alpes .
   }
 }
+
+# (Select all friends of User) 
+SELECT ?a ?b ?name ?nameb
+WHERE {
+  ?a ns:isFriendWith ?b .
+  ?a foaf:name ?name .
+  ?b foaf:name ?nameb .
+}

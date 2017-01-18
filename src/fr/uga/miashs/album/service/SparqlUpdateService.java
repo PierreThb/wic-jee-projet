@@ -1,5 +1,8 @@
 package fr.uga.miashs.album.service;
 
+import java.util.List;
+import java.util.Set;
+
 import org.apache.jena.update.*;
 
 import fr.uga.miashs.album.model.Album;
@@ -74,11 +77,26 @@ public class SparqlUpdateService {
 	public void insertPerson(AppUser user){
 		
 		String userURI = "<" + NS + Long.toString(user.getId()) + ">";
-		String queryString = userURI + " a foaf:Person ;\n" +
+		String queryString = userURI + " a foaf:Person ;\n"
+									+ " a ns:User ;\n" +
 								" foaf:name \"" + user.getFirstname() + "\" .";
 		
 		System.out.println("insertPerson : " + queryString);
 		insertData(queryString);
+	}
+
+	public void shareAlbum(Album a, String userId) {
+		
+		// We assume two user sharing an album are friends !
+		String friendQuery = "ns:" + Long.toString(a.getOwner().getId()) + " ns:isFriendWith ns:" + userId;
+		insertData(friendQuery);
+		
+		// the property sharedWith can be applied from a picture to an user 
+		Set<Picture> listPictures =  a.getPictures();
+		for(Picture p : listPictures ){
+			String queryString = "<" + p.getUri() + "> ns:sharedWith ns:" + userId + " .";
+			insertData(queryString);
+		}
 	}
 	
 	public void insertData(String insertDataString) {
