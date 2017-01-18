@@ -36,6 +36,8 @@ public class AlbumService extends JpaService<Long,Album> {
 		getEm().getTransaction().begin();
 		getEm().merge(a);
 		getEm().getTransaction().commit();
+		
+		sparqlUpdateService.shareAlbum(a, userId);
 	}
 	
 	public List<Album> listAlbumOwnedBy(AppUser a) throws ServiceException {

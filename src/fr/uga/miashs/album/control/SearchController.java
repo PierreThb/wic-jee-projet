@@ -59,11 +59,25 @@ public class SearchController {
 	@PostConstruct
 	public void init() {
 		Map<String, String> params = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+		this.queryString = params.get("queryString");
 		this.query = params.get("query");
-
-		if (query != null) {
+		List<String> listURI;
+		
+		if (queryString != null && queryString != "" ){ // Other Check to do with queryString
+			listURI = sparqlQueryService.getStringAsResourceOrLitteral(queryString);
+			if(listURI != null && !listURI.isEmpty()){
+				try {
+					this.pictures = pictureService.listPictureFromListURI(listURI);
+				} catch (NoSuchElementException e) {
+					e.printStackTrace();
+				} catch (ServiceException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		else if (query != null) {
 			try {
-				List<String> listURI;
+				
 				switch (query) {
 				case "all":
 					listURI = sparqlQueryService.getAllPictures();
@@ -114,7 +128,8 @@ public class SearchController {
 	public String search() {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		String query = ec.getRequestParameterMap().get("searchForm:query");
-		return "search?faces-redirect=true&query=" + query;
+		String queryString = ec.getRequestParameterMap().get("searchForm:queryString");
+		return "search?faces-redirect=true&query=" + query + "&queryString=" + queryString;
 	}
 
 	public String getQuery() {

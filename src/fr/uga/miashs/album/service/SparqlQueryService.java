@@ -208,6 +208,19 @@ public class SparqlQueryService {
 		System.out.println(queryString);
 		return getQuery(queryString);
 	}
+
+	public List<String> getStringAsResourceOrLitteral(String queryString) {
+		queryString = 
+				"SELECT DISTINCT ?p WHERE {" +
+				"   {?p a ns:Picture ;" +
+				"       ?b \"" + queryString + "\" . }" +
+				"   UNION {" +
+				"    ?p a ns:Picture ;" +
+				"       ?b ns:" + queryString + " . }" +
+				"}";
+		
+		return getQuery(queryString);
+	}
 	
 	//At least we discover http://www.buildmystring.com/
 	
