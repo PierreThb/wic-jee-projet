@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1484500182140" name="duplicate:http://www.semanticweb.org/projetAlbum" uri="ProjetAlbumBGBR.rdf"/>
-        <uri id="Automatically generated entry, Timestamp=1484500182140" name="duplicate:http://www.semanticweb.org/projetAlbum" uri="ProjetAlbumBGBR.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1484732813424" name="duplicate:http://www.semanticweb.org/projetAlbum" uri="ProjetAlbumBGBR.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1484732813424" name="duplicate:http://www.semanticweb.org/projetAlbum" uri="ProjetAlbumBGBR.rdf"/>
     </group>
 </catalog>

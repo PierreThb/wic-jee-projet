@@ -23,6 +23,9 @@
 ## Web Sémantique (JEE)
 
 Nous avons défini une ontologie `/WebContent/resources/ontology/ProjetAlbumBGBR.rdf` qui va nous servir de base afin d'effectuer des tests et des requètes 
+Outils création diagram : http://vowl.visualdataweb.org/webvowl/index.html
+
+![OWL Diagram](/WebContent/resources/ontology/ProjetAlbumGraph.png?raw=true "OWL Diagram")
 
 
 - Lorsque chaque photo est ajouté son Uri est crée dans le triple Store
