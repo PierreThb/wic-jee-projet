@@ -57,7 +57,7 @@ public class AppUserSession implements Serializable {
 		String from = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("from");
 	    
 		if(from != null && from != ""){
-			from = from.replaceAll(".xhtml","").replaceAll("/wic-jee-projet/","");
+			from = from.replaceAll(".xhtml","").replaceAll("/Demo/","");
 			System.out.println("Redirect after login to : "+from);
 			return from+"?faces-redirect=true";
 		}

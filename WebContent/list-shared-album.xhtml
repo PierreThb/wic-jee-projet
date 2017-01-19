@@ -19,6 +19,17 @@
 		<ui:define name="content">
 			<f:view>
 				<div class="row">
+					<div class="col s12">
+						<h4>My friends</h4>
+					</div>
+					<h:dataTable value="#{sharedAlbumController.friends}" var="user" >
+					   <h:column>    				
+					    	<f:facet name="header">Prénom</f:facet>    				
+					    	<h:outputText value="#{user}"/>
+					   </h:column>
+					</h:dataTable>
+				</div>
+				<div class="row">
 					<div class="col s12"><h4>Albums shared with me</h4></div>
 					<c:forEach var="album" items="#{sharedAlbumController.listAlbumSharedWithCurrentUser}">
 						<div class="col s12 m6 l4">

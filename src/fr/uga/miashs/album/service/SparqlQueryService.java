@@ -219,9 +219,14 @@ public class SparqlQueryService {
 	}
 
 	public List<String> getFriends(long userId) {
-		//TODO
+		String queryString = 
+				"SELECT DISTINCT ?l  \n" +
+				"WHERE {\n" +
+				"  ns:" + userId + " ns:isFriendWith ?b .\n" +
+				"  ?b foaf:name ?l .\n" +
+				"}\n";
 		
-		return null;
+		return getQuery(queryString);
 	}
 	
 	//At least we discover http://www.buildmystring.com/
